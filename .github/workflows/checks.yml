@@ -71,9 +71,11 @@ jobs:
       - name: Shell
         run: |
           shopt -s globstar nullglob
-          # install/ is run by the person installing, and src/etc/rc.d is run by the
-          # system at boot - the two places where a syntax error is worst.
-          for f in install/*.sh src/etc/rc.d/* src/etc/rc.syshook.d/**/*; do
+          # install/ is run by the person installing, src/etc/rc.d is run by the system
+          # at boot, pkg/ is run by pkg(8) as root in the middle of an install or a
+          # removal, and tools/ is run on the firewall by whoever is building a package.
+          # Every one of them is a place where a syntax error is found too late.
+          for f in install/*.sh tools/*.sh pkg/*.sh src/etc/rc.d/* src/etc/rc.syshook.d/**/*; do
             [ -f "$f" ] || continue
             head -n1 "$f" | grep -q '^#!' || continue
             sh -n "$f" && echo "ok $f"
