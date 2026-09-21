@@ -1,0 +1,122 @@
+name: checks
+
+# What a change to this plugin has to survive before it can be merged.
+#
+# Everything here is cheap and deterministic: it parses files and compares them with
+# each other. There is no OPNsense to install on a GitHub runner and no appliance to
+# measure, so this does not pretend to test behaviour - it catches the mistakes that
+# have actually happened while this plugin was being written:
+#
+#   * a template that no longer compiles, which takes the whole page to the crash
+#     reporter and tells the reader nothing;
+#   * a shell script or Python file with a syntax error, found after it was installed;
+#   * a string added to the page or to a data file and never translated, which shows
+#     up as one English sentence in the middle of an Arabic page;
+#   * an address from the machine this was written on, left in an example.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    name: syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python
+        run: |
+          shopt -s globstar nullglob
+          files=(src/**/*.py tools/**/*.py)
+          [ ${#files[@]} -gt 0 ] || { echo "no Python here"; exit 0; }
+          python3 -m compileall -q "${files[@]}"
+          # compileall is the parser; this is the part it does not do - a name used and
+          # never defined, an import that is not there. Both have shipped before.
+          python3 -m pip install --quiet pyflakes
+          python3 -m pyflakes "${files[@]}"
+
+      - name: PHP
+        run: |
+          shopt -s globstar nullglob
+          files=(src/**/*.php)
+          [ ${#files[@]} -gt 0 ] || { echo "no PHP here"; exit 0; }
+          for f in "${files[@]}"; do php -l "$f"; done
+
+      - name: XML
+        run: |
+          shopt -s globstar nullglob
+          files=(src/**/*.xml)
+          [ ${#files[@]} -gt 0 ] || { echo "no XML here"; exit 0; }
+          for f in "${files[@]}"; do
+            python3 -c 'import sys, xml.etree.ElementTree as ET; ET.parse(sys.argv[1])' "$f"
+            echo "ok $f"
+          done
+
+      - name: JSON
+        run: |
+          shopt -s globstar nullglob
+          files=(src/**/*.json)
+          [ ${#files[@]} -gt 0 ] || { echo "no JSON here"; exit 0; }
+          for f in "${files[@]}"; do
+            python3 -c 'import json, sys; json.load(open(sys.argv[1], encoding="utf-8"))' "$f"
+            echo "ok $f"
+          done
+
+      - name: Shell
+        run: |
+          shopt -s globstar nullglob
+          # install/ is run by the person installing, and src/etc/rc.d is run by the
+          # system at boot - the two places where a syntax error is worst.
+          for f in install/*.sh src/etc/rc.d/* src/etc/rc.syshook.d/**/*; do
+            [ -f "$f" ] || continue
+            head -n1 "$f" | grep -q '^#!' || continue
+            sh -n "$f" && echo "ok $f"
+          done
+
+  privacy:
+    name: nothing private
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No real addresses, hardware identifiers or credentials
+        run: python3 tools/check-private-data.py .
+
+  translations:
+    name: translations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Text that lives in a data file reaches the page through a generated map. A note
+      # added to a JSON file and not regenerated here comes out in English on an Arabic
+      # page, and nothing in the build says so. That is the bug this step exists for; it
+      # has happened.
+      - name: The generated data-string map is current
+        run: |
+          [ -f tools/gen-data-strings.py ] || { echo "not this plugin"; exit 0; }
+          python3 tools/gen-data-strings.py --check
+
+      - name: Every string the page asks for is in the catalogue
+        run: |
+          [ -f tools/check-strings.py ] || { echo "not this plugin"; exit 0; }
+          python3 tools/check-strings.py
+          python3 - <<'PY'
+          import glob, json, sys
+          name = sorted(glob.glob('src/opnsense/scripts/*/i18n/ui/source.json'))
+          if not name:
+              print('no catalogue here')
+              sys.exit(0)
+          src = json.load(open(name[0], encoding='utf-8'))
+          ar = json.load(open(name[0].replace('source.json', 'ar_SA.json'), encoding='utf-8'))
+          missing = [k for k in src if k not in ar]
+          for key in missing:
+              print('no Arabic for: %s' % key[:90])
+          print('%d msgids, %d translated' % (len(src), len(ar)))
+          sys.exit(1 if missing else 0)
+          PY
