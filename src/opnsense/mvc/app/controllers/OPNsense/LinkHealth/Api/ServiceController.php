@@ -249,21 +249,45 @@ class ServiceController extends ApiControllerBase
                         self::IDENTIFY_SECONDS_MAX
                     )];
         }
-        $result = $this->response($this->run('flicker', [$if, $seconds, '']));
+        /* The page tells somebody with no visible neighbour to set one in the settings.
+           Reading it here is what makes that advice true: without this the field was
+           written, saved, and never looked at, and the same refusal came back. */
+        $target = $this->configuredNeighbour($if);
+        if ($target !== '' && !$this->validTarget($target)) {
+            return ['status' => 'failed',
+                    'detail' => gettext('The neighbour address set for this port is not usable.')];
+        }
+
+        $result = $this->response($this->run('flicker', [$if, $seconds, $target]));
         /* Same reason as identifyAction: the script explains itself in English and the page is
-           read in Arabic, so the two refusals it can give are said again where gettext() reaches
-           them. Which one it was is decided by what the script said, not by guessing here. */
+           read in Arabic, so each refusal is said again where gettext() reaches it. Which one
+           it was is decided by the reason the script returned, never by reading its prose. */
         if (($result['status'] ?? '') === 'error') {
-            $message = (string)($result['message'] ?? '');
-            if (strpos($message, 'link is down') !== false) {
-                $result['detail'] = gettext(
-                    'This port has no link, so there is no activity light to beat.'
-                );
-            } else {
-                $result['detail'] = gettext(
-                    'Nothing has been seen behind this port to send to, so its activity light '
-                    . 'cannot be made to beat. Give the port a neighbour address in the settings.'
-                );
+            switch ((string)($result['reason'] ?? '')) {
+                case 'down':
+                    $result['detail'] = gettext(
+                        'This port has no link, so there is no activity light to beat.'
+                    );
+                    break;
+                case 'busy_port':
+                    $result['detail'] = sprintf(
+                        gettext(
+                            'This port is carrying %d packets a second, so its activity light '
+                            . 'is already lit continuously and the beat cannot be seen on it. '
+                            . 'Pull the cable and watch which row on this page goes down.'
+                        ),
+                        (int)($result['rate_pps'] ?? 0)
+                    );
+                    break;
+                case 'no_neighbour':
+                    $result['detail'] = gettext(
+                        'Nothing has been seen behind this port to send to, so its activity '
+                        . 'light cannot be made to beat. Give the port a neighbour address in '
+                        . 'the settings.'
+                    );
+                    break;
+                default:
+                    $result['detail'] = gettext('The beat could not be started.');
             }
         }
         return $result;

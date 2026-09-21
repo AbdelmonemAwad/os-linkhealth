@@ -297,5 +297,7 @@
  "These cages have no identification light this firewall can drive: the driver registers the LED node, accepts the write and nothing lights, because it drives one fixed LED index that this board does not wire. Measured on this appliance, where the copper ports do blink. Use the activity light instead - the second button on the port detail.",
  "Looked at on the reference appliance: the cages have no identification light this firewall can drive. The node is there and the write is accepted, and nothing lights, because the cage lights on this board are not wired to the controller pins the driver drives - the copper ports on the same machine do blink. Use the activity light instead.",
  "No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll.",
- "Ports keep their interface names. Set a label per port by hand under Interfaces > Link Health > Settings, or contribute a table for this appliance."
+ "Ports keep their interface names. Set a label per port by hand under Interfaces > Link Health > Settings, or contribute a table for this appliance.",
+ "The neighbour address set for this port is not usable.",
+ "This port is carrying %d packets a second, so its activity light is already lit continuously and the beat cannot be seen on it. Pull the cable and watch which row on this page goes down."
 ]

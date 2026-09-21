@@ -55,6 +55,10 @@ import state
 
 LOCK = '/var/run/linkhealth-test.lock'
 
+# How long to wait after the flood before reading the counters again. Measured on the
+# reference appliance: ix refreshes its interface counters about every 500 ms.
+COUNTER_SETTLE_SECONDS = 1.0
+
 
 def result_path(interface):
     return os.path.join(state.STATE_DIR, 'test-%s.json' % re.sub(r'[^a-z0-9]', '', interface))
@@ -143,6 +147,13 @@ def run(interface, target=None, count=None, payload=None, thresholds=None):
         if match:
             loss = float(match.group(1))
 
+        # The interface counters are refreshed by the driver's admin task, not per packet
+        # - twice a second on ix. Reading them the instant ping returns loses the tail of
+        # the flood, which is the part most likely to carry the errors this test exists to
+        # find. Wait past one refresh; a second is nothing next to the minute already
+        # spent, and it is the difference between a measured rate and one short by an
+        # unknown amount.
+        time.sleep(COUNTER_SETTLE_SECONDS)
         after, port = _counters(interface)
         deltas = {name: after[name] - before.get(name, 0)
                   for name in after if after[name] >= before.get(name, 0)}
