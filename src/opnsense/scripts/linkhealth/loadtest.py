@@ -45,7 +45,6 @@
 """
 
 import fcntl
-import json
 import os
 import re
 import subprocess
