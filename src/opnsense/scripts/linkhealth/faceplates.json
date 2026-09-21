@@ -1,0 +1,178 @@
+{
+  "version": 1,
+  "comment": [
+    "How the front of an appliance is laid out, so the plugin can draw it instead of shipping a",
+    "photograph of it. The drawing is generated as inline SVG at render time: a few kilobytes of",
+    "markup, no image files, nothing to license.",
+    "",
+    "WHY NOT PHOTOGRAPHS. A vendor's product render or photograph is that vendor's copyrighted work,",
+    "and a plugin under a BSD licence cannot redistribute it. The bulk source that looks like an",
+    "answer - the NetBox device-type library - carries a CC0 label over images that are demonstrably",
+    "vendor marketing art, complete with the vendors' logos; CC0 waives only what the uploader owned",
+    "and explicitly declines to clear anyone else's rights, and that project records no provenance",
+    "for any of its 2,481 images. It also has no entry for this appliance at all.",
+    "",
+    "WHAT IS SAFE. How many sockets a device has, in what order, in which bay, and what is printed",
+    "beside them are facts and short labels, and facts are not owned. So we draw from measurement,",
+    "never trace a vendor image, and never draw a logo.",
+    "",
+    "THE JOIN IS DELIBERATELY WEAK. An item here names a bay and a printed label - never an interface.",
+    "The live data is matched on that pair, using chassis.json, which stays the single place where an",
+    "interface is bound to a printed name. So a wrong drawing puts a box in the wrong place; it can",
+    "never send an alert to the wrong port.",
+    "",
+    "confirmed=false means nobody has stood in front of the machine and checked this layout yet. The",
+    "GUI says so, plainly, until someone confirms it with the identify button."
+  ],
+  "models": {
+    "sophos-xg330": {
+      "display": "Sophos XG 330 (rev 2)",
+      "confirmed": false,
+      "confirmed_note": "Port order and bay grouping are corroborated by three independent witnesses on the reference machine: the owner's own interface names, the chip and PCI-subdevice boundaries, and two contiguous MAC blocks (8 addresses under one OUI for the module, 12 under another for the mainboard, in printed order). The physical ARRANGEMENT below - which row, and left-to-right position - is drawn from the owner's description and has not been checked against the metal.",
+      "units": 1,
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "FleXi module, bay A",
+          "note": "An expansion bay. Its ports enumerate before the faceplate ports, which is why PortA1 is igb0 while the printed Port1 is igb8.",
+          "items": [
+            {
+              "label": "PortA1",
+              "type": "rj45"
+            },
+            {
+              "label": "PortA2",
+              "type": "rj45"
+            },
+            {
+              "label": "PortA3",
+              "type": "rj45"
+            },
+            {
+              "label": "PortA4",
+              "type": "rj45"
+            },
+            {
+              "label": "PortA5",
+              "type": "rj45"
+            },
+            {
+              "label": "PortA6",
+              "type": "rj45"
+            },
+            {
+              "label": "PortA7",
+              "type": "rj45"
+            },
+            {
+              "label": "PortA8",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "faceplate",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "faceplate, 1G SFP",
+          "items": [
+            {
+              "label": "Port9",
+              "type": "sfp"
+            },
+            {
+              "label": "Port10",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "faceplate, 10G SFP+",
+          "items": [
+            {
+              "label": "SFP+1",
+              "type": "sfp+"
+            },
+            {
+              "label": "SFP+2",
+              "type": "sfp+"
+            }
+          ],
+          "note": "These cages have no identification light this firewall can drive: the driver registers the LED node, accepts the write and nothing lights, because it drives one fixed LED index that this board does not wire. Measured on this appliance, where the copper ports do blink. Use the activity light instead - the second button on the port detail."
+        }
+      ]
+    }
+  },
+  "port_types": {
+    "comment": "Drawing hints only. Width is in the same arbitrary units the renderer uses for a row; the shapes differ enough that a person recognises a copper socket from a cage at a glance.",
+    "rj45": {
+      "width": 34,
+      "height": 30,
+      "shape": "rj45"
+    },
+    "sfp": {
+      "width": 44,
+      "height": 24,
+      "shape": "cage"
+    },
+    "sfp+": {
+      "width": 44,
+      "height": 24,
+      "shape": "cage"
+    },
+    "qsfp": {
+      "width": 54,
+      "height": 26,
+      "shape": "cage"
+    },
+    "console": {
+      "width": 34,
+      "height": 22,
+      "shape": "plain"
+    },
+    "usb": {
+      "width": 24,
+      "height": 16,
+      "shape": "plain"
+    },
+    "unknown": {
+      "width": 34,
+      "height": 30,
+      "shape": "plain"
+    }
+  }
+}

@@ -1,0 +1,143 @@
+<model>
+    <mount>//OPNsense/LinkHealth</mount>
+    <version>1.0.0</version>
+    <description>Link health</description>
+    <items>
+        <!--
+            The collector does not go through this model: it is a Python script started from cron,
+            and it reads these values straight out of /conf/config.xml by element name. So the names
+            below are not free - each one has to be spelled the way linkhealth.py looks it up, or
+            the settings page saves a value that nothing ever reads.
+        -->
+        <general>
+            <enabled type="BooleanField">
+                <Required>Y</Required>
+                <Default>1</Default>
+            </enabled>
+            <poll_interval type="IntegerField">
+                <Required>Y</Required>
+                <Default>60</Default>
+                <MinimumValue>60</MinimumValue>
+                <MaximumValue>3600</MaximumValue>
+                <ValidationMessage>The poll interval must be between 60 and 3600 seconds.</ValidationMessage>
+            </poll_interval>
+            <min_frames type="IntegerField">
+                <Required>Y</Required>
+                <Default>1000</Default>
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>100000000</MaximumValue>
+                <ValidationMessage>The number of frames must be between 1 and 100000000.</ValidationMessage>
+            </min_frames>
+            <ppm_watch type="IntegerField">
+                <Required>Y</Required>
+                <Default>10</Default>
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>1000000</MaximumValue>
+                <ValidationMessage>The rate must be between 1 and 1000000 parts per million.</ValidationMessage>
+            </ppm_watch>
+            <ppm_warn type="IntegerField">
+                <Required>Y</Required>
+                <Default>100</Default>
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>1000000</MaximumValue>
+                <ValidationMessage>The rate must be between 1 and 1000000 parts per million.</ValidationMessage>
+            </ppm_warn>
+            <ppm_fail type="IntegerField">
+                <Required>Y</Required>
+                <Default>1000</Default>
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>1000000</MaximumValue>
+                <ValidationMessage>The rate must be between 1 and 1000000 parts per million.</ValidationMessage>
+            </ppm_fail>
+            <flap_threshold type="IntegerField">
+                <Required>Y</Required>
+                <Default>3</Default>
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>1000</MaximumValue>
+                <ValidationMessage>The number of link changes must be between 1 and 1000.</ValidationMessage>
+            </flap_threshold>
+            <flap_window type="IntegerField">
+                <Required>Y</Required>
+                <Default>3600</Default>
+                <MinimumValue>60</MinimumValue>
+                <MaximumValue>86400</MaximumValue>
+                <ValidationMessage>The period must be between 60 and 86400 seconds.</ValidationMessage>
+            </flap_window>
+            <alert_address type="CSVListField">
+                <Mask>/^[^@,\s]+@[^@,\s]+\.[^@,\s]+(,[^@,\s]+@[^@,\s]+\.[^@,\s]+)*$/</Mask>
+                <ValidationMessage>Enter one or more valid email addresses.</ValidationMessage>
+            </alert_address>
+            <cooldown_hours type="IntegerField">
+                <Required>Y</Required>
+                <Default>6</Default>
+                <MinimumValue>1</MinimumValue>
+                <MaximumValue>168</MaximumValue>
+                <ValidationMessage>The cooldown must be between 1 and 168 hours.</ValidationMessage>
+            </cooldown_hours>
+            <recovery_mail type="BooleanField">
+                <Required>Y</Required>
+                <Default>1</Default>
+            </recovery_mail>
+            <node_exporter type="BooleanField">
+                <Required>Y</Required>
+                <Default>1</Default>
+            </node_exporter>
+            <test_count type="IntegerField">
+                <Required>Y</Required>
+                <Default>20000</Default>
+                <MinimumValue>100</MinimumValue>
+                <MaximumValue>1000000</MaximumValue>
+                <ValidationMessage>The number of frames must be between 100 and 1000000.</ValidationMessage>
+            </test_count>
+            <!--
+                8972 bytes of payload plus the ICMP and IP headers is exactly a 9000 byte frame,
+                which is the largest the test can send without the stack fragmenting it - and a
+                fragmented test measures the reassembly path rather than the cable.
+            -->
+            <test_payload type="IntegerField">
+                <Required>Y</Required>
+                <Default>8972</Default>
+                <MinimumValue>64</MinimumValue>
+                <MaximumValue>8972</MaximumValue>
+                <ValidationMessage>The payload must be between 64 and 8972 bytes.</ValidationMessage>
+            </test_payload>
+            <test_timeout type="IntegerField">
+                <Required>Y</Required>
+                <Default>180</Default>
+                <MinimumValue>5</MinimumValue>
+                <MaximumValue>300</MaximumValue>
+                <ValidationMessage>The time limit must be between 5 and 300 seconds.</ValidationMessage>
+            </test_timeout>
+        </general>
+        <ports>
+            <port type="ArrayField">
+                <enabled type="BooleanField">
+                    <Required>Y</Required>
+                    <Default>1</Default>
+                </enabled>
+                <interface type="TextField">
+                    <Required>Y</Required>
+                    <Mask>/^[a-z][a-z0-9]*[0-9]$/</Mask>
+                    <ValidationMessage>Enter the name the kernel gives the port, such as igb0 or ix1.</ValidationMessage>
+                    <Constraints>
+                        <check001>
+                            <type>UniqueConstraint</type>
+                            <ValidationMessage>This port already has an entry.</ValidationMessage>
+                        </check001>
+                    </Constraints>
+                </interface>
+                <label type="TextField">
+                    <AllowNewlines>N</AllowNewlines>
+                    <AllowSpecial>N</AllowSpecial>
+                    <Mask>/^[^"\\&lt;>]{1,32}$/u</Mask>
+                    <ValidationMessage>Use up to 32 characters, without quotes, backslashes or angle brackets.</ValidationMessage>
+                </label>
+                <neighbour type="NetworkField">
+                    <NetMaskAllowed>N</NetMaskAllowed>
+                    <WildcardEnabled>N</WildcardEnabled>
+                    <ValidationMessage>Enter the address of a single neighbour, without a netmask.</ValidationMessage>
+                </neighbour>
+            </port>
+        </ports>
+    </items>
+</model>

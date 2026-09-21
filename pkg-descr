@@ -1,0 +1,23 @@
+Link Health watches every physical port on the firewall and says which
+cable or transceiver is going bad, naming the port the way the chassis
+names it (PortA3, SFP+1) instead of the way the driver does.
+
+Every minute it samples the hardware error counters and judges the change
+over the window, never the total since boot, so a port that is corrupting
+frames now is flagged while a port that logged errors months ago is not.
+It also reports a link that negotiated below the fastest speed its own
+PHY advertises, which is the usual sign of a broken pair, and reads
+transceiver identity and diagnostics on the drivers that expose them.
+
+Each port gets one of seven states on its own page and in a dashboard
+widget, and a fault is mailed once, with a confirmation window, a
+cooldown and a recovery message. A port carrying too little traffic to
+judge is marked as such rather than called healthy, and can be given
+traffic to be judged on with the on-demand load test.
+
+Plugin Changelog
+================
+
+1.0
+
+* Initial release

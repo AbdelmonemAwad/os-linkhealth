@@ -1,0 +1,43 @@
+<metadata>
+    <!--
+        The element name below is the widget id. Core globs this directory for *.xml and uses that
+        id as the key of the widget in every user's saved dashboard layout, so renaming it would
+        silently drop the widget off the dashboards it is already on. It stays "linkhealth".
+
+        Every string in <translations> is passed through gettext() by the dashboard controller, so
+        the English text here is the msgid the plugin's i18n/ui catalogues translate.
+    -->
+    <linkhealth>
+        <filename>LinkHealth.js</filename>
+        <link>/ui/linkhealth</link>
+        <endpoints>
+            <endpoint>/api/linkhealth/service/*</endpoint>
+        </endpoints>
+        <translations>
+            <title>Link Health</title>
+            <state_ok>clean</state_ok>
+            <state_watch>a few frames are being corrupted</state_watch>
+            <state_warn>needs attention</state_warn>
+            <state_fail>failing</state_fail>
+            <state_idle>not enough traffic to judge</state_idle>
+            <state_down>link is down</state_down>
+            <state_disabled>port is disabled</state_disabled>
+            <state_absent>the drawing shows a socket this machine does not report</state_absent>
+            <!--
+                The strip has no room for a caption without costing the widget a whole row, so the
+                two things a drawing has to admit to are said where they cost nothing: the way
+                round it is drawn goes in the label a screen reader reads out, and the fact that
+                nobody has yet stood in front of the machine and checked it goes on every socket
+                the drawing places.
+            -->
+            <faceplate>The front panel, as you face the front of the appliance</faceplate>
+            <unconfirmed>position not confirmed against the machine yet</unconfirmed>
+            <downshift>Negotiating below the fastest speed this port advertises</downshift>
+            <unit_ppm>ppm</unit_ppm>
+            <unit_dbm>dBm</unit_dbm>
+            <nodata>No link health data yet. The collector runs once a minute.</nodata>
+            <stale>Link health was last measured at %s and is no longer being updated.</stale>
+            <unreachable>Could not read the link health status.</unreachable>
+        </translations>
+    </linkhealth>
+</metadata>

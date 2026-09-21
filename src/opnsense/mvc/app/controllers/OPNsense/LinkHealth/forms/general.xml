@@ -1,0 +1,195 @@
+<form>
+    <field>
+        <type>header</type>
+        <label>General</label>
+    </field>
+    <field>
+        <id>linkhealth.general.enabled</id>
+        <label>Enabled</label>
+        <type>checkbox</type>
+        <help>Watch the physical ports. When disabled nothing is collected and nothing is mailed, but the last reading stays on the page.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.poll_interval</id>
+        <label>Poll interval (seconds)</label>
+        <type>text</type>
+        <help>How often the counters are read. The collector wakes every minute, so the interval is used in whole minutes. Every verdict is the difference between two readings, never the total since boot, which is also why this is the span a rate is measured over: a port that had a bad hour last month reads clean today.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.min_frames</id>
+        <label>Frames needed to judge</label>
+        <type>text</type>
+        <help>A window carrying fewer frames than this is reported as idle rather than clean: too little traffic passed to tell a good cable from a bad one. Use the cable test on a quiet port instead.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <type>header</type>
+        <label>Verdict</label>
+    </field>
+    <field>
+        <id>linkhealth.general.ppm_watch</id>
+        <label>Watch above (ppm)</label>
+        <type>text</type>
+        <help>Corrupted frames per million received. At this rate the port is only noted, not reported as a problem.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.ppm_warn</id>
+        <label>Warn above (ppm)</label>
+        <type>text</type>
+        <help>100 ppm is one frame in ten thousand. A clean port on this hardware measures zero, so anything at this level is real damage and not counter noise.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.ppm_fail</id>
+        <label>Fail above (ppm)</label>
+        <type>text</type>
+        <help>1000 ppm is a tenth of a percent. The fault this plugin was written for measured 38000.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.flap_threshold</id>
+        <label>Link changes to warn on</label>
+        <type>text</type>
+        <help>A port that loses and regains link this many times within the period below is reported as unstable, and one doing it three times as often as that is reported as failing. Several kernel events from a single cable reseat are counted as one change.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.flap_window</id>
+        <label>Link change period (seconds)</label>
+        <type>text</type>
+        <help>How far back link changes are counted.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <type>header</type>
+        <label>Alerts</label>
+    </field>
+    <field>
+        <id>linkhealth.general.alert_address</id>
+        <label>Send alerts to</label>
+        <type>select_multiple</type>
+        <style>tokenize</style>
+        <allownew>true</allownew>
+        <help>Mail is sent with the server configured under Services: Monit, but never to the address Monit itself alerts. While this is empty no mail is sent at all, so nobody is surprised by post from a plugin they have not finished setting up.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.cooldown_hours</id>
+        <label>Cooldown (hours)</label>
+        <type>text</type>
+        <help>At most one message per port in this many hours, so a cable that fails all afternoon is reported once and not every minute.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.recovery_mail</id>
+        <label>Mail when a port recovers</label>
+        <type>checkbox</type>
+        <help>Send a short message when a port that was reported returns to clean, so a fix can be confirmed without opening this page.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <type>header</type>
+        <label>Cable test</label>
+    </field>
+    <field>
+        <id>linkhealth.general.test_count</id>
+        <label>Frames per test</label>
+        <type>text</type>
+        <help>How many frames the test sends at the neighbour before the counters are read again.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.test_payload</id>
+        <label>Payload size (bytes)</label>
+        <type>text</type>
+        <help>Large frames find a marginal cable that small ones pass. 8972 is as large as the payload can be without being fragmented on a 9000 byte jumbo link. On a port whose MTU is smaller the test falls back to a payload that fits, so this figure is only used where jumbo frames are carried.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <id>linkhealth.general.test_timeout</id>
+        <label>Time limit (seconds)</label>
+        <type>text</type>
+        <help>The test stops here even if the frames have not all been sent. It saturates the link while it runs, so keep this short.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <type>header</type>
+        <label>Integration</label>
+    </field>
+    <field>
+        <id>linkhealth.general.node_exporter</id>
+        <label>Write node_exporter metrics</label>
+        <type>checkbox</type>
+        <help>Write the counters to /var/tmp/node_exporter/linkhealth.prom each cycle, when that directory exists. Nothing is written if node_exporter is not installed.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
+        <type>header</type>
+        <label>Port</label>
+    </field>
+    <field>
+        <id>port.enabled</id>
+        <label>Watched</label>
+        <type>checkbox</type>
+        <help>Judge this port and alert on it. Clear this for a port that is knowingly unused or knowingly noisy.</help>
+        <grid_view>
+            <width>6em</width>
+            <type>boolean</type>
+            <formatter>rowtoggle</formatter>
+        </grid_view>
+    </field>
+    <field>
+        <id>port.interface</id>
+        <label>Port</label>
+        <type>text</type>
+        <hint>igb8</hint>
+        <help>The name the kernel gives the port, as shown in the table on this page.</help>
+    </field>
+    <field>
+        <id>port.label</id>
+        <label>Name on the chassis</label>
+        <type>text</type>
+        <hint>Port1</hint>
+        <help>Overrides the name this plugin prints for the port, for an appliance whose faceplate is not in the built-in table or whose ports were relabelled. Leave empty to keep the detected name.</help>
+    </field>
+    <field>
+        <id>port.neighbour</id>
+        <label>Test neighbour</label>
+        <type>text</type>
+        <hint>192.168.1.10</hint>
+        <help>The address the cable test floods, which has to be a device reached through this port. Leave empty to pick one from the bridge table when the test is started.</help>
+    </field>
+</form>

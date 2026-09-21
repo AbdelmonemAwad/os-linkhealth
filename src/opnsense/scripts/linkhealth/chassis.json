@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "comment": [
+    "Maps kernel interface names to the labels silk-screened on the chassis, so an alert can say",
+    "'PortA3' instead of 'igb2'. For anyone running a repurposed appliance this is most of the",
+    "value of the plugin: the label on the metal is what you read when you are standing behind the",
+    "rack with a cable in your hand.",
+    "",
+    "Entries describe GROUPS matched by hardware signature, never a flat interface->label list,",
+    "because expansion bays enumerate before the faceplate. On the reference machine the FleXi",
+    "module takes igb0-igb7 (PortA1..PortA8) while the printed Port1 is igb8 - a flat list written",
+    "on any other unit would mislabel every port on this one.",
+    "",
+    "Matching uses kenv smbios values. maker/product/version are regular expressions, anchored as",
+    "written. The first entry whose every stated field matches wins; 'generic' is the fallback and",
+    "simply keeps the interface name.",
+    "",
+    "Adding your own appliance is one JSON block and a pull request - see docs/contributing-chassis.md.",
+    "Every group carries a 'verify' block: what the card under it must actually be. The label is printed only when the chip the driver reports - and, where it is distinctive, the PCI subdevice id - matches. A FleXi bay holding a different module therefore keeps the plain interface names instead of inheriting somebody else's labels. A wrong label is worse than no label: it sends you to the wrong socket.",
+    "A group may also say 'identify_led': false when somebody has stood in front of that appliance and confirmed the sockets do not light. A /dev/led node only means the driver offered one; whether a light is wired to it is a property of the board, and no interface can be asked. It passes the same verify gate as the labels, so a table cannot make this claim about a card that is not the card it describes."
+  ],
+  "models": {
+    "sophos-xg330": {
+      "display": "Sophos XG 330 (rev 2)",
+      "verified": true,
+      "verified_by": "read from the machine this plugin was written on, 2026-09-21",
+      "match": {
+        "maker": "^Sophos$",
+        "product": "^XG$",
+        "version": "^330"
+      },
+      "groups": [
+        {
+          "driver": "igb",
+          "units": [
+            0,
+            7
+          ],
+          "label": "PortA%d",
+          "start": 1,
+          "bay": "FleXi module, bay A",
+          "note": "This bay enumerates before the faceplate ports.",
+          "verify": {
+            "chip": "I350",
+            "subdevice": "0x0008"
+          }
+        },
+        {
+          "driver": "igb",
+          "units": [
+            8,
+            15
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "faceplate",
+          "verify": {
+            "chip": "I211"
+          }
+        },
+        {
+          "driver": "igb",
+          "units": [
+            16,
+            17
+          ],
+          "label": "Port%d",
+          "start": 9,
+          "bay": "faceplate, 1G SFP",
+          "note": "Intel I210 Fiber. The driver has no transceiver access, so these cages report no module data even with a module seated - the plugin shows link, media and error counters for them and nothing optical.",
+          "verify": {
+            "chip": "I210"
+          },
+          "identify_led": false,
+          "identify_led_note": "Looked at on the reference appliance: the cages have no identification light this firewall can drive. The node is there and the write is accepted, and nothing lights, because the cage lights on this board are not wired to the controller pins the driver drives - the copper ports on the same machine do blink. Use the activity light instead."
+        },
+        {
+          "driver": "ix",
+          "units": [
+            0,
+            1
+          ],
+          "label": "SFP+%d",
+          "start": 1,
+          "bay": "faceplate, 10G SFP+",
+          "note": "Intel X520. Full transceiver telemetry.",
+          "verify": {
+            "chip": "X520"
+          },
+          "identify_led": false,
+          "identify_led_note": "Looked at on the reference appliance: the cages have no identification light this firewall can drive. The node is there and the write is accepted, and nothing lights, because the cage lights on this board are not wired to the controller pins the driver drives - the copper ports on the same machine do blink. Use the activity light instead."
+        }
+      ]
+    },
+    "sophos-xg-family": {
+      "display": "Sophos XG / XGS (unrecognised model)",
+      "verified": false,
+      "comment": [
+        "A Sophos box we do not have a port table for. It is still worth matching, because the",
+        "display name tells the owner the plugin knows what the hardware is, and the message points",
+        "at the file to extend. No labels are invented: unlabelled ports keep their interface name."
+      ],
+      "match": {
+        "maker": "^Sophos$"
+      },
+      "groups": [],
+      "hint": "No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll."
+    },
+    "generic": {
+      "display": "unrecognised hardware",
+      "verified": true,
+      "match": {},
+      "groups": [],
+      "hint": "Ports keep their interface names. Set a label per port by hand under Interfaces > Link Health > Settings, or contribute a table for this appliance."
+    }
+  }
+}

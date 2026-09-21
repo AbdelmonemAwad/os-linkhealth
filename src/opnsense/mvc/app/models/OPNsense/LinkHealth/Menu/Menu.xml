@@ -1,0 +1,5 @@
+<menu>
+    <Interfaces>
+        <LinkHealth order="235" VisibleName="Link Health" cssClass="fa fa-plug fa-fw" url="/ui/linkhealth"/>
+    </Interfaces>
+</menu>

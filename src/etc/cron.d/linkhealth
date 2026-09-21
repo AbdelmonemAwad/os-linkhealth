@@ -1,0 +1,4 @@
+# Link health collector: samples the per-port counters and judges the change over the window.
+# This line only wakes the script every minute; the polling interval, the thresholds and the
+# alert cooldown are configured under Interfaces: Link Health.
+*	*	*	*	*	root	/usr/local/opnsense/scripts/linkhealth/linkhealth.py collect > /dev/null 2>&1

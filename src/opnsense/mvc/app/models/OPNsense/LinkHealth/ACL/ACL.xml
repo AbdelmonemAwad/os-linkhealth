@@ -1,0 +1,10 @@
+<acl>
+    <page-interfaces-linkhealth>
+        <name>Interfaces: Link Health</name>
+        <description>Allow access to the port health page, its settings and the on-demand cable test</description>
+        <patterns>
+            <pattern>ui/linkhealth/*</pattern>
+            <pattern>api/linkhealth/*</pattern>
+        </patterns>
+    </page-interfaces-linkhealth>
+</acl>

@@ -1,0 +1,112 @@
+        /* ------------------------------------------------------------------
+           The verdict sentences are built in Python, by the collector, with
+           the numbers already inside them - which means they arrive here as
+           finished English that no catalogue can reach. Half an Arabic page
+           with an English sentence under every verdict is worse than either
+           language alone.
+
+           Every reason also carries its `code` and the `params` its sentence
+           was built from, so the page builds its own sentence instead, from a
+           template that goes through the translation call like every other
+           string here. A code this page does not know falls back to the text
+           the collector sent, so a reason added later still says something.
+           ------------------------------------------------------------------ */
+        function lh_num(value) {
+            const number = Number(value);
+            return isNaN(number) ? String(value != null ? value : '') : number.toLocaleString();
+        }
+
+        function lh_speed(mbps) {
+            const value = Number(mbps) || 0;
+            if (!value) { return "{{ lang._('unknown') }}"; }
+            return value >= 1000
+                ? "{{ lang._('{n} Gbit/s') }}".replace('{n}', value / 1000)
+                : "{{ lang._('{n} Mbit/s') }}".replace('{n}', value);
+        }
+
+        function lh_causes(causes, port) {
+            const meta = (port || {}).counter_meta || {};
+            const names = Object.keys(causes || {});
+            if (names.length === 0) {
+                return "{{ lang._('the driver reports errors but cannot say which kind') }}";
+            }
+            names.sort(function (a, b) { return causes[b] - causes[a]; });
+            return names.slice(0, 3).map(function (name) {
+                const label = (meta[name] || {}).label || name;
+                return label + ': ' + lh_num(causes[name]);
+            }).join(', ');
+        }
+
+        function lh_fill(template, values) {
+            let out = template;
+            $.each(values, function (key, value) {
+                out = out.split('{' + key + '}').join(String(value));
+            });
+            return out;
+        }
+
+        function reason_text(reason, port) {
+            if (!reason) { return ''; }
+            const p = reason.params || {};
+            switch (reason.code) {
+                case 'clean':
+                    return lh_fill("{{ lang._('clean - {frames} frames, no errors') }}",
+                        {frames: lh_num(p.frames)});
+                case 'quiet':
+                    return lh_fill("{{ lang._('only {frames} frames in this window - not enough traffic to judge') }}",
+                        {frames: lh_num(p.frames)});
+                case 'gathering':
+                    return lh_fill("{{ lang._('measuring: {frames} of {needed} frames so far, over {minutes} min') }}",
+                        {frames: lh_num(p.frames), needed: lh_num(p.needed),
+                         minutes: Math.max(1, Math.floor((p.seconds || 0) / 60))});
+                case 'baseline':
+                    return "{{ lang._('first look at this port - measuring from here') }}";
+                case 'disabled':
+                    return "{{ lang._('port is switched off in the configuration') }}";
+                case 'not_watched':
+                    return "{{ lang._('this port is not being watched') }}";
+                case 'down':
+                    return "{{ lang._('no cable, or nothing answering at the other end') }}";
+                case 'errors_fail':
+                    return lh_fill("{{ lang._('{percent}% of received frames were corrupted ({causes})') }}",
+                        {percent: p.percent, causes: lh_causes(p.causes, port)});
+                case 'errors_warn':
+                    return lh_fill("{{ lang._('{ppm} corrupted frames per million ({causes})') }}",
+                        {ppm: lh_num(p.ppm), causes: lh_causes(p.causes, port)});
+                case 'errors_watch':
+                    return lh_fill("{{ lang._('a few frames are being corrupted ({ppm} per million)') }}",
+                        {ppm: lh_num(p.ppm)});
+                case 'downshift':
+                    return lh_fill("{{ lang._('negotiated {speed} where the port supports {max} - usually a broken pair in the cable') }}",
+                        {speed: lh_speed(p.speed), max: lh_speed(p.max_speed)});
+                case 'duplex':
+                    return lh_fill("{{ lang._('collisions on a full-duplex link ({count}) - the two ends disagree about duplex') }}",
+                        {count: lh_num(p.collisions)});
+                case 'flapping_warn':
+                case 'flapping_fail':
+                    return lh_fill("{{ lang._('the link went down and came back {count} times in the last hour') }}",
+                        {count: lh_num(p.count)});
+                case 'optics_rx_low':
+                    return lh_fill("{{ lang._('receive power {rx} dBm is below what this media type needs ({min} dBm)') }}",
+                        {rx: p.rx_dbm, min: p.minimum});
+                case 'optics_rx_high':
+                    return lh_fill("{{ lang._('receive power {rx} dBm is above the overload point ({max} dBm)') }}",
+                        {rx: p.rx_dbm, max: p.maximum});
+                case 'optics_rx_thin':
+                    return lh_fill("{{ lang._('only {margin} dB of optical margin left') }}",
+                        {margin: p.margin});
+                case 'optics_hot':
+                    return lh_fill("{{ lang._('transceiver is running warm ({temp} C)') }}", {temp: p.temp_c});
+                case 'optics_hot_fail':
+                    return lh_fill("{{ lang._('transceiver is at {temp} C') }}", {temp: p.temp_c});
+                case 'optics_voltage':
+                    return lh_fill("{{ lang._('transceiver supply is {volts} V') }}", {volts: p.vcc_v});
+                case 'optics_gone':
+                    return "{{ lang._('the transceiver is no longer there') }}";
+                case 'optics_swapped':
+                    return "{{ lang._('the transceiver was changed') }}";
+                default:
+                    return reason.text || reason.code || '';
+            }
+        }
+

@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "comment": [
+    "Per-driver counter maps. The drivers do not share a vocabulary: igb and ix have exactly",
+    "one error counter name in common (crc_errs) and nothing else, so a bare leaf name is never",
+    "enough - each family carries its own node and its own list.",
+    "",
+    "class tells the verdict engine what a counter MEANS:",
+    "  cable     - a physical problem with the link: CRC, alignment, symbol, illegal byte, runt,",
+    "              jabber. These drive the verdict.",
+    "  aggregate - the driver's own sum of receive errors. Used only when no cable counter exists,",
+    "              never added on top of them, or every error would be counted twice.",
+    "  duplex    - collisions. On a modern full-duplex link these mean a duplex mismatch, which is",
+    "              a cabling/negotiation fault worth reporting, so they are judged separately.",
+    "  flap      - link transition counters. They also increment on administrative up/down, so a",
+    "              healthy port accumulates hundreds. Reported, never alerted on like cable errors.",
+    "  load      - the host could not keep up: no buffers, missed packets, short discards. This is",
+    "              a capacity story, not a cable story.",
+    "  ignore    - counted by the hardware, meaningless here. ix checksum_errs is the example: a",
+    "              provably clean port on the reference machine carries 15,973 of them.",
+    "",
+    "verified=true means the names were read from a live machine running that driver."
+  ],
+  "families": {
+    "e1000": {
+      "drivers": ["em", "lem", "igb", "igc"],
+      "verified": true,
+      "verified_on": "Intel I350 / I211 / I210 on OPNsense 26.7.4_1 (igb 2.5.28-fbsd)",
+      "stat_node": "mac_stats",
+      "rx_frames": "good_pkts_rcvd",
+      "tx_frames": "good_pkts_txd",
+      "rx_bytes": "good_octets_recvd",
+      "tx_bytes": "good_octets_txd",
+      "optics": false,
+      "optics_reason": "this driver family implements no SIOCGI2C, so an SFP cage on it reports no module at all",
+      "counters": {
+        "crc_errs": {"class": "cable", "label": "CRC errors"},
+        "alignment_errs": {"class": "cable", "label": "alignment errors"},
+        "symbol_errors": {"class": "cable", "label": "symbol errors"},
+        "sequence_errors": {"class": "cable", "label": "sequence errors"},
+        "recv_length_errors": {"class": "cable", "label": "length errors"},
+        "recv_jabber": {"class": "cable", "label": "jabber frames"},
+        "recv_fragmented": {"class": "cable", "label": "fragmented frames"},
+        "recv_undersize": {"class": "cable", "label": "undersized frames"},
+        "recv_oversize": {"class": "cable", "label": "oversized frames"},
+        "recv_errs": {"class": "aggregate", "label": "receive errors"},
+        "coll_ext_errs": {"class": "duplex", "label": "external collisions"},
+        "late_coll": {"class": "duplex", "label": "late collisions"},
+        "excess_coll": {"class": "duplex", "label": "excessive collisions"},
+        "collision_count": {"class": "duplex", "label": "collisions"},
+        "missed_packets": {"class": "load", "label": "missed packets"},
+        "recv_no_buff": {"class": "load", "label": "no receive buffer"}
+      }
+    },
+    "ixgbe": {
+      "drivers": ["ix", "ixv"],
+      "verified": true,
+      "verified_on": "Intel X520 82599ES on OPNsense 26.7.4_1 (ix 5.0.1-k)",
+      "stat_node": "mac_stats",
+      "rx_frames": "good_pkts_rcvd",
+      "tx_frames": "good_pkts_txd",
+      "rx_bytes": "good_octets_rcvd",
+      "tx_bytes": "good_octets_txd",
+      "optics": true,
+      "counters": {
+        "crc_errs": {"class": "cable", "label": "CRC errors"},
+        "byte_errs": {"class": "cable", "label": "illegal byte errors"},
+        "ill_errs": {"class": "cable", "label": "illegal symbol errors"},
+        "rec_len_errs": {"class": "cable", "label": "length errors"},
+        "recv_jabberd": {"class": "cable", "label": "jabber frames"},
+        "recv_fragmented": {"class": "cable", "label": "fragmented frames"},
+        "recv_undersized": {"class": "cable", "label": "undersized frames"},
+        "recv_oversized": {"class": "cable", "label": "oversized frames"},
+        "rx_errs": {"class": "aggregate", "label": "receive errors"},
+        "local_faults": {"class": "flap", "label": "local link faults"},
+        "remote_faults": {"class": "flap", "label": "remote link faults"},
+        "short_discards": {"class": "load", "label": "short discards"},
+        "rx_missed_packets": {"class": "load", "label": "missed packets"},
+        "checksum_errs": {"class": "ignore", "label": "checksum errors"}
+      }
+    },
+    "iavf_i40e": {
+      "drivers": ["ixl", "iavf"],
+      "verified": false,
+      "source": "FreeBSD sys/dev/ixl - the counters hang off dev.ixl.N.mac.* rather than mac_stats",
+      "stat_node": "mac",
+      "rx_frames": "good_pkts_rcvd",
+      "tx_frames": "good_pkts_txd",
+      "optics": true,
+      "counters": {
+        "crc_errs": {"class": "cable", "label": "CRC errors"},
+        "illegal_bytes": {"class": "cable", "label": "illegal bytes"},
+        "rx_length_errors": {"class": "cable", "label": "length errors"},
+        "rx_jabber": {"class": "cable", "label": "jabber frames"},
+        "rx_fragmented": {"class": "cable", "label": "fragmented frames"},
+        "rx_undersize": {"class": "cable", "label": "undersized frames"},
+        "rx_oversize": {"class": "cable", "label": "oversized frames"},
+        "rx_discards": {"class": "load", "label": "receive discards"},
+        "link_xon_rx": {"class": "ignore", "label": "flow control"}
+      }
+    },
+    "ice": {
+      "drivers": ["ice"],
+      "verified": false,
+      "source": "FreeBSD sys/dev/ice - counters live under dev.ice.N.hw.mac.*",
+      "stat_node": "hw.mac",
+      "rx_frames": "rx_size_64",
+      "tx_frames": "tx_size_64",
+      "optics": true,
+      "counters": {
+        "crc_errors": {"class": "cable", "label": "CRC errors"},
+        "illegal_bytes": {"class": "cable", "label": "illegal bytes"},
+        "rx_len_errors": {"class": "cable", "label": "length errors"},
+        "rx_jabber": {"class": "cable", "label": "jabber frames"},
+        "rx_fragments": {"class": "cable", "label": "fragmented frames"},
+        "rx_undersize": {"class": "cable", "label": "undersized frames"},
+        "rx_oversize": {"class": "cable", "label": "oversized frames"},
+        "rx_discards": {"class": "load", "label": "receive discards"}
+      }
+    },
+    "chelsio": {
+      "drivers": ["cxgbe", "cxl", "cc", "ccv", "cxgbev"],
+      "verified": false,
+      "source": "FreeBSD sys/dev/cxgbe - counters under dev.cxgbe.N.stats.*",
+      "stat_node": "stats",
+      "rx_frames": "rx_frames",
+      "tx_frames": "tx_frames",
+      "optics": true,
+      "counters": {
+        "rx_fcs_err": {"class": "cable", "label": "CRC errors"},
+        "rx_len_err": {"class": "cable", "label": "length errors"},
+        "rx_symbol_err": {"class": "cable", "label": "symbol errors"},
+        "rx_runt": {"class": "cable", "label": "runt frames"},
+        "rx_jabber": {"class": "cable", "label": "jabber frames"},
+        "rx_too_long": {"class": "cable", "label": "oversized frames"},
+        "rx_ovflow0": {"class": "load", "label": "receive overflow"}
+      }
+    },
+    "mellanox": {
+      "drivers": ["mce", "mlxen"],
+      "verified": false,
+      "source": "FreeBSD sys/dev/mlx5 - physical layer statistics under dev.mce.N.pstats.*",
+      "stat_node": "pstats",
+      "rx_frames": "rx_packets_phy",
+      "tx_frames": "tx_packets_phy",
+      "optics": true,
+      "counters": {
+        "in_range_len_errors_phy": {"class": "cable", "label": "length errors"},
+        "symbol_err_phy": {"class": "cable", "label": "symbol errors"},
+        "check_seq_err_phy": {"class": "cable", "label": "sequence errors"},
+        "crc_err_phy": {"class": "cable", "label": "CRC errors"},
+        "unsupported_op_phy": {"class": "ignore", "label": "unsupported operations"}
+      }
+    },
+    "broadcom_nx": {
+      "drivers": ["bnxt"],
+      "verified": false,
+      "source": "FreeBSD sys/dev/bnxt - counters under dev.bnxt.N.hwstats.*",
+      "stat_node": "hwstats",
+      "rx_frames": "rx_ucast_pkts",
+      "tx_frames": "tx_ucast_pkts",
+      "optics": true,
+      "counters": {
+        "rx_error_pkts": {"class": "aggregate", "label": "receive errors"},
+        "rx_crc_err": {"class": "cable", "label": "CRC errors"},
+        "rx_align_err": {"class": "cable", "label": "alignment errors"},
+        "rx_runt_pkts": {"class": "cable", "label": "runt frames"},
+        "rx_jbr_frames": {"class": "cable", "label": "jabber frames"}
+      }
+    },
+    "broadcom_bge": {
+      "drivers": ["bge", "bce"],
+      "verified": false,
+      "source": "FreeBSD sys/dev/bge - CamelCase names two levels deep under dev.bge.N.stats.rx.*",
+      "stat_node": "stats.rx",
+      "rx_frames": "ucast_pkts",
+      "tx_frames": null,
+      "optics": false,
+      "optics_reason": "no i2c transceiver access in this driver",
+      "counters": {
+        "FCSErrors": {"class": "cable", "label": "CRC errors"},
+        "AlignmentErrors": {"class": "cable", "label": "alignment errors"},
+        "FramesTooLong": {"class": "cable", "label": "oversized frames"},
+        "Fragments": {"class": "cable", "label": "fragmented frames"},
+        "Jabbers": {"class": "cable", "label": "jabber frames"}
+      }
+    }
+  },
+  "no_counters": {
+    "comment": "Known to expose no usable per-cause counters. Ports on these drivers still get link state, the media ladder and the netstat error totals, which is enough to raise an alarm - just not to name the cause. USB adapters (ue) belong here too: they have a real cable, so they are worth watching even though the driver counts nothing.",
+    "drivers": ["re", "rge", "rl", "alc", "ale", "ae", "jme", "sk", "msk", "nfe", "vge", "vr", "xl", "dc", "fxp", "axgbe", "qlnxe", "ue", "cdce", "axe", "axge", "ure"]
+  },
+  "hypervisor": {
+    "comment": "There is no cable behind these, but a firewall running as a guest should not be shown an empty page. They are watched for link state and for the driver's error totals, and the GUI says plainly that no cable exists to diagnose.",
+    "drivers": ["vtnet", "vmx", "hn", "xn", "em_vf", "vgb"]
+  },
+  "virtual": {
+    "comment": "Not ports at all. Skipped entirely: a bridge or a lagg has no cable of its own, and judging it would double-count the members that do.",
+    "prefixes": ["bridge", "lagg", "vlan", "lo", "enc", "pflog", "pfsync", "tun", "tap", "gif", "gre", "epair", "ovpn", "ipsec", "wg", "wlan", "carp", "stf", "md"]
+  }
+}

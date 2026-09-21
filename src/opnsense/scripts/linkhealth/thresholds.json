@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "comment": [
+    "Defaults only - every number here can be overridden per installation from the GUI.",
+    "",
+    "The error-rate figures are anchored to a real fault and a real clean link measured on the",
+    "reference machine: a fibre link with mismatched transceivers ran at 38,100 ppm (3.81% of",
+    "received frames failing CRC) while the port beside it, on the same chip, measured 0 ppm over",
+    "700,000 frames. 'fail' therefore sits an order of magnitude below the observed fault and two",
+    "orders above the observed noise floor.",
+    "",
+    "min_frames exists because a rate computed from a handful of frames is not a measurement. Below",
+    "it the verdict is 'idle' - neither green nor red - and the GUI says so in words.",
+    "max_accumulate_seconds: a quiet port keeps adding its windows together until it has min_frames to judge, or until this long has passed - after which it is judged on what little it saw, and says so. Without this a lightly used gigabit port would read 'not enough traffic' for ever, which is how the owner noticed the gap."
+  ],
+  "error_ppm": {
+    "watch": 10,
+    "warn": 100,
+    "fail": 1000
+  },
+  "min_frames": 1000,
+  "duplex_ppm": {
+    "comment": "Collisions on a link that negotiated full duplex mean a duplex mismatch, which is a fault at any rate, so the bar is much lower than for receive errors.",
+    "warn": 1,
+    "fail": 100
+  },
+  "flaps": {
+    "window_seconds": 3600,
+    "warn": 3,
+    "fail": 10,
+    "debounce_seconds": 5,
+    "comment": "A single cable reseat produced five kernel events inside one second on the reference machine, so events closer together than debounce_seconds count as one."
+  },
+  "windows_before_alert": 2,
+  "optics": {
+    "comment": [
+      "Receive power ranges are the IEEE 802.3 figures for the media type: minimum is the receiver",
+      "sensitivity, maximum the overload point. The module's own DDM thresholds are read where",
+      "available but are clamped to these, because vendors set them far looser - one module on the",
+      "reference machine declares its low-power alarm 6.2 dB below the specification floor.",
+      "",
+      "These produce advisory reasons only. They never decide a verdict on their own: throughout a",
+      "genuine 3.81% CRC fault, both modules read fully inside every one of their own limits."
+    ],
+    "media": {
+      "10GBASE-SR": {
+        "rx_dbm": [
+          -11.1,
+          -1.0
+        ],
+        "tx_dbm": [
+          -7.3,
+          -1.0
+        ]
+      },
+      "10GBASE-LR": {
+        "rx_dbm": [
+          -14.4,
+          0.5
+        ],
+        "tx_dbm": [
+          -8.2,
+          0.5
+        ]
+      },
+      "10GBASE-ER": {
+        "rx_dbm": [
+          -15.8,
+          -1.0
+        ],
+        "tx_dbm": [
+          -4.7,
+          4.0
+        ]
+      },
+      "1000BASE-SX": {
+        "rx_dbm": [
+          -17.0,
+          0.0
+        ],
+        "tx_dbm": [
+          -9.5,
+          0.0
+        ]
+      },
+      "1000BASE-LX": {
+        "rx_dbm": [
+          -19.0,
+          -3.0
+        ],
+        "tx_dbm": [
+          -9.5,
+          -3.0
+        ]
+      },
+      "25GBASE-SR": {
+        "rx_dbm": [
+          -10.3,
+          -1.0
+        ],
+        "tx_dbm": [
+          -8.6,
+          -1.0
+        ]
+      },
+      "default": {
+        "rx_dbm": [
+          -20.0,
+          3.0
+        ],
+        "tx_dbm": [
+          -12.0,
+          5.0
+        ]
+      }
+    },
+    "temperature_c": {
+      "warn": 70.0,
+      "fail": 80.0
+    },
+    "voltage_v": {
+      "min": 3.1,
+      "max": 3.5
+    },
+    "margin_db": {
+      "comment": "How close to the limit still deserves a mention. Inside this band of the minimum receive power the port is reported as 'optical margin is thin' rather than as a fault.",
+      "thin": 2.0
+    }
+  },
+  "load_test": {
+    "count": 20000,
+    "payload": 8972,
+    "payload_small": 1472,
+    "timeout_seconds": 180,
+    "comment": "payload is used when the interface MTU allows a jumbo frame, payload_small otherwise. The test saturates the link while it runs, which is why it is never automatic."
+  },
+  "alerting": {
+    "cooldown_hours": 6,
+    "send_recovery": true,
+    "skip_first_window_after_boot": true
+  },
+  "max_accumulate_seconds": 3600
+}

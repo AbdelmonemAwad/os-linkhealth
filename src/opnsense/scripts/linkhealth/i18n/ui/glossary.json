@@ -1,0 +1,670 @@
+{
+ "_readme": "Terminology for the Arabic (ar_SA) translation of os-linkhealth. Every entry is the wording the owner's own Arabic already uses, harvested from his OPNsense translation (opnsense-arabic/ar_SA.po, byte-identical to the OPNsense.mo installed on the firewall at /usr/local/share/locale/ar_SA/LC_MESSAGES/, verified 2026-09-21) and from his os-netreport catalogues. Keys are English terms; each value carries 'ar' (use this), 'src' (where it comes from) and, where the choice is not obvious, 'note'. 'src: chosen' marks a term none of his catalogues contains - it is this glossary's own proposal, built to sit beside his wording, and the note says why.",
+ "_style": [
+  "Formal but unhurried; no exclamation marks that are not in the English; no marketing tone.",
+  "Say 'could not' with تعذّر, as he does: 'The test message could not be sent.' -> تعذّر إرسال الرسالة التجريبية.",
+  "Passive/impersonal for things the plugin did: أُرسل، تُخزَّن، لم يُرسل - as in his os-netreport strings.",
+  "Enable = تفعيل, never تمكين (his deliberate decision, 560+ places).",
+  "Threshold = العتبة; الحد is kept for 'limit' only (his rules.py).",
+  "Plugin = المكوّن الإضافي; switch (the device) = المبدّل; entry = الإدخال (his rules.py).",
+  "Latin script and Latin digits stay as they are: numbers, ppm, dBm, mA, igb0, crc_errs, 10GBASE-SR, SFP+, RJ45, LLDP, CRC, MAC, PCI, SMBIOS, led(4), OPNsense, Monit, node_exporter, LCDproc, PortA1, Port9.",
+  "He writes acronyms unchanged inside Arabic and inflects around them: 'عنوان MAC', 'خدمة LLDP', 'أقصى TTL'. Do the same for CRC, LLDP, SFP+, MTU.",
+  "He keeps the shadda in عدّاد/عدّادات and مفعّل; keep it."
+ ],
+ "_do_not_translate": [
+  "igb0, ix1, igb8 and every other interface name",
+  "crc_errs, checksum_errs and every other counter name",
+  "ppm, dBm, mA, Mbit/s, GB, °C and every other unit",
+  "10GBASE-SR, 1000BASE-SX, SFP, SFP+, RJ45, LLDP, CRC, MAC, PCI, SMBIOS, MTU, DOM, led(4)",
+  "OPNsense, Monit, node_exporter, LCDproc, FreeBSD",
+  "PortA1, Port9, SFP+2 and every other chassis label",
+  "/var/tmp/node_exporter/linkhealth.prom, faceplates.json and every other path or filename"
+ ],
+ "_conflicts": [
+  "firewall: his OPNsense translation says جدار الحماية (135 places, including the top-level menu); his os-netreport says الجدار الناري (4 places, which are the netreport strings merged into the .po). The GUI around this plugin shows جدار الحماية - use that.",
+  "link: his catalogue says الارتباط wherever link means the Ethernet link itself (Link State, Link Type, Link Parameters, Link MTU, link speed) and الرابط/رابط where it means a PPP or logical link. This plugin only ever means the first - use الارتباط.",
+  "vendor: OPNsense 'Vendor' -> المُصنّع; os-netreport 'vendor' (a device's OUI maker) -> الشركة المصنّعة; OPNsense 'Manufacturer' -> الشركة المصنعة. For the transceiver's Vendor field use المُصنّع, which is what his GUI prints under that exact label.",
+  "packet loss: his catalogue carries both فقد الحزم and فقدان الحزم. The gateway column his GUI actually shows is فقد الحزم - use that.",
+  "driver: 'Driver' -> برنامج التشغيل everywhere except one dashboard string that says مشغّل Netclient. Use برنامج التشغيل.",
+  "total: OPNsense 'Total' -> الإجمالي; os-netreport 'total' -> المجموع. This is a GUI string, so use الإجمالي.",
+  "physical: 'Physical'/'physical' -> فعلي (the physical interface = الواجهة الفعلية), but 'the physical device' -> الجهاز المادي. Use فعلي for ports and interfaces, مادي only where the English means 'in the metal'.",
+  "Enabled: the bare string 'Enabled' is مفعل in his catalogue while every other occurrence is مفعّل (قاعدة مفعّلة، معلومات / مفعّل). The shadda is almost certainly missing by accident - write مفعّل."
+ ],
+ "port": {
+  "ar": "المنفذ",
+  "src": "OPNsense ar_SA 'Port'",
+  "note": "Indefinite منفذ, plural المنافذ."
+ },
+ "ports": {
+  "ar": "المنافذ",
+  "src": "OPNsense ar_SA 'Ports'"
+ },
+ "physical port": {
+  "ar": "المنفذ الفعلي",
+  "src": "OPNsense ar_SA 'Physical' -> فعلي",
+  "note": "Plural المنافذ الفعلية; matches his الواجهة الفعلية for 'physical interface'."
+ },
+ "interface": {
+  "ar": "الواجهة",
+  "src": "OPNsense ar_SA 'Interface'",
+  "note": "Plural الواجهات. Do not use الواجهة الأمامية for anything here - he uses that for 'frontend'."
+ },
+ "socket": {
+  "ar": "المقبس",
+  "src": "chosen",
+  "note": "Silent in his catalogues. المقبس is the ordinary Arabic for a physical jack, and the page needs a word distinct from المنفذ, which it already spends on 'port'."
+ },
+ "cable": {
+  "ar": "الكابل",
+  "src": "OPNsense ar_SA 'Select the type of cable connecting the UPS to the server.' -> نوع الكابل"
+ },
+ "transceiver": {
+  "ar": "وحدة الإرسال والاستقبال",
+  "src": "chosen",
+  "note": "Silent in his catalogues. Long, but it is the transparent term and he does not shy from long exact ones (عرض النطاق الترددي، المكوّن الإضافي). SFP/SFP+ stay Latin beside it."
+ },
+ "module (transceiver)": {
+  "ar": "الوحدة",
+  "src": "OPNsense ar_SA 'Either an input or module needs to be specified.' -> وحدة",
+  "note": "Use الوحدة wherever the English shortens 'transceiver' to 'module' (module alarm, module flags, the module vanished)."
+ },
+ "appliance": {
+  "ar": "الجهاز",
+  "src": "OPNsense ar_SA 'your Infoblox appliance' -> جهاز Infoblox",
+  "note": "Same word he uses for 'device'; context on this page always makes it the box itself."
+ },
+ "chassis": {
+  "ar": "الهيكل",
+  "src": "chosen",
+  "note": "Silent in his catalogues. الهيكل is the standard Arabic for a chassis and leaves الجهاز free for 'appliance'."
+ },
+ "chassis label": {
+  "ar": "التسمية على الهيكل",
+  "src": "OPNsense ar_SA 'Label' -> التسمية",
+  "note": "For the field 'Name on the chassis' use الاسم على الهيكل, which is what the English says there."
+ },
+ "label": {
+  "ar": "التسمية",
+  "src": "OPNsense ar_SA 'Label'"
+ },
+ "printed name / printed label": {
+  "ar": "الاسم المطبوع",
+  "src": "chosen",
+  "note": "The page turns on the difference between a name somebody typed and a name printed on the metal; المطبوع carries that and nothing more."
+ },
+ "front panel": {
+  "ar": "اللوحة الأمامية",
+  "src": "chosen",
+  "note": "Silent in his catalogues. Do not reach for الواجهة الأمامية: he already spends that on 'frontend'."
+ },
+ "faceplate": {
+  "ar": "اللوحة الأمامية",
+  "src": "chosen",
+  "note": "Same rendering as 'front panel'. In this plugin 'faceplate' is a bay name meaning the appliance's own fixed plate, as opposed to a pluggable module; if a sentence needs the contrast, write اللوحة الأمامية للجهاز."
+ },
+ "bay": {
+  "ar": "الحيّز",
+  "src": "chosen",
+  "note": "Silent in his catalogues (his only 'slot' is 'short slot time'). الحيّز reads as the space a module sits in and does not collide with المنفذ or الفتحة."
+ },
+ "chip": {
+  "ar": "الشريحة",
+  "src": "OPNsense ar_SA 'crypto chip' -> شريحة تشفير"
+ },
+ "hardware": {
+  "ar": "العتاد",
+  "src": "OPNsense ar_SA 'Hardware'"
+ },
+ "link": {
+  "ar": "الارتباط",
+  "src": "OPNsense ar_SA 'Link State' -> حالة الارتباط",
+  "note": "See _conflicts: الرابط is his word for a PPP or logical link, not for this one."
+ },
+ "link state": {
+  "ar": "حالة الارتباط",
+  "src": "OPNsense ar_SA 'Link State'"
+ },
+ "no link": {
+  "ar": "بلا ارتباط",
+  "src": "chosen",
+  "note": "Built on his الارتباط; reads as a state badge."
+ },
+ "down (link)": {
+  "ar": "متوقف",
+  "src": "OPNsense ar_SA 'Link down' -> الرابط متوقف",
+  "note": "The state means the link is not active - no cable, or nothing answering. Keep it distinct from معطّل below."
+ },
+ "disabled": {
+  "ar": "معطّل",
+  "src": "OPNsense ar_SA 'Disabled'",
+  "note": "Only for a port administratively switched off in the configuration."
+ },
+ "enabled": {
+  "ar": "مفعّل",
+  "src": "OPNsense ar_SA 'Enabled rule' -> قاعدة مفعّلة",
+  "note": "See _conflicts on the missing shadda."
+ },
+ "enable (verb)": {
+  "ar": "تفعيل",
+  "src": "OPNsense ar_SA 'Enable'",
+  "note": "Never تمكين - his standing decision."
+ },
+ "speed": {
+  "ar": "السرعة",
+  "src": "OPNsense ar_SA 'Default interface link speed' -> سرعة ارتباط الواجهة"
+ },
+ "duplex": {
+  "ar": "وضع الإرسال",
+  "src": "OPNsense ar_SA 'Speed and duplex' -> السرعة ووضع الإرسال",
+  "note": "'duplex mismatch' -> عدم تطابق وضع الإرسال. If a sentence needs full duplex specifically, وضع الإرسال الكامل (كامل الازدواج)."
+ },
+ "downshift": {
+  "ar": "هبوط السرعة",
+  "src": "chosen",
+  "note": "Silent in his catalogues. The plugin means a port settling below the fastest speed it advertises; هبوط السرعة says exactly that without inventing a fault."
+ },
+ "media": {
+  "ar": "الوسيط",
+  "src": "OPNsense ar_SA 'Media'"
+ },
+ "supported media": {
+  "ar": "الوسائط المدعومة",
+  "src": "OPNsense ar_SA 'Supported Media'",
+  "note": "This is the natural anchor for 'the list of speeds this port advertises' and for 'What this port can do'."
+ },
+ "advertise (a speed)": {
+  "ar": "يُعلن / الإعلان عن",
+  "src": "OPNsense ar_SA 'Advertise a specific MTU to clients' -> الإعلان عن قيمة MTU"
+ },
+ "link changes / flaps": {
+  "ar": "تغييرات الارتباط",
+  "src": "OPNsense ar_SA 'Log Neighbor Changes' -> تسجيل تغييرات الجيران",
+  "note": "The plugin never says 'flap' to the user, only 'link changes'; keep the Arabic just as plain."
+ },
+ "collisions": {
+  "ar": "التصادمات",
+  "src": "OPNsense ar_SA 'Collisions'"
+ },
+ "frame": {
+  "ar": "الإطار",
+  "src": "OPNsense ar_SA 'Frame'",
+  "note": "Plural الإطارات."
+ },
+ "frames in": {
+  "ar": "الإطارات الواردة",
+  "src": "OPNsense ar_SA 'Packets In' -> الحزم الواردة",
+  "note": "Built on his واردة/صادرة pattern."
+ },
+ "frames out": {
+  "ar": "الإطارات الصادرة",
+  "src": "OPNsense ar_SA 'Packets Out' -> الحزم الصادرة"
+ },
+ "packet": {
+  "ar": "الحزمة",
+  "src": "OPNsense ar_SA 'Packets' -> الحزم"
+ },
+ "packet loss": {
+  "ar": "فقد الحزم",
+  "src": "OPNsense ar_SA 'Packet Loss'",
+  "note": "See _conflicts."
+ },
+ "bytes in": {
+  "ar": "البايتات الواردة",
+  "src": "OPNsense ar_SA 'Bytes In'"
+ },
+ "bytes out": {
+  "ar": "البايتات الصادرة",
+  "src": "OPNsense ar_SA 'Bytes Out'"
+ },
+ "error": {
+  "ar": "الخطأ",
+  "src": "OPNsense ar_SA 'Error'",
+  "note": "Plural الأخطاء."
+ },
+ "errors in": {
+  "ar": "أخطاء واردة",
+  "src": "OPNsense ar_SA 'Errors In'",
+  "note": "Exactly his wording on the interface statistics page."
+ },
+ "errors out": {
+  "ar": "أخطاء صادرة",
+  "src": "OPNsense ar_SA 'Errors Out'"
+ },
+ "error rate": {
+  "ar": "معدل الأخطاء",
+  "src": "OPNsense ar_SA 'Errors' + 'Rate' -> الأخطاء / المعدل"
+ },
+ "rate": {
+  "ar": "المعدل",
+  "src": "OPNsense ar_SA 'Rate'"
+ },
+ "counter": {
+  "ar": "العدّاد",
+  "src": "OPNsense ar_SA 'Counters' -> العدّادات",
+  "note": "Keep the shadda, as he writes it."
+ },
+ "hardware counters": {
+  "ar": "عدّادات العتاد",
+  "src": "OPNsense ar_SA 'Counters' + 'Hardware'"
+ },
+ "total": {
+  "ar": "الإجمالي",
+  "src": "OPNsense ar_SA 'Total'",
+  "note": "See _conflicts."
+ },
+ "corrupted (frames)": {
+  "ar": "تالفة",
+  "src": "chosen",
+  "note": "الإطارات التالفة is the plain Arabic for frames that failed CRC; do not escalate it to مدمّرة or فاسدة."
+ },
+ "traffic": {
+  "ar": "حركة المرور",
+  "src": "OPNsense ar_SA 'blocks traffic from IP addresses' -> حظر حركة المرور",
+  "note": "'no traffic' -> بلا حركة; 'not enough traffic' -> حركة غير كافية."
+ },
+ "ppm": {
+  "ar": "ppm",
+  "src": "house rule",
+  "note": "Stays Latin, and so do the figures beside it (100 ppm، 1000 ppm، 38000)."
+ },
+ "verdict": {
+  "ar": "الحكم",
+  "src": "chosen",
+  "note": "Silent in his catalogues. الحكم keeps the English word's honesty: it is a judgement the plugin issues, not a measurement it read. Do not soften it to التقييم or الحالة."
+ },
+ "judge (verb)": {
+  "ar": "الحكم على",
+  "src": "chosen",
+  "note": "'not enough traffic to judge' -> حركة غير كافية للحكم; 'Frames needed to judge' -> الإطارات اللازمة للحكم."
+ },
+ "clean": {
+  "ar": "سليم",
+  "src": "os-netreport ar_SA 'healthy' -> سليم ✅",
+  "note": "Drop his emoji: this is a table badge, not a mail report."
+ },
+ "watch (state)": {
+  "ar": "تحت المراقبة",
+  "src": "chosen",
+  "note": "A badge meaning 'worth watching', not 'being monitored'. Bare مراقبة would read as the latter."
+ },
+ "watch (verb) / watched": {
+  "ar": "مراقبة / مُراقَب",
+  "src": "chosen",
+  "note": "'Watch the physical ports' -> مراقبة المنافذ الفعلية; the 'Watched' column -> مُراقَب."
+ },
+ "warning": {
+  "ar": "تحذير",
+  "src": "OPNsense ar_SA 'Warning'"
+ },
+ "failing": {
+  "ar": "عطل",
+  "src": "chosen",
+  "note": "The noun 'a fault', not an adjective: it names what the page found without claiming which component died. Sits beside متوقف (down) and معطّل (disabled) without being either."
+ },
+ "fault": {
+  "ar": "عطل",
+  "src": "chosen",
+  "note": "'a physical fault' -> عطل مادي - here the English means 'in the metal', so مادي, not فعلي."
+ },
+ "idle": {
+  "ar": "خامل",
+  "src": "OPNsense ar_SA 'IDLE' -> خامل",
+  "note": "In this plugin idle means too little traffic to judge - neither good nor bad. Never render it as سليم or as a problem."
+ },
+ "unstable": {
+  "ar": "غير مستقر",
+  "src": "chosen",
+  "note": "For a port whose link keeps going away."
+ },
+ "recover (return to clean)": {
+  "ar": "يعود سليمًا",
+  "src": "chosen",
+  "note": "'Mail when a port recovers' -> إرسال بريد عند عودة المنفذ سليمًا."
+ },
+ "optics": {
+  "ar": "القياسات البصرية",
+  "src": "chosen",
+  "note": "Silent in his catalogues. بصري is the standard Arabic for optical; القياسات keeps it to what the plugin actually reads."
+ },
+ "temperature": {
+  "ar": "درجة الحرارة",
+  "src": "OPNsense ar_SA 'Temperature'"
+ },
+ "supply voltage": {
+  "ar": "جهد التغذية",
+  "src": "chosen",
+  "note": "Silent in his catalogues; جهد is the standard Arabic for voltage."
+ },
+ "voltage": {
+  "ar": "الجهد",
+  "src": "chosen",
+  "note": "Silent in his catalogues. Do not reuse الطاقة, which he spends on mains power in the dashboard widgets."
+ },
+ "receive power": {
+  "ar": "قدرة الاستقبال",
+  "src": "OPNsense ar_SA 'Transmit power' -> قدرة الإرسال",
+  "note": "Built on his قدرة الإرسال. Note he uses الطاقة for mains power - that is a different word from this one."
+ },
+ "transmit power": {
+  "ar": "قدرة الإرسال",
+  "src": "OPNsense ar_SA 'Transmit power'"
+ },
+ "transmit bias": {
+  "ar": "تيار الانحياز",
+  "src": "chosen",
+  "note": "Silent in his catalogues; the SFP figure is a bias current in mA."
+ },
+ "module flags": {
+  "ar": "أعلام الوحدة",
+  "src": "OPNsense ar_SA 'Flags' -> الأعلام"
+ },
+ "alarm": {
+  "ar": "إنذار",
+  "src": "chosen",
+  "note": "'module alarm' -> إنذار الوحدة; 'module warning' -> تحذير الوحدة."
+ },
+ "type": {
+  "ar": "النوع",
+  "src": "OPNsense ar_SA 'Type'"
+ },
+ "vendor": {
+  "ar": "المُصنّع",
+  "src": "OPNsense ar_SA 'Vendor'",
+  "note": "See _conflicts."
+ },
+ "part number": {
+  "ar": "رقم القطعة",
+  "src": "chosen",
+  "note": "Silent in his catalogues."
+ },
+ "serial number": {
+  "ar": "الرقم التسلسلي",
+  "src": "OPNsense ar_SA 'Serial' -> الرقم التسلسلي"
+ },
+ "manufactured (date)": {
+  "ar": "تاريخ التصنيع",
+  "src": "OPNsense ar_SA 'Date' -> التاريخ"
+ },
+ "window": {
+  "ar": "النافذة",
+  "src": "chosen",
+  "note": "The measurement window. 'This window' -> هذه النافذة; 'Window length' -> طول النافذة. Keep it distinct from الفترة, which this plugin spends on 'period'."
+ },
+ "period": {
+  "ar": "الفترة",
+  "src": "os-netreport ar_SA 'Period covered' -> الفترة المشمولة",
+  "note": "Used for the link-change period and for 'the period the verdict counts'."
+ },
+ "sweep": {
+  "ar": "الجولة",
+  "src": "chosen",
+  "note": "Silent in his catalogues. الجولة reads as one pass of the collector over every port; المسح would suggest scanning, and الدورة is already spent on 'cycle'."
+ },
+ "cycle": {
+  "ar": "الدورة",
+  "src": "OPNsense ar_SA Monit poll time 'CYCLES' -> الدورات",
+  "note": "'give it one cycle' -> امنحه دورة واحدة."
+ },
+ "collector": {
+  "ar": "المُجمِّع",
+  "src": "OPNsense ar_SA 'data collection' -> جمع البيانات"
+ },
+ "baseline": {
+  "ar": "خط الأساس",
+  "src": "chosen",
+  "note": "Silent in his catalogues; خط الأساس is the standard term."
+ },
+ "poll interval": {
+  "ar": "فاصل الاستطلاع",
+  "src": "OPNsense ar_SA 'Polling Interval' / 'Poll-Interval' -> فاصل الاستطلاع"
+ },
+ "interval": {
+  "ar": "الفاصل الزمني",
+  "src": "OPNsense ar_SA 'Interval'",
+  "note": "His compound pattern is فاصل + noun: فاصل الفحص، فاصل الاستطلاع."
+ },
+ "threshold": {
+  "ar": "العتبة",
+  "src": "OPNsense ar_SA 'Threshold'",
+  "note": "الحد stays for 'limit' - his rules.py says so explicitly."
+ },
+ "override": {
+  "ar": "تجاوز",
+  "src": "OPNsense ar_SA 'Edit Host Override' -> تعديل تجاوز المضيف",
+  "note": "'Edit port override' -> تعديل تجاوز المنفذ; 'a port override on the Settings tab' -> تجاوز منفذ في تبويب الإعدادات."
+ },
+ "settings": {
+  "ar": "الإعدادات",
+  "src": "OPNsense ar_SA 'Settings'",
+  "note": "Also his word for 'configuration' (تجاوز ملف الإعدادات)."
+ },
+ "general": {
+  "ar": "عام",
+  "src": "OPNsense ar_SA 'General'"
+ },
+ "integration": {
+  "ar": "التكامل",
+  "src": "chosen",
+  "note": "Silent in his catalogues; the Settings tab heading over the node_exporter option."
+ },
+ "firewall": {
+  "ar": "جدار الحماية",
+  "src": "OPNsense ar_SA 'Firewall'",
+  "note": "See _conflicts - not الجدار الناري."
+ },
+ "plugin": {
+  "ar": "المكوّن الإضافي",
+  "src": "OPNsense ar_SA 'Plugin details' -> تفاصيل المكوّن الإضافي"
+ },
+ "driver": {
+  "ar": "برنامج التشغيل",
+  "src": "OPNsense ar_SA 'Driver'",
+  "note": "See _conflicts."
+ },
+ "firmware": {
+  "ar": "البرنامج الثابت",
+  "src": "OPNsense ar_SA 'Firmware'",
+  "note": "Singular, always - his rules.py unified it."
+ },
+ "widget": {
+  "ar": "الأداة",
+  "src": "OPNsense ar_SA 'Add Widget' -> إضافة أداة"
+ },
+ "dashboard": {
+  "ar": "لوحة المعلومات",
+  "src": "OPNsense ar_SA 'Dashboard'"
+ },
+ "bridge": {
+  "ar": "الجسر",
+  "src": "OPNsense ar_SA 'Bridge'"
+ },
+ "bridge address table": {
+  "ar": "جدول عناوين MAC",
+  "src": "OPNsense ar_SA 'MAC address' -> عنوان MAC",
+  "note": "The English calls it the bridge address table; جدول عناوين MAC في الجسر is the clearest rendering."
+ },
+ "neighbour": {
+  "ar": "الجار",
+  "src": "OPNsense ar_SA 'Edit Neighbor' -> تعديل الجار",
+  "note": "Plural الجيران. 'Test neighbour' -> جار الاختبار."
+ },
+ "switch (the device)": {
+  "ar": "المبدّل",
+  "src": "OPNsense ar_SA rules.py",
+  "note": "Never المحوّل - that is his word for an adapter."
+ },
+ "alert": {
+  "ar": "تنبيه",
+  "src": "OPNsense ar_SA 'Alert'",
+  "note": "Plural التنبيهات."
+ },
+ "e-mail": {
+  "ar": "البريد الإلكتروني",
+  "src": "OPNsense ar_SA 'E-Mail'"
+ },
+ "mail (verb)": {
+  "ar": "إرسال بريد",
+  "src": "OPNsense ar_SA 'E-Mail Alert' -> تنبيه بالبريد الإلكتروني",
+  "note": "'nothing is mailed' -> لا يُرسل أي بريد, which is how he puts it in os-netreport."
+ },
+ "send alerts to": {
+  "ar": "إرسال التنبيهات إلى",
+  "src": "os-netreport ar_SA 'Default recipients' -> المستلمون الافتراضيون"
+ },
+ "recipient": {
+  "ar": "المستلم",
+  "src": "OPNsense ar_SA 'Recipient'"
+ },
+ "cooldown": {
+  "ar": "مهلة التهدئة",
+  "src": "chosen",
+  "note": "Silent in his catalogues. مهلة is his word for a timeout, and التهدئة carries the 'one message per port, then quiet' sense."
+ },
+ "test": {
+  "ar": "اختبار",
+  "src": "OPNsense ar_SA 'Test'",
+  "note": "'Test this port' -> اختبر هذا المنفذ."
+ },
+ "load test": {
+  "ar": "اختبار الحمل",
+  "src": "OPNsense ar_SA 'load balancing' -> موازنة الحمل"
+ },
+ "cable test": {
+  "ar": "اختبار الكابل",
+  "src": "OPNsense ar_SA 'Test' + 'cable'"
+ },
+ "saturate": {
+  "ar": "إشباع",
+  "src": "OPNsense ar_SA 'Saturation exceeded' -> تم تجاوز التشبّع",
+  "note": "'Saturate the link and test' -> أشبِع الارتباط واختبره."
+ },
+ "flood": {
+  "ar": "الإغراق",
+  "src": "OPNsense ar_SA 'Delay reflood' -> تأخير إعادة الإغراق"
+ },
+ "payload": {
+  "ar": "الحمولة",
+  "src": "OPNsense ar_SA 'Payload'"
+ },
+ "target": {
+  "ar": "الهدف",
+  "src": "OPNsense ar_SA 'Target'"
+ },
+ "duration": {
+  "ar": "المدة",
+  "src": "OPNsense ar_SA 'Duration'"
+ },
+ "identify": {
+  "ar": "تحديد",
+  "src": "chosen",
+  "note": "Here it means locating the socket physically, not naming it: 'Identify {port}' -> تحديد {port}, 'Identify that one too' -> حدِّد ذلك المنفذ أيضًا."
+ },
+ "blink (verb)": {
+  "ar": "يومض",
+  "src": "chosen",
+  "note": "Imperative أومِض: 'Blink this socket' -> أومِض هذا المقبس. 'is blinking now' -> يومض الآن."
+ },
+ "blinking (noun)": {
+  "ar": "الوميض",
+  "src": "chosen",
+  "note": "'Stop the blinking' -> أوقف الوميض; 'The blinking has finished' -> انتهى الوميض."
+ },
+ "LED": {
+  "ar": "مؤشر LED",
+  "src": "chosen",
+  "note": "Keep LED Latin inside the Arabic, the way he writes عنوان MAC and خدمة LLDP. 'identification LED' -> مؤشر LED للتعريف."
+ },
+ "light": {
+  "ar": "الضوء",
+  "src": "chosen",
+  "note": "For 'the light above the socket' - the thing you look at, as opposed to the LED the driver registers."
+ },
+ "confirm / confirmation": {
+  "ar": "تأكيد",
+  "src": "OPNsense ar_SA 'Confirm'",
+  "note": "In this plugin a confirmation is a person who watched a socket blink. Keep that weight; do not write تحقق."
+ },
+ "save": {
+  "ar": "حفظ",
+  "src": "OPNsense ar_SA 'Save'"
+ },
+ "saved": {
+  "ar": "تم الحفظ",
+  "src": "os-netreport ar_SA 'Saved' -> تم الحفظ"
+ },
+ "cancel": {
+  "ar": "إلغاء",
+  "src": "OPNsense ar_SA 'Cancel'"
+ },
+ "close": {
+  "ar": "إغلاق",
+  "src": "OPNsense ar_SA 'Close'"
+ },
+ "refresh": {
+  "ar": "تحديث",
+  "src": "OPNsense ar_SA 'Refresh'"
+ },
+ "details": {
+  "ar": "التفاصيل",
+  "src": "OPNsense ar_SA 'Details'"
+ },
+ "commands": {
+  "ar": "الأوامر",
+  "src": "OPNsense ar_SA 'Commands'"
+ },
+ "status": {
+  "ar": "الحالة",
+  "src": "OPNsense ar_SA 'Status'"
+ },
+ "name": {
+  "ar": "الاسم",
+  "src": "OPNsense ar_SA 'Name'"
+ },
+ "value": {
+  "ar": "القيمة",
+  "src": "OPNsense ar_SA 'Value'"
+ },
+ "unknown": {
+  "ar": "غير معروف",
+  "src": "OPNsense ar_SA 'unknown'"
+ },
+ "none / none set": {
+  "ar": "لا شيء",
+  "src": "OPNsense ar_SA 'None'"
+ },
+ "overview": {
+  "ar": "نظرة عامة",
+  "src": "OPNsense ar_SA 'Overview'"
+ },
+ "uptime": {
+  "ar": "مدة التشغيل",
+  "src": "OPNsense ar_SA 'Uptime'"
+ },
+ "could not (be read, started, saved)": {
+  "ar": "تعذّر",
+  "src": "os-netreport ar_SA 'The test message could not be sent.' -> تعذّر إرسال الرسالة التجريبية",
+  "note": "His standard opening for a failure the plugin is reporting about itself."
+ },
+ "leave empty": {
+  "ar": "اتركه فارغًا",
+  "src": "os-netreport ar_SA 'Leave empty to use the default recipients' -> اتركه فارغًا",
+  "note": "Feminine اتركها when the noun is feminine, as he does for كلمة المرور."
+ },
+ "at most a minute from now": {
+  "ar": "خلال دقيقة على الأكثر",
+  "src": "chosen",
+  "note": "The page says this three times; keep one wording for all three."
+ },
+ "_honesty": [
+  "These sentences are why the plugin is trusted. Translate the claim exactly, and do not hedge it into قد or ربما when the English does not.",
+  "'This arrangement has not been checked against the metal yet.' -> لم يُقابَل هذا الترتيب بالجهاز نفسه بعد. NOT قد لا يكون دقيقًا.",
+  "'A table is a claim, not a witness: nobody has looked at the metal on your behalf.' - keep both halves; ادّعاء and شاهد carry it.",
+  "'it was not read off the appliance by this plugin' -> ولم يقرأه هذا المكوّن الإضافي من الجهاز. Say who did not do what.",
+  "'This plugin will not call a mapping confirmed on the strength of a table' - the refusal is the point; keep لن.",
+  "'Nothing was sent anywhere.' -> لم يُرسل شيء إلى أي جهة. Flat and complete.",
+  "'The record lives in this firewall alone.' -> السجل موجود في جدار الحماية هذا وحده.",
+  "'that is the other way to be sure, and it is just as good a witness' - keep the equality; do not demote it to بديل.",
+  "'Packet loss on its own says nothing about a cable' -> فقد الحزم وحده لا يقول شيئًا عن الكابل. Keep وحده.",
+  "'Every number here is the change over one window.' - التغيّر، not القيمة: the whole distinction is in that word."
+ ]
+}
