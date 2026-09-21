@@ -482,12 +482,15 @@ def main(argv):
             argv[4] if len(argv) > 4 else None)))
         return 0
 
-    # the worker the line above detaches: it holds the lock for the whole beat
+    # The worker the line above detaches. The fifth argument is the descriptor of the
+    # lock the starter already took: inheriting it is what makes "started" true, instead
+    # of a promise the worker might not be able to keep half a second later.
     if command == 'runflicker' and len(argv) > 2:
         result = identify.flicker(
             argv[2],
             int(argv[3]) if len(argv) > 3 else identify.DEFAULT_SECONDS,
-            argv[4] if len(argv) > 4 else None)
+            argv[4] if len(argv) > 4 and argv[4] else None,
+            int(argv[5]) if len(argv) > 5 and argv[5].isdigit() else None)
         log('flicker %s: %s' % (argv[2], result.get('status')))
         print(json.dumps(result))
         return 0

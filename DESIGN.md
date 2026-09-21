@@ -105,11 +105,24 @@ packets on top of nineteen thousand. On `ix0`, measured in the same minutes, 100
 longest gap of 1.05 s and quiet for 300 ms or more over half the time: that is where the beat
 reads. A beat offered on a saturated port is the same failure as a dead button.
 
-**Not yet implemented:** `can_flicker()` asks only for an active link and a known neighbour, so the
-button is still offered on a port where it cannot work. The gate must not be built on `netstat`
-counters — on `ix` the `if_data` counters are refreshed by the iflib admin task twice a second, so
-a 108 ms sample of a saturated `ix1` reported it 78% idle (**V**). The per-queue driver counters
-(`dev.<drv>.<unit>.queue*.rx_packets`) move per packet and are what the gate must read.
+So the rate is **measured at the moment the button is pressed**, not at the sweep — a port that was
+quiet a minute ago can be carrying a backup now — and the beat is refused on a port that is already
+loud, naming the rate it measured so the refusal can be checked rather than believed. Below
+200 packets/s it runs without comment; above 1000 it is refused; between them it runs and says it
+may not be readable. Those two numbers bound what was actually measured (visible at 100, invisible
+at 7,000) and nothing is claimed in between.
+
+The gate must not be built on `netstat`. On `ix` the `if_data` counters are refreshed by the iflib
+admin task twice a second, so a 108 ms sample of a saturated `ix1` reported it **78% idle** (**V**)
+— a gate built on them would have offered the beat on exactly the port where it cannot work. The
+per-queue counters (`dev.<drv>.<unit>.queue*.rx_packets`) move per packet and are read first;
+`igb` publishes no queue subtree at all (**V**), so those ports fall back to the interface counters
+over a **two-second** window, which is long next to the refresh interval that made the short sample
+lie.
+
+The same refresh interval is why the load test waits a second after the flood before reading its
+counters: read at the instant `ping` returns, up to half a second of frames — the tail, the part
+most likely to carry the errors the test exists to find — has not been counted yet (**V**).
 
 Where neither light can work, the honest fallback is the one the page already names: pull the cable
 and watch which row goes down.

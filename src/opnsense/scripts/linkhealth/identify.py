@@ -79,6 +79,9 @@ FLICKER_INTERVAL = 0.002
 FLICKER_PAYLOAD = 56
 FLICKER_ON = 1.0
 FLICKER_OFF = 1.0
+# ping's own deadline for the whole burst. FreeBSD's ping otherwise waits about
+# ten seconds after its last packet for replies that are not coming.
+FLICKER_DEADLINE = 2
 
 
 def node_for(interface):
@@ -195,6 +198,114 @@ def stop():
         return {'status': 'error', 'message': str(failure)}
 
 
+# ---------------------------------------------------------------- how busy is this port
+
+# Counters that move per packet, not per admin tick. This matters more than it sounds:
+# the if_data counters netstat reads are refreshed by the iflib admin task, and on ix
+# that is twice a second - so a 108 ms sample of a port carrying seven thousand packets
+# a second reported it 78% idle. A gate built on those would have cheerfully offered the
+# beat on exactly the port where it cannot work. The per-queue counters are incremented
+# as the queues are serviced and do not lie at this resolution.
+QUEUE_PACKETS = re.compile(r'^dev\.[a-z]+\.\d+\.queue\d+\.(?:rx|tx)_packets:\s*(\d+)$')
+
+# The beat is FLICKER_RATE packets in its loud second and nothing in its quiet one, so it
+# can only be read on a port whose own traffic leaves that quiet second actually quiet.
+#
+# What was measured on the reference appliance, with tcpdump rather than counters:
+#   100 packets/s  - longest gap 1.05 s, dark for 300 ms or more over half the time,
+#                    and the beat is plainly visible there;
+#   7,000-19,000 packets/s - no gap as long as 20 ms, never dark, and the owner looking
+#                    at the socket saw nothing at all.
+# Between those two we have not measured, and saying otherwise would be inventing a
+# number. So the page is quiet below the first, says it may not be readable in between,
+# and refuses above the second - naming the rate it measured, so the refusal can be
+# checked rather than believed.
+FLICKER_QUIET_PPS = 200
+FLICKER_LOUD_PPS = 1000
+RATE_SAMPLE_SECONDS = 0.4
+# The floor for the interface counters, which are refreshed on the driver's admin task.
+RATE_FALLBACK_SECONDS = 2.0
+
+
+def queue_packets(driver, unit):
+    """Packets this port has handled, summed over its queues, or None.
+
+    None means the driver exposes no per-queue counters. That is an answer, not a
+    failure: it means this port's rate cannot be sampled at a resolution that would
+    make a refusal honest, and the caller must not invent one.
+    """
+    text = collector._run(['/sbin/sysctl', 'dev.%s.%d' % (driver, unit)])
+    total = 0
+    seen = False
+    for line in text.splitlines():
+        found = QUEUE_PACKETS.match(line.strip())
+        if found:
+            total += int(found.group(1))
+            seen = True
+    return total if seen else None
+
+
+def interface_packets(interface):
+    """Packets in and out on one port, from the interface counters.
+
+    Second choice, not first: these are refreshed by the driver's admin task rather than
+    per packet, so they are only trustworthy over a window that is long next to that
+    tick. Sampled faster they do not merely lose precision, they invert - a saturated
+    port reads as idle between two refreshes.
+    """
+    text = collector._run(['/usr/bin/netstat', '-i', '-b', '-n', '-W', '-I', interface])
+    for line in text.splitlines()[1:]:
+        fields = line.split()
+        # Name Mtu Network Address Ipkts Ierrs Idrop Ibytes Opkts Oerrs Obytes Coll
+        if len(fields) >= 11 and fields[0] == interface:
+            try:
+                return int(fields[4]) + int(fields[8])
+            except ValueError:
+                continue
+    return None
+
+
+def packet_rate(port, seconds=RATE_SAMPLE_SECONDS):
+    """Packets per second right now, or None where it cannot be measured honestly."""
+    driver, unit = port.get('driver') or '', port.get('unit')
+    if driver and unit is not None:
+        first = queue_packets(driver, unit)
+        if first is not None:
+            time.sleep(seconds)
+            second = queue_packets(driver, unit)
+            if second is not None and second >= first:
+                return (second - first) / float(seconds)
+
+    # No per-queue counters on this driver. Fall back to the interface counters over a
+    # window long enough that their refresh interval cannot invert the answer.
+    interface = port.get('if')
+    if not interface:
+        return None
+    first = interface_packets(interface)
+    if first is None:
+        return None
+    time.sleep(RATE_FALLBACK_SECONDS)
+    second = interface_packets(interface)
+    if second is None or second < first:
+        return None
+    return (second - first) / float(RATE_FALLBACK_SECONDS)
+
+
+def flicker_readable(port):
+    """Whether a beat on this port could be seen, and what to say if not.
+
+    Returns (verdict, rate). The verdict is 'yes', 'maybe', 'no' or 'unknown'.
+    """
+    rate = packet_rate(port)
+    if rate is None:
+        return 'unknown', None
+    if rate <= FLICKER_QUIET_PPS:
+        return 'yes', rate
+    if rate < FLICKER_LOUD_PPS:
+        return 'maybe', rate
+    return 'no', rate
+
+
 def can_flicker(port):
     """Whether making this port's activity light beat is possible at all.
 
@@ -206,7 +317,7 @@ def can_flicker(port):
             and bool(port.get('serves')))
 
 
-def flicker(interface, seconds=DEFAULT_SECONDS, target=None):
+def flicker(interface, seconds=DEFAULT_SECONDS, target=None, lock_fd=None):
     """Identify a socket by making its activity light beat.
 
     The identification LED is not the only light on a socket, and on some hardware it
@@ -250,11 +361,29 @@ def flicker(interface, seconds=DEFAULT_SECONDS, target=None):
 
     seconds = max(1, min(int(seconds or DEFAULT_SECONDS), MAX_SECONDS))
 
-    lock = open(LOCK, 'w')
-    try:
-        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except OSError:
-        return {'status': 'busy', 'message': 'another port is being identified right now'}
+    # A descriptor handed over by the starter arrives with the lock already held and
+    # everything the starter could check already checked. Measuring the rate again here
+    # would only give a second answer to a question that has been answered, and could
+    # refuse a beat the page has already been told is running.
+    if lock_fd is not None:
+        lock = os.fdopen(lock_fd, 'w')
+        readable, rate = 'yes', None
+    else:
+        # Measured, not assumed, and measured here rather than at the sweep, because a
+        # port that was quiet a minute ago can be carrying a backup now.
+        readable, rate = flicker_readable(port)
+        if readable == 'no':
+            return {'status': 'error', 'interface': interface, 'rate_pps': int(rate),
+                    'message': 'this port is carrying %d packets a second, so its activity '
+                               'light is already lit continuously and a beat of %d cannot '
+                               'change it' % (int(rate), FLICKER_RATE)}
+
+        lock = open(LOCK, 'w')
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            return {'status': 'busy',
+                    'message': 'another port is being identified right now'}
 
     started = int(time.time())
     # Same reasoning as blink(): a stop asked for while nothing was running left a flag
@@ -270,14 +399,32 @@ def flicker(interface, seconds=DEFAULT_SECONDS, target=None):
         while time.time() < deadline:
             if os.path.exists(LOCK + '.stop'):
                 break
+            # -t bounds the whole run. Without it FreeBSD's ping waits about ten
+            # seconds after its last packet for replies that are not coming, so against
+            # a host that drops ICMP - a Windows box with its default firewall, most
+            # NAS and IoT devices - the burst never returned inside the timeout, the
+            # loop broke, and the beat was one burst long while the page counted down
+            # from thirty. With -t the burst ends on schedule whether anyone answers or
+            # not, and the subprocess timeout above it is only a backstop.
             try:
-                subprocess.run(['/sbin/ping', '-q', '-i', str(FLICKER_INTERVAL),
-                                '-c', str(FLICKER_RATE), '-s', str(FLICKER_PAYLOAD), target],
-                               capture_output=True, timeout=FLICKER_ON + 5)
-            except (subprocess.TimeoutExpired, OSError):
-                # A neighbour that stopped answering mid-run is not a reason to leave the
-                # caller without an answer; the beat simply stops being visible.
-                break
+                run = subprocess.run(['/sbin/ping', '-q', '-t', str(FLICKER_DEADLINE),
+                                      '-i', str(FLICKER_INTERVAL), '-c', str(FLICKER_RATE),
+                                      '-s', str(FLICKER_PAYLOAD), target],
+                                     capture_output=True, text=True,
+                                     timeout=FLICKER_DEADLINE + 4)
+            except (subprocess.TimeoutExpired, OSError) as failure:
+                return {'status': 'error', 'interface': interface, 'target': target,
+                        'started': started, 'beats': beats,
+                        'message': 'the beat could not be sent: %s' % failure}
+
+            # Packets that reach nobody light nothing. The first burst is where that is
+            # discovered, and saying so is the difference between a user who knows to
+            # pick another neighbour and one who stands in front of a dark socket.
+            if beats == 0 and '100.0% packet loss' in (run.stdout or ''):
+                return {'status': 'error', 'interface': interface, 'target': target,
+                        'started': started, 'beats': 0,
+                        'message': 'nothing at %s answered, so no traffic reached the '
+                                   'wire and the light cannot beat' % target}
             beats += 1
             quiet = time.time() + FLICKER_OFF
             while time.time() < quiet and time.time() < deadline:
@@ -285,7 +432,9 @@ def flicker(interface, seconds=DEFAULT_SECONDS, target=None):
                     break
                 time.sleep(0.1)
         return {'status': 'done', 'interface': interface, 'target': target,
-                'started': started, 'seconds': seconds, 'beats': beats}
+                'started': started, 'seconds': seconds, 'beats': beats,
+                'rate_pps': int(rate) if rate is not None else None,
+                'readable': readable}
     finally:
         try:
             os.unlink(LOCK + '.stop')
@@ -299,23 +448,65 @@ def flicker(interface, seconds=DEFAULT_SECONDS, target=None):
 
 
 def start_flicker_detached(interface, seconds=DEFAULT_SECONDS, target=None):
-    """Start the beat and return at once, the way the GUI needs it."""
-    probe = open(LOCK, 'w')
-    try:
-        fcntl.flock(probe, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        fcntl.flock(probe, fcntl.LOCK_UN)
-    except OSError:
-        return {'status': 'busy', 'message': 'another port is being identified right now'}
-    finally:
-        probe.close()
+    """Start the beat and return at once, the way the GUI needs it.
 
-    script = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'linkhealth.py')
-    command = ['/usr/local/bin/python3', script, 'runflicker', interface, str(seconds)]
-    if target:
-        command.append(target)
-    subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
-                     stderr=subprocess.DEVNULL, start_new_session=True)
-    return {'status': 'started', 'interface': interface, 'seconds': seconds, 'mode': 'flicker'}
+    Everything the caller is entitled to an answer about is decided here, while the
+    caller is still listening: whether the port exists, whether it has a link, whether
+    anything is visible behind it, whether its own traffic would drown the beat, and
+    whether another socket is already identifying itself. The worker is only started
+    once all of those have been settled, and it inherits the lock rather than racing
+    for it.
+    """
+    port = None
+    for candidate in collector.collect()['ports']:
+        if candidate['if'] == interface:
+            port = candidate
+            break
+    if port is None:
+        return {'status': 'error', 'message': 'no such port: %s' % interface}
+    if (port.get('link') or {}).get('state') != 'active':
+        return {'status': 'error', 'reason': 'down',
+                'message': 'the link is down, so there is no activity light to beat'}
+    if not target:
+        found = port.get('serves') or []
+        if not found:
+            return {'status': 'error', 'reason': 'no_neighbour',
+                    'message': 'nothing is visible behind this port to send to - '
+                               'set a neighbour address in the settings'}
+        target = found[0]
+
+    lock = open(LOCK, 'w')
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        lock.close()
+        return {'status': 'busy', 'message': 'another port is being identified right now'}
+
+    try:
+        readable, rate = flicker_readable(port)
+        if readable == 'no':
+            return {'status': 'error', 'reason': 'busy_port', 'rate_pps': int(rate),
+                    'message': 'this port is carrying %d packets a second, so its activity '
+                               'light is already lit continuously and a beat of %d cannot '
+                               'change it' % (int(rate), FLICKER_RATE)}
+
+        script = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'linkhealth.py')
+        command = ['/usr/local/bin/python3', script, 'runflicker', interface, str(seconds),
+                   target, str(lock.fileno())]
+        # The lock lives on the open file description, so the child's inherited copy keeps
+        # it held after this process closes its own and exits.
+        os.set_inheritable(lock.fileno(), True)
+        subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                         stderr=subprocess.DEVNULL, start_new_session=True,
+                         pass_fds=(lock.fileno(),))
+        return {'status': 'started', 'interface': interface, 'seconds': seconds,
+                'mode': 'flicker', 'target': target,
+                'rate_pps': int(rate) if rate is not None else None, 'readable': readable}
+    finally:
+        # Closing this copy does not release the lock: the child holds a descriptor on the
+        # same description. On any path that returned before the child was started, this
+        # is the last copy and the lock is released, which is what we want.
+        lock.close()
 
 
 def start_detached(interface, seconds=DEFAULT_SECONDS):
