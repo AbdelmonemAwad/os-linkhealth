@@ -6,6 +6,35 @@
 
         Every string in <translations> is passed through gettext() by the dashboard controller, so
         the English text here is the msgid the plugin's i18n/ui catalogues translate.
+
+        NOTHING goes inside <translations>, including a comment. The controller does
+
+            $translations = (array)($metadataAttributes->translations ?? []);
+            foreach ($translations as $key => $value) { $translations[$key] = gettext($value); }
+
+        (V: Core/Api/DashboardController.php:124,136 on OPNsense 26.7.4_1), and an XML comment in
+        there arrives as a "comment" key like any other child. ONE comment is a SimpleXMLElement,
+        which gettext() coerces through __toString(), so it works and nothing says otherwise - the
+        comment that used to sit beside <faceplate> below was exactly that. TWO or more are an
+        array, gettext() raises a TypeError, and get_dashboard answers
+
+            {"errorMessage":"Unexpected error, check log for details"}
+
+        That API is what the whole Lobby is built from, so every widget on every dashboard
+        disappears and the page shows one red box. Measured on the reference appliance, 2026-09-22,
+        while writing the metadata for os-fanctl: three comments in that element emptied the
+        dashboard, and moving them out brought it back.
+
+        So this file had one comment's worth of margin and no warning sign. The note that was in
+        there is below, the element holds strings only, and the next person to add a comment can
+        put it anywhere but there.
+
+        ==== the faceplate strings ============================================================
+
+        The strip has no room for a caption without costing the widget a whole row, so the two
+        things a drawing has to admit to are said where they cost nothing: the way round it is
+        drawn goes in the label a screen reader reads out, and the fact that nobody has yet stood
+        in front of the machine and checked it goes on every socket the drawing places.
     -->
     <linkhealth>
         <filename>LinkHealth.js</filename>
@@ -23,13 +52,6 @@
             <state_down>link is down</state_down>
             <state_disabled>port is disabled</state_disabled>
             <state_absent>the drawing shows a socket this machine does not report</state_absent>
-            <!--
-                The strip has no room for a caption without costing the widget a whole row, so the
-                two things a drawing has to admit to are said where they cost nothing: the way
-                round it is drawn goes in the label a screen reader reads out, and the fact that
-                nobody has yet stood in front of the machine and checked it goes on every socket
-                the drawing places.
-            -->
             <faceplate>The front panel, as you face the front of the appliance</faceplate>
             <unconfirmed>position not confirmed against the machine yet</unconfirmed>
             <downshift>Negotiating below the fastest speed this port advertises</downshift>
