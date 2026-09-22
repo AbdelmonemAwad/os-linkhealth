@@ -91,6 +91,10 @@ def settings(thresholds):
         'cooldown_hours': thresholds['alerting']['cooldown_hours'],
         'send_recovery': thresholds['alerting']['send_recovery'],
         'recipients': '',
+        # Stored, not resolved: 'default' means "whatever the GUI is set to
+        # when the mail is written", and resolving it here would freeze it at
+        # the moment a sweep started instead.
+        'language': 'default',
         'node_exporter': True,
         'test_count': thresholds['load_test']['count'],
         'test_payload': thresholds['load_test']['payload'],
@@ -116,6 +120,7 @@ def settings(thresholds):
         # send, but never its recipient: nobody should be surprised by post
         # from a plugin they have not finished configuring.
         values['recipients'] = text('alert_address', '') or ''
+        values['language'] = text('language', 'default')
 
         for key, name in (
             ('poll_interval', 'poll_interval'),
@@ -337,7 +342,7 @@ def notify(status, options, root):
             log('ports changed state but no recipient is configured', syslog.LOG_WARNING)
             return
         subject, body_html, body_text = alerts.compose(
-            status, faults, recoveries, alerts.system_language())
+            status, faults, recoveries, options['language'])
         alerts.send(mail, recipients, subject, body_html, body_text)
         log('mailed %d fault(s) and %d recovery(ies) to %s'
             % (len(faults), len(recoveries), ', '.join(recipients)))
@@ -516,8 +521,9 @@ def main(argv):
             status = current()
             worst = status['ports'][0] if status.get('ports') else None
             subject, body_html, body_text = alerts.compose(
-                status, [worst] if worst else [], [], alerts.system_language())
-            alerts.send(mail, recipients, '[test] ' + subject, body_html, body_text)
+                status, [worst] if worst else [], [], options['language'])
+            alerts.send(mail, recipients, alerts.test_subject(subject, options['language']),
+                        body_html, body_text)
             print(json.dumps({'status': 'ok', 'sent_to': recipients}))
             return 0
         except Exception as failure:
@@ -525,12 +531,19 @@ def main(argv):
             return 1
 
     if command == 'check':
-        # For an optional Monit check program: silence means healthy.
+        # For an optional Monit check program: silence means healthy. The one
+        # line it prints ends up in Monit's own alert mail, read by the same
+        # person, so it is written in the same language the plugin's mail is -
+        # and through the same catalogue, so it is the page's sentence too.
         failing = [port for port in current().get('ports', [])
                    if port['verdict']['state'] == 'fail']
         if failing:
+            thresholds = collector.load_json('thresholds.json')
+            options, _ = settings(thresholds)
+            say = alerts.translator(options['language'])[1]
             worst = failing[0]
-            message = '%s: %s' % (worst['label'], worst['verdict']['reasons'][0]['text'])
+            message = '%s: %s' % (worst['label'],
+                                  alerts.reason_text(say, worst['verdict']['reasons'][0], worst))
             print(message)
             print(message, file=sys.stderr)
             return 1

@@ -95,6 +95,15 @@
         </grid_view>
     </field>
     <field>
+        <id>linkhealth.general.language</id>
+        <label>Alert language</label>
+        <type>dropdown</type>
+        <help>The language of the fault and recovery messages, and of the test message. This page follows the language the GUI is set to, as every page does; a mail has no browser behind it to ask, so it is told here. Leave it on the system language and the two stay together.</help>
+        <grid_view>
+            <ignore>true</ignore>
+        </grid_view>
+    </field>
+    <field>
         <id>linkhealth.general.cooldown_hours</id>
         <label>Cooldown (hours)</label>
         <type>text</type>

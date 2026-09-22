@@ -299,5 +299,10 @@
  "No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll.",
  "Ports keep their interface names. Set a label per port by hand under Interfaces > Link Health > Settings, or contribute a table for this appliance.",
  "The neighbour address set for this port is not usable.",
- "This port is carrying %d packets a second, so its activity light is already lit continuously and the beat cannot be seen on it. Pull the cable and watch which row on this page goes down."
+ "This port is carrying %d packets a second, so its activity light is already lit continuously and the beat cannot be seen on it. Pull the cable and watch which row on this page goes down.",
+ "[{host}] {port}: {reason}",
+ "[{host}] {port} is clean again",
+ "Link health on {host}",
+ "Sent by Link Health. The full picture is on the Link Health page, under Interfaces.",
+ "[test] {subject}"
 ]
