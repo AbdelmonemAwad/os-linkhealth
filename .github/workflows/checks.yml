@@ -89,6 +89,13 @@ jobs:
       - name: No real addresses, hardware identifiers or credentials
         run: python3 tools/check-private-data.py .
 
+      # Arabic belongs in the catalogue and nowhere else: a sentence written straight
+      # into a template cannot be reviewed by somebody who does not read it, cannot be
+      # changed without touching code, and is invisible to anything that counts what
+      # still needs translating.
+      - name: No Arabic outside the translation files
+        run: python3 tools/check-code-language.py .
+
   translations:
     name: translations
     runs-on: ubuntu-latest
