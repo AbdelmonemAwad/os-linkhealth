@@ -18,11 +18,30 @@ What is exempt, and only this:
 Exit status is 0 when clean, 1 when something must move into a catalogue.
 """
 import pathlib
-import re
 import sys
 
-# Arabic, Arabic Supplement, Arabic Extended-A, and the presentation forms.
-ARABIC = re.compile('[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]')
+# Arabic, Arabic Supplement, Arabic Extended-A, and the presentation forms - as numbers,
+# not as a character range.
+#
+# The obvious way to write this is a regex class with the two ends of each range in it,
+# and that way puts literal Arabic in this file: whatever escape is typed, something on
+# the way in resolves it, and then the checker fails on its own source. It did, on the
+# first run - a fair demonstration that the rule bites. Comparing code points needs no
+# character at all, so this file stays ASCII, as it asks every other file to be.
+ARABIC_RANGES = (
+    (0x0600, 0x06ff),   # Arabic
+    (0x0750, 0x077f),   # Arabic Supplement
+    (0x08a0, 0x08ff),   # Arabic Extended-A
+    (0xfb50, 0xfdff),   # Arabic Presentation Forms-A
+    (0xfe70, 0xfeff),   # Arabic Presentation Forms-B
+)
+
+
+def has_arabic(line):
+    return any(low <= ord(character) <= high
+               for character in line
+               for low, high in ARABIC_RANGES)
+
 
 SKIP_DIRS = {'.git', '__pycache__', 'node_modules'}
 BINARY = {'.png', '.jpg', '.jpeg', '.gif', '.ico', '.pdf', '.zip', '.gz', '.mo'}
@@ -74,7 +93,7 @@ def main(argv):
                 continue
             checked += 1
             for number, line in enumerate(text.splitlines(), 1):
-                if ARABIC.search(line):
+                if has_arabic(line):
                     print('%s:%d: Arabic in code - move it to the catalogue' % (path, number))
                     failures += 1
 
