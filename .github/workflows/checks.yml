@@ -58,6 +58,13 @@ jobs:
             echo "ok $f"
           done
 
+      # Well-formed is not enough for one of those files. A comment inside a widget's
+      # <translations> element reaches gettext() as a value; two of them reach it as an
+      # array, and the TypeError that follows empties every dashboard in the GUI with
+      # nothing in any log naming the file. This plugin was one comment away from it.
+      - name: Widget metadata
+        run: python3 tools/check-widget-metadata.py .
+
       - name: JSON
         run: |
           shopt -s globstar nullglob

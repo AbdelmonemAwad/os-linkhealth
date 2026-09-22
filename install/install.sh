@@ -42,6 +42,13 @@ for f in $(find "${HERE}/src" -name '*.xml'); do
     python3 -c 'import sys, xml.etree.ElementTree as ET; ET.parse(sys.argv[1])' "$f" ||
         { echo "malformed XML: $f"; exit 1; }
 done
+# And one rule about the widget metadata that well-formed XML does not cover: a comment
+# inside <translations> reaches gettext() as a value, two of them reach it as an array,
+# and the TypeError empties every dashboard in the GUI with nothing in any log to say
+# which file did it. Checked here because this script is what puts the file in place.
+if [ -f "${HERE}/tools/check-widget-metadata.py" ]; then
+    python3 "${HERE}/tools/check-widget-metadata.py" "${HERE}" || exit 1
+fi
 for f in $(find /usr/local/opnsense/scripts/linkhealth -name '*.py'); do
     python3 -m py_compile "$f"
 done
