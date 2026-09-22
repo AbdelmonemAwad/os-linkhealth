@@ -61,7 +61,8 @@
         # python3 -c 'import gettext; t = gettext.translation("OPNsense",
               "/usr/local/share/locale", ["ar_SA"], fallback=True);
               print(t.gettext("{ppm} corrupted frames per million ({causes})"))'
-        {ppm} إطارًا تالفًا في كل مليون ({causes})
+        -> the Arabic sentence, not the English one: the catalogue answered,
+              with {ppm} and {causes} still in it for this code to fill.
 
     That is the same msgid index.volt passes to lang._() for the same port, so
     the mail and the page cannot describe one port in two different sentences.
