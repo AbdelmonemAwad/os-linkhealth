@@ -508,9 +508,14 @@ def collect():
         active = data['status'] == 'active'
 
         chip = _run(['/sbin/sysctl', '-n', 'dev.%s.%d.%%desc' % (driver_base, unit)]).strip()
-        chassis = label_for(driver_base, unit, table, chip, pci.get(name))
-        label, bay, note, refused = (chassis['label'], chassis['bay'],
-                                     chassis['note'], chassis['refused'])
+        # NOT named `chassis`: that name already holds this machine's model description,
+        # from read_chassis() above, and it is what the page prints as the name of the
+        # appliance. Shadowing it inside this loop left the document carrying the last
+        # port's placement record where the model should be, and the page had no device
+        # name at all - a whole heading gone, from one reused word.
+        placement = label_for(driver_base, unit, table, chip, pci.get(name))
+        label, bay, note, refused = (placement['label'], placement['bay'],
+                                     placement['note'], placement['refused'])
 
         # The node existing only means the driver offered one. Whether a light is
         # wired to the other end of it is a fact about the board, and the only
@@ -518,9 +523,9 @@ def collect():
         # chassis group has been looked at and says the light does not reach these
         # sockets, the capability goes and the reason stays.
         identify_note = ''
-        if chassis['identify_led'] is False and 'IDENTIFY_LED' in caps:
+        if placement['identify_led'] is False and 'IDENTIFY_LED' in caps:
             caps.remove('IDENTIFY_LED')
-            identify_note = chassis['identify_led_note']
+            identify_note = placement['identify_led_note']
 
         friendly, confkey = descriptions.get(name, ('', ''))
 

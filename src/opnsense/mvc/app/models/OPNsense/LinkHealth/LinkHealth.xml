@@ -67,6 +67,41 @@
                 <Mask>/^[^@,\s]+@[^@,\s]+\.[^@,\s]+(,[^@,\s]+@[^@,\s]+\.[^@,\s]+)*$/</Mask>
                 <ValidationMessage>Enter one or more valid email addresses.</ValidationMessage>
             </alert_address>
+            <!--
+                The language of the mail, not of the page. The same field, the same values and
+                the same default wording as os-netreport's, so one person setting up two plugins
+                sets them up the same way. "System language" is stored as `default` and resolved
+                when the message is written, so switching the GUI switches the next alert with
+                it; anything else pins the mail to one language whatever the GUI is doing.
+            -->
+            <language type="OptionField">
+                <Required>Y</Required>
+                <Default>default</Default>
+                <OptionValues>
+                    <default>System language</default>
+                    <en_US>English</en_US>
+                    <ar_SA>Arabic</ar_SA>
+                    <zh_CN>Chinese (Simplified)</zh_CN>
+                    <zh_TW>Chinese (Traditional)</zh_TW>
+                    <cs_CZ>Czech</cs_CZ>
+                    <fr_FR>French</fr_FR>
+                    <de_DE>German</de_DE>
+                    <el_GR>Greek</el_GR>
+                    <it_IT>Italian</it_IT>
+                    <ja_JP>Japanese</ja_JP>
+                    <ko_KR>Korean</ko_KR>
+                    <no_NO>Norwegian</no_NO>
+                    <fa_IR>Persian</fa_IR>
+                    <pl_PL>Polish</pl_PL>
+                    <pt_BR>Portuguese (Brazil)</pt_BR>
+                    <pt_PT>Portuguese (Portugal)</pt_PT>
+                    <ru_RU>Russian</ru_RU>
+                    <es_ES>Spanish</es_ES>
+                    <tr_TR>Turkish</tr_TR>
+                    <uk_UA>Ukrainian</uk_UA>
+                    <vi_VN>Vietnamese</vi_VN>
+                </OptionValues>
+            </language>
             <cooldown_hours type="IntegerField">
                 <Required>Y</Required>
                 <Default>6</Default>
