@@ -662,6 +662,51 @@
             grid_fit_timer = window.setTimeout(fit_grid_to_window, 200);
         });
 
+        /* The grid restores its column titles from the browser, and a title saved while
+           the GUI was in another language survives the change - so the headings can be
+           one language while everything the server just rendered is another. Measured
+           here: eight Arabic headings on an otherwise English page, restored from a copy
+           saved weeks before. The titles the server sent are in the table right now, so
+           they can simply be compared, and the saved copy dropped when it disagrees.
+
+           Widths and order go with it, which is a real cost and the reason this only
+           fires when the titles actually differ: somebody who has not changed language
+           never reaches it. */
+        function drop_stale_column_state(grid_id) {
+            const key = 'tabulator-' + window.location.pathname + '#' + grid_id + '-columns';
+            let saved;
+            try {
+                saved = JSON.parse(window.localStorage.getItem(key) || 'null');
+            } catch (ignored) {
+                /* Unparseable is as stale as mismatched, and for the same reason. */
+                saved = null;
+            }
+            if (!Array.isArray(saved) || saved.length === 0) {
+                return;
+            }
+            const sent = {};
+            $('#' + grid_id + ' thead th').each(function () {
+                const id = $(this).attr('data-column-id');
+                if (id) {
+                    sent[id] = $(this).text().trim();
+                }
+            });
+            const stale = saved.some(function (column) {
+                const id = column.field || column.id;
+                return id && sent[id] !== undefined && column.title !== undefined
+                    && column.title !== sent[id];
+            });
+            if (stale) {
+                try {
+                    window.localStorage.removeItem(key);
+                } catch (ignored) {
+                    /* A browser that refuses to forget is one this page cannot fix. */
+                }
+            }
+        }
+
+        drop_stale_column_state('grid-ports');
+
         $('#grid-ports').UIBootgrid({
             datakey: 'if',
             options: {
