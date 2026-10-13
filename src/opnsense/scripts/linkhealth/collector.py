@@ -60,6 +60,9 @@ import neighbours
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG_XML = '/conf/config.xml'
+# os-xgs-npu's management link to an appliance's coprocessor: where it is installed, a chassis
+# group may say its lights are driven from that side (identify: coprocessor).
+NPU_LINK = '/usr/local/opnsense/scripts/npuctl/mgmt-link.sh'
 
 # "10Gbase-SR" -> 10000, "1000baseT" -> 1000, "2500Base-T" -> 2500
 _MEDIA_SPEED = re.compile(r'^(\d+)\s*(G|M)?base', re.IGNORECASE)
@@ -407,7 +410,7 @@ def label_for(driver, unit, table, chip='', pci=None):
     claims about a card that is not the card it describes.
     """
     blank = {'label': None, 'bay': '', 'note': '', 'refused': '',
-             'identify_led': None, 'identify_led_note': ''}
+             'identify_led': None, 'identify_led_note': '', 'identify': None}
 
     for group in table.get('groups') or []:
         if group.get('driver') != driver:
@@ -435,7 +438,10 @@ def label_for(driver, unit, table, chip='', pci=None):
                 'note': group.get('note', ''),
                 'refused': '',
                 'identify_led': group.get('identify_led'),
-                'identify_led_note': group.get('identify_led_note', '')}
+                'identify_led_note': group.get('identify_led_note', ''),
+                # How the light is driven when not through led(4): 'coprocessor' means the
+                # appliance's coprocessor lights it, through os-xgs-npu's management link.
+                'identify': group.get('identify')}
     return dict(blank)
 
 
@@ -546,6 +552,14 @@ def collect():
         identify_note = ''
         if placement['identify_led'] is False and 'IDENTIFY_LED' in caps:
             caps.remove('IDENTIFY_LED')
+            identify_note = placement['identify_led_note']
+        # The other way a light is reached: a port the host has no LED node for, on an
+        # appliance whose coprocessor drives the panel lights and can be asked over
+        # os-xgs-npu's management link. The chassis group says so, and the capability is
+        # offered only while that link's script is here to carry the request.
+        if placement.get('identify') == 'coprocessor' and os.access(NPU_LINK, os.X_OK):
+            if 'IDENTIFY_LED' not in caps:
+                caps.append('IDENTIFY_LED')
             identify_note = placement['identify_led_note']
 
         friendly, confkey = descriptions.get(name, ('', ''))

@@ -380,10 +380,14 @@
                 "{{ lang._('The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.') }}",
             'Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.':
                 "{{ lang._('Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.') }}",
+            'The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Not yet confirmed by eye.':
+                "{{ lang._('The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Not yet confirmed by eye.') }}",
             'faceplate, copper on the AQR412C quad PHY, rate-capped at 1G':
                 "{{ lang._('faceplate, copper on the AQR412C quad PHY, rate-capped at 1G') }}",
             'Two RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports and not on the switch; the vendor\'s platform data on the coprocessor caps them at 1G (ratecap 1000).':
                 "{{ lang._('Two RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports and not on the switch; the vendor\'s platform data on the coprocessor caps them at 1G (ratecap 1000).') }}",
+            'The light is lit by the coprocessor\'s identify tool over the management link, by the printed label; not yet confirmed by eye.':
+                "{{ lang._('The light is lit by the coprocessor\'s identify tool over the management link, by the printed label; not yet confirmed by eye.') }}",
             'faceplate, 2.5G copper on the AQR412C quad PHY, with PoE':
                 "{{ lang._('faceplate, 2.5G copper on the AQR412C quad PHY, with PoE') }}",
             'Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports, 2.5G at most; the PoE module\'s two ports, 62 W budget, as read on the coprocessor.':
