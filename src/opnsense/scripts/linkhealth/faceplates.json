@@ -224,6 +224,54 @@
           ]
         }
       ]
+    },
+    "sophos-xgs-136": {
+      "display": "Sophos XGS 136",
+      "confirmed": false,
+      "confirmed_note": "The sockets, their labels and their bays are the driver's front-port table and the hardware page (os-xgs-npu, docs/hardware/xgs136.md); their left-to-right order on the panel has not been confirmed at the appliance. The rows are in label order.",
+      "units": 1,
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, so the host cannot blink them.",
+          "items": [
+            {"label": "Port1", "type": "rj45"},
+            {"label": "Port2", "type": "rj45"},
+            {"label": "Port3", "type": "rj45"},
+            {"label": "Port4", "type": "rj45"},
+            {"label": "Port5", "type": "rj45"},
+            {"label": "Port6", "type": "rj45"},
+            {"label": "Port7", "type": "rj45"},
+            {"label": "Port8", "type": "rj45"}
+          ]
+        },
+        {
+          "bay": "faceplate, copper on the coprocessor",
+          "note": "Labels 9 and 10 on the CN9131's own gigabit MACs; 11 and 12 on the AQR412C quad PHY at 2.5G.",
+          "items": [
+            {"label": "Port9", "type": "rj45"},
+            {"label": "Port10", "type": "rj45"},
+            {"label": "Port11", "type": "rj45"},
+            {"label": "Port12", "type": "rj45"}
+          ]
+        },
+        {
+          "bay": "faceplate, SFP cages on the switch",
+          "note": "Two 1G SFP cages on the switch chip (F1, F2). No transceiver data from the host: the cage EEPROMs are on the coprocessor's I2C.",
+          "items": [
+            {"label": "F1", "type": "sfp"},
+            {"label": "F2", "type": "sfp"}
+          ]
+        },
+        {
+          "bay": "console",
+          "note": "The serial console at the back. There is no management port: the USB network adapter some benches add keeps its interface name.",
+          "items": [
+            {"label": "console", "type": "console"}
+          ]
+        }
+      ]
     }
   },
   "port_types": {

@@ -163,6 +163,65 @@
         }
       ]
     },
+    "sophos-xgs-136": {
+      "display": "Sophos XGS 136 (board XGS 08)",
+      "verified": true,
+      "verified_by": "the driver's own front-port table (contrib/npuep/npuep.c in os-xgs-npu), which names every npup unit by its printed label, and label 9 matched to npup9 with the uplink cable on the XGS 136 this project started on, 2026-10-13",
+      "comment": [
+        "The fourteen front ports are the ARMADA coprocessor's, presented by the npuep driver of",
+        "os-xgs-npu as npup1..npup14 in label order: labels 1 to 8 behind the 88E6193X switch, 9 and",
+        "10 on the coprocessor's own gigabit MACs, 11 and 12 on the AQR412C quad PHY at 2.5G, F1 and",
+        "F2 the two SFP cages on the switch. No PCI identity per port, so the groups carry no chip",
+        "verify; the driver is the verification. The board's SMBIOS version is the planar revision,",
+        "08, the system block says 136r1, and the planar serial carries the assembly number AMDA0201",
+        "- the serial is matched too, because a bare 08 could be another board's revision."
+      ],
+      "match": {
+        "maker": "^Sophos$",
+        "product": "^XGS$",
+        "version": "^(08|136r1)$",
+        "serial": "AMDA0201"
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [1, 8],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.",
+          "identify_led": false,
+          "identify_led_note": "The panel LEDs are driven by the switch from the coprocessor; the host has no path to them."
+        },
+        {
+          "driver": "npup",
+          "units": [9, 10],
+          "label": "Port%d",
+          "start": 9,
+          "bay": "faceplate, 1G copper on the coprocessor's own MACs",
+          "note": "Two RJ45s on the CN9131's own gigabit MACs, not on the switch.",
+          "identify_led": false
+        },
+        {
+          "driver": "npup",
+          "units": [11, 12],
+          "label": "Port%d",
+          "start": 11,
+          "bay": "faceplate, 2.5G copper on the AQR412C PHY",
+          "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, 2.5G at most.",
+          "identify_led": false
+        },
+        {
+          "driver": "npup",
+          "units": [13, 14],
+          "label": "F%d",
+          "start": 1,
+          "bay": "faceplate, SFP cages on the switch",
+          "note": "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.",
+          "identify_led": false
+        }
+      ]
+    },
     "sophos-xg-family": {
       "display": "Sophos XG / XGS (unrecognised model)",
       "verified": false,

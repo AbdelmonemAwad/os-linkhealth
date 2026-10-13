@@ -319,5 +319,18 @@
   "Two 10G SFP+ cages on the coprocessor's own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY's.": "قفصا SFP+ بسرعة 10G على MAC المعالج المساعد نفسه عبر PHY واحد طراز 88X5113 (F1، F2). أضواؤهما تابعة لـ PHY.",
   "management and console": "الإدارة والكونسول",
   "The host's own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.": "بطاقة الشبكة الجيجابت الخاصة بالمضيف (igb0، المطبوع عليها MGMT) والكونسول التسلسلي؛ ليس أيٌّ منهما منفذاً أمامياً للمعالج المساعد، وجدول الهيكل يترك igb0 باسم واجهته.",
-  "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.": "بطاقة الشبكة الجيجابت الخاصة بالمضيف، المطبوع عليها MGMT على اللوحة: ليست منفذاً أمامياً للمعالج المساعد، وهي المنفذ الوحيد الذي يقوده المضيف بنفسه."
+  "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.": "بطاقة الشبكة الجيجابت الخاصة بالمضيف، المطبوع عليها MGMT على اللوحة: ليست منفذاً أمامياً للمعالج المساعد، وهي المنفذ الوحيد الذي يقوده المضيف بنفسه.",
+  "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.": "ثمانية مقابس RJ45 على رقاقة المبدّل. حالة الوصلة والوسط تأتيان من وكيل الشبكة في المعالج المساعد، والعدّادات عدّادات التعريف لكل منفذ.",
+  "faceplate, 1G copper on the coprocessor's own MACs": "الواجهة الأمامية، نحاس 1G على عناوين MAC الخاصة بالمعالج المساعد",
+  "Two RJ45s on the CN9131's own gigabit MACs, not on the switch.": "مقبسا RJ45 على وحدتي الجيجابت الخاصتين بـ CN9131، لا على المبدّل.",
+  "faceplate, 2.5G copper on the AQR412C PHY": "الواجهة الأمامية، نحاس 2.5G على PHY من طراز AQR412C",
+  "Two multi-gigabit RJ45s on the AQR412C quad PHY, 2.5G at most.": "مقبسا RJ45 متعددا الجيجابت على PHY الرباعي AQR412C، بحد أقصى 2.5G.",
+  "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.": "فتحتا SFP في المبدّل (منفذاه 9 و10)، 1G. لا وصول إلى المرسِل من المضيف: ذاكرات EEPROM للفتحتين على ناقل I2C في المعالج المساعد.",
+  "The sockets, their labels and their bays are the driver's front-port table and the hardware page (os-xgs-npu, docs/hardware/xgs136.md); their left-to-right order on the panel has not been confirmed at the appliance. The rows are in label order.": "المقابس وتسمياتها ومواضعها مأخوذة من جدول المنافذ الأمامية في التعريف وصفحة العتاد (os-xgs-npu، docs/hardware/xgs136.md)؛ ترتيبها من اليسار إلى اليمين على اللوحة لم يُؤكَّد عند الجهاز. الصفوف بترتيب التسميات.",
+  "Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, so the host cannot blink them.": "ثمانية مقابس RJ45 على رقاقة المبدّل، التسميات 1 إلى 8؛ المبدّل يقود مؤشراتها من المعالج المساعد، فلا يستطيع المضيف إيماضها.",
+  "faceplate, copper on the coprocessor": "الواجهة الأمامية، نحاس على المعالج المساعد",
+  "Labels 9 and 10 on the CN9131's own gigabit MACs; 11 and 12 on the AQR412C quad PHY at 2.5G.": "التسميتان 9 و10 على وحدتي الجيجابت الخاصتين بـ CN9131؛ و11 و12 على PHY الرباعي AQR412C بسرعة 2.5G.",
+  "Two 1G SFP cages on the switch chip (F1, F2). No transceiver data from the host: the cage EEPROMs are on the coprocessor's I2C.": "فتحتا SFP بسرعة 1G على رقاقة المبدّل (F1 وF2). لا بيانات مرسِل من المضيف: ذاكرات EEPROM للفتحتين على ناقل I2C في المعالج المساعد.",
+  "console": "الطرفية",
+  "The serial console at the back. There is no management port: the USB network adapter some benches add keeps its interface name.": "الطرفية التسلسلية في الخلف. لا يوجد منفذ إدارة: محوّل الشبكة USB الذي تضيفه بعض طاولات العمل يحتفظ باسم واجهته."
 }
