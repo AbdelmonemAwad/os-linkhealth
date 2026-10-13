@@ -375,6 +375,9 @@
                 "{{ lang._('faceplate, SFP cages on the switch') }}",
             'The switch\'s two SFP cages, 1G. No transceiver access from the host.':
                 "{{ lang._('The switch\'s two SFP cages, 1G. No transceiver access from the host.') }}",
+            'management and console': "{{ lang._('management and console') }}",
+            'The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.':
+                "{{ lang._('The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.') }}",
             'No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll.':
                 "{{ lang._('No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll.') }}",
             'Ports keep their interface names. Set a label per port by hand under Interfaces > Link Health > Settings, or contribute a table for this appliance.':
@@ -393,7 +396,6 @@
                 "{{ lang._('Two 1G SFP cages on the same switch chip (F3, F4). No transceiver data from the host: the cage EEPROMs are on the coprocessor\'s I2C.') }}",
             'Two 10G SFP+ cages on the coprocessor\'s own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY\'s.':
                 "{{ lang._('Two 10G SFP+ cages on the coprocessor\'s own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY\'s.') }}",
-            'management and console': "{{ lang._('management and console') }}",
             'The host\'s own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.':
                 "{{ lang._('The host\'s own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.') }}"
         };

@@ -424,7 +424,9 @@ def label_for(driver, unit, table, chip='', pci=None):
                 (pci or {}).get('subdevice') or 'unknown'))
 
         number = group.get('start', 1) + (unit - first)
-        return {'label': group['label'] % number,
+        # A label with no number in it - MGMT, CONSOLE - is the whole label; a numbered one
+        # takes the unit's place in its series.
+        return {'label': (group['label'] % number) if '%' in group['label'] else group['label'],
                 'bay': group.get('bay', ''),
                 'note': group.get('note', ''),
                 'refused': '',
