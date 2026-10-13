@@ -318,5 +318,6 @@
   "Two 1G SFP cages on the same switch chip (F3, F4). No transceiver data from the host: the cage EEPROMs are on the coprocessor's I2C.": "قفصا SFP بسرعة 1G على رقاقة السويتش نفسها (F3، F4). لا بيانات لوحدة الإرسال والاستقبال من المضيف: ذواكر EEPROM للقفصين على I2C المعالج المساعد.",
   "Two 10G SFP+ cages on the coprocessor's own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY's.": "قفصا SFP+ بسرعة 10G على MAC المعالج المساعد نفسه عبر PHY واحد طراز 88X5113 (F1، F2). أضواؤهما تابعة لـ PHY.",
   "management and console": "الإدارة والكونسول",
-  "The host's own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.": "بطاقة الشبكة الجيجابت الخاصة بالمضيف (igb0، المطبوع عليها MGMT) والكونسول التسلسلي؛ ليس أيٌّ منهما منفذاً أمامياً للمعالج المساعد، وجدول الهيكل يترك igb0 باسم واجهته."
+  "The host's own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.": "بطاقة الشبكة الجيجابت الخاصة بالمضيف (igb0، المطبوع عليها MGMT) والكونسول التسلسلي؛ ليس أيٌّ منهما منفذاً أمامياً للمعالج المساعد، وجدول الهيكل يترك igb0 باسم واجهته.",
+  "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.": "بطاقة الشبكة الجيجابت الخاصة بالمضيف، المطبوع عليها MGMT على اللوحة: ليست منفذاً أمامياً للمعالج المساعد، وهي المنفذ الوحيد الذي يقوده المضيف بنفسه."
 }

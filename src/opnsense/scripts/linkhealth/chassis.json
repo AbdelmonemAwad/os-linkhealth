@@ -145,6 +145,21 @@
           "bay": "faceplate, SFP cages on the switch",
           "note": "The switch's two SFP cages, 1G. No transceiver access from the host.",
           "identify_led": false
+        },
+        {
+          "driver": "igb",
+          "units": [
+            0,
+            0
+          ],
+          "label": "MGMT",
+          "start": 0,
+          "bay": "management and console",
+          "note": "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.",
+          "verify": {
+            "chip": "I210"
+          },
+          "identify_led": true
         }
       ]
     },
