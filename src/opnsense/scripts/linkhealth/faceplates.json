@@ -248,7 +248,7 @@
         },
         {
           "bay": "faceplate, copper on the coprocessor",
-          "note": "Labels 9 and 10 on the CN9131's own gigabit MACs; 11 and 12 on the AQR412C quad PHY at 2.5G.",
+          "note": "All four on the AQR412C quad PHY on the CN9131's own ports: 9 and 10 rate-capped at 1G, 11 and 12 at 2.5G and the PoE module's ports - the vendor's platform data, read on the coprocessor.",
           "items": [
             {"label": "Port9", "type": "rj45"},
             {"label": "Port10", "type": "rj45"},

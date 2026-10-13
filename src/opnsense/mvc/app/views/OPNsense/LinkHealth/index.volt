@@ -380,14 +380,14 @@
                 "{{ lang._('The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.') }}",
             'Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.':
                 "{{ lang._('Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.') }}",
-            'faceplate, 1G copper on the coprocessor\'s own MACs':
-                "{{ lang._('faceplate, 1G copper on the coprocessor\'s own MACs') }}",
-            'Two RJ45s on the CN9131\'s own gigabit MACs, not on the switch.':
-                "{{ lang._('Two RJ45s on the CN9131\'s own gigabit MACs, not on the switch.') }}",
-            'faceplate, 2.5G copper on the AQR412C PHY':
-                "{{ lang._('faceplate, 2.5G copper on the AQR412C PHY') }}",
-            'Two multi-gigabit RJ45s on the AQR412C quad PHY, 2.5G at most.':
-                "{{ lang._('Two multi-gigabit RJ45s on the AQR412C quad PHY, 2.5G at most.') }}",
+            'faceplate, copper on the AQR412C quad PHY, rate-capped at 1G':
+                "{{ lang._('faceplate, copper on the AQR412C quad PHY, rate-capped at 1G') }}",
+            'Two RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports and not on the switch; the vendor\'s platform data on the coprocessor caps them at 1G (ratecap 1000).':
+                "{{ lang._('Two RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports and not on the switch; the vendor\'s platform data on the coprocessor caps them at 1G (ratecap 1000).') }}",
+            'faceplate, 2.5G copper on the AQR412C quad PHY, with PoE':
+                "{{ lang._('faceplate, 2.5G copper on the AQR412C quad PHY, with PoE') }}",
+            'Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports, 2.5G at most; the PoE module\'s two ports, 62 W budget, as read on the coprocessor.':
+                "{{ lang._('Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports, 2.5G at most; the PoE module\'s two ports, 62 W budget, as read on the coprocessor.') }}",
             'The switch\'s two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor\'s I2C.':
                 "{{ lang._('The switch\'s two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor\'s I2C.') }}",
             'No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll.':
@@ -416,8 +416,8 @@
                 "{{ lang._('Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, so the host cannot blink them.') }}",
             'faceplate, copper on the coprocessor':
                 "{{ lang._('faceplate, copper on the coprocessor') }}",
-            'Labels 9 and 10 on the CN9131\'s own gigabit MACs; 11 and 12 on the AQR412C quad PHY at 2.5G.':
-                "{{ lang._('Labels 9 and 10 on the CN9131\'s own gigabit MACs; 11 and 12 on the AQR412C quad PHY at 2.5G.') }}",
+            'All four on the AQR412C quad PHY on the CN9131\'s own ports: 9 and 10 rate-capped at 1G, 11 and 12 at 2.5G and the PoE module\'s ports - the vendor\'s platform data, read on the coprocessor.':
+                "{{ lang._('All four on the AQR412C quad PHY on the CN9131\'s own ports: 9 and 10 rate-capped at 1G, 11 and 12 at 2.5G and the PoE module\'s ports - the vendor\'s platform data, read on the coprocessor.') }}",
             'Two 1G SFP cages on the switch chip (F1, F2). No transceiver data from the host: the cage EEPROMs are on the coprocessor\'s I2C.':
                 "{{ lang._('Two 1G SFP cages on the switch chip (F1, F2). No transceiver data from the host: the cage EEPROMs are on the coprocessor\'s I2C.') }}",
             'console': "{{ lang._('console') }}",

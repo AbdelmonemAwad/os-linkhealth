@@ -332,5 +332,10 @@
   "Labels 9 and 10 on the CN9131's own gigabit MACs; 11 and 12 on the AQR412C quad PHY at 2.5G.": "التسميتان 9 و10 على وحدتي الجيجابت الخاصتين بـ CN9131؛ و11 و12 على PHY الرباعي AQR412C بسرعة 2.5G.",
   "Two 1G SFP cages on the switch chip (F1, F2). No transceiver data from the host: the cage EEPROMs are on the coprocessor's I2C.": "فتحتا SFP بسرعة 1G على رقاقة المبدّل (F1 وF2). لا بيانات مرسِل من المضيف: ذاكرات EEPROM للفتحتين على ناقل I2C في المعالج المساعد.",
   "console": "الطرفية",
-  "The serial console at the back. There is no management port: the USB network adapter some benches add keeps its interface name.": "الطرفية التسلسلية في الخلف. لا يوجد منفذ إدارة: محوّل الشبكة USB الذي تضيفه بعض طاولات العمل يحتفظ باسم واجهته."
+  "The serial console at the back. There is no management port: the USB network adapter some benches add keeps its interface name.": "الطرفية التسلسلية في الخلف. لا يوجد منفذ إدارة: محوّل الشبكة USB الذي تضيفه بعض طاولات العمل يحتفظ باسم واجهته.",
+  "faceplate, copper on the AQR412C quad PHY, rate-capped at 1G": "الواجهة الأمامية، نحاس على PHY الرباعي AQR412C، مقيَّد بسرعة 1G",
+  "Two RJ45s on the AQR412C quad PHY, on the CN9131's own ports and not on the switch; the vendor's platform data on the coprocessor caps them at 1G (ratecap 1000).": "مقبسا RJ45 على PHY الرباعي AQR412C، على منافذ CN9131 الخاصة لا على المبدّل؛ بيانات منصة المورّد في المعالج المساعد تقيّدهما بسرعة 1G (ratecap 1000).",
+  "faceplate, 2.5G copper on the AQR412C quad PHY, with PoE": "الواجهة الأمامية، نحاس 2.5G على PHY الرباعي AQR412C، مع PoE",
+  "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.": "مقبسا RJ45 متعددا الجيجابت على PHY الرباعي AQR412C، على منافذ CN9131 الخاصة، بحد أقصى 2.5G؛ وهما منفذا وحدة PoE بميزانية 62 واط كما قُرئت في المعالج المساعد.",
+  "All four on the AQR412C quad PHY on the CN9131's own ports: 9 and 10 rate-capped at 1G, 11 and 12 at 2.5G and the PoE module's ports - the vendor's platform data, read on the coprocessor.": "الأربعة كلها على PHY الرباعي AQR412C على منافذ CN9131 الخاصة: 9 و10 مقيَّدان بسرعة 1G، و11 و12 بسرعة 2.5G وهما منفذا وحدة PoE - بيانات منصة المورّد كما قُرئت في المعالج المساعد."
 }
