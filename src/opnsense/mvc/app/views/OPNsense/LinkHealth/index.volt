@@ -359,6 +359,22 @@
             'faceplate, 10G SFP+': "{{ lang._('faceplate, 10G SFP+') }}",
             'Intel X520. Full transceiver telemetry.':
                 "{{ lang._('Intel X520. Full transceiver telemetry.') }}",
+            '10G SFP+ cages on the coprocessor':
+                "{{ lang._('10G SFP+ cages on the coprocessor') }}",
+            'The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.':
+                "{{ lang._('The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.') }}",
+            'The cage lights are the PHY\'s and nothing on the host drives them.':
+                "{{ lang._('The cage lights are the PHY\'s and nothing on the host drives them.') }}",
+            'faceplate, 1G copper behind the 88E6193X switch':
+                "{{ lang._('faceplate, 1G copper behind the 88E6193X switch') }}",
+            'Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.':
+                "{{ lang._('Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.') }}",
+            'The panel LEDs are driven by the switch from the coprocessor; the host has no path to them.':
+                "{{ lang._('The panel LEDs are driven by the switch from the coprocessor; the host has no path to them.') }}",
+            'faceplate, SFP cages on the switch':
+                "{{ lang._('faceplate, SFP cages on the switch') }}",
+            'The switch\'s two SFP cages, 1G. No transceiver access from the host.':
+                "{{ lang._('The switch\'s two SFP cages, 1G. No transceiver access from the host.') }}",
             'No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll.':
                 "{{ lang._('No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll.') }}",
             'Ports keep their interface names. Set a label per port by hand under Interfaces > Link Health > Settings, or contribute a table for this appliance.':
@@ -368,7 +384,18 @@
             'An expansion bay. Its ports enumerate before the faceplate ports, which is why PortA1 is igb0 while the printed Port1 is igb8.':
                 "{{ lang._('An expansion bay. Its ports enumerate before the faceplate ports, which is why PortA1 is igb0 while the printed Port1 is igb8.') }}",
             'These cages have no identification light this firewall can drive: the driver registers the LED node, accepts the write and nothing lights, because it drives one fixed LED index that this board does not wire. Measured on this appliance, where the copper ports do blink. Use the activity light instead - the second button on the port detail.':
-                "{{ lang._('These cages have no identification light this firewall can drive: the driver registers the LED node, accepts the write and nothing lights, because it drives one fixed LED index that this board does not wire. Measured on this appliance, where the copper ports do blink. Use the activity light instead - the second button on the port detail.') }}"
+                "{{ lang._('These cages have no identification light this firewall can drive: the driver registers the LED node, accepts the write and nothing lights, because it drives one fixed LED index that this board does not wire. Measured on this appliance, where the copper ports do blink. Use the activity light instead - the second button on the port detail.') }}",
+            'The sockets, their labels and their bays are measured: every oxp port was matched to its printed label with a cable on the appliance this project is developed on (os-xgs-npu, 2026-10-13). The left-to-right ORDER of the bays and the two-row arrangement of the copper block are drawn from the appliance\'s documented layout and have not yet been checked against the metal; a photograph of the front, or the owner\'s word, confirms it.':
+                "{{ lang._('The sockets, their labels and their bays are measured: every oxp port was matched to its printed label with a cable on the appliance this project is developed on (os-xgs-npu, 2026-10-13). The left-to-right ORDER of the bays and the two-row arrangement of the copper block are drawn from the appliance\'s documented layout and have not yet been checked against the metal; a photograph of the front, or the owner\'s word, confirms it.') }}",
+            'Eight RJ45 in a block of two rows of four, Port1 above Port2 and so on across; the switch chip drives their LEDs from the coprocessor, so the host cannot blink them.':
+                "{{ lang._('Eight RJ45 in a block of two rows of four, Port1 above Port2 and so on across; the switch chip drives their LEDs from the coprocessor, so the host cannot blink them.') }}",
+            'Two 1G SFP cages on the same switch chip (F3, F4). No transceiver data from the host: the cage EEPROMs are on the coprocessor\'s I2C.':
+                "{{ lang._('Two 1G SFP cages on the same switch chip (F3, F4). No transceiver data from the host: the cage EEPROMs are on the coprocessor\'s I2C.') }}",
+            'Two 10G SFP+ cages on the coprocessor\'s own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY\'s.':
+                "{{ lang._('Two 10G SFP+ cages on the coprocessor\'s own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY\'s.') }}",
+            'management and console': "{{ lang._('management and console') }}",
+            'The host\'s own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.':
+                "{{ lang._('The host\'s own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.') }}"
         };
 
         function lh_data(text) {

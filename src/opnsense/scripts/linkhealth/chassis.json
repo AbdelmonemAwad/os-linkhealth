@@ -92,6 +92,62 @@
         }
       ]
     },
+    "sophos-xgs-3300": {
+      "display": "Sophos XGS 3300 (board XGS 17)",
+      "verified": true,
+      "verified_by": "matched port for port against the hand-made assignment on the XGS 3300 this project is developed on, 2026-10-13: the driver's oxp0 and oxp1 are the two 10G cages on the coprocessor, oxp2 to oxp9 are Port1 to Port8 behind the 88E6193X switch, oxp10 and oxp11 are the switch's SFP cages F3 and F4",
+      "comment": [
+        "The front ports are the OCTEON TX coprocessor's, presented by the octep driver of os-xgs-npu as",
+        "oxp0..oxp11. No PCI identity per port, so the groups carry no chip verify; the driver itself is",
+        "the verification (a port that is not an oxp device is not labelled). The board's SMBIOS version",
+        "is the planar revision, 17, and the system block says 3300r1 - both are matched."
+      ],
+      "match": {
+        "maker": "^Sophos$",
+        "product": "^XGS$",
+        "version": "^(17|3300r1)$"
+      },
+      "groups": [
+        {
+          "driver": "oxp",
+          "units": [
+            0,
+            1
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "10G SFP+ cages on the coprocessor",
+          "note": "The two cages on the coprocessor's own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.",
+          "identify_led": false,
+          "identify_led_note": "The cage lights are the PHY's and nothing on the host drives them."
+        },
+        {
+          "driver": "oxp",
+          "units": [
+            2,
+            9
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45s on the switch chip. Link state is the switch's; the counters are the driver's per port.",
+          "identify_led": false,
+          "identify_led_note": "The panel LEDs are driven by the switch from the coprocessor; the host has no path to them."
+        },
+        {
+          "driver": "oxp",
+          "units": [
+            10,
+            11
+          ],
+          "label": "F%d",
+          "start": 3,
+          "bay": "faceplate, SFP cages on the switch",
+          "note": "The switch's two SFP cages, 1G. No transceiver access from the host.",
+          "identify_led": false
+        }
+      ]
+    },
     "sophos-xg-family": {
       "display": "Sophos XG / XGS (unrecognised model)",
       "verified": false,
