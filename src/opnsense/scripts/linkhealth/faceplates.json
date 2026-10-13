@@ -135,6 +135,95 @@
           "note": "These cages have no identification light this firewall can drive: the driver registers the LED node, accepts the write and nothing lights, because it drives one fixed LED index that this board does not wire. Measured on this appliance, where the copper ports do blink. Use the activity light instead - the second button on the port detail."
         }
       ]
+    },
+    "sophos-xgs-3300": {
+      "display": "Sophos XGS 3300",
+      "confirmed": false,
+      "confirmed_note": "The sockets, their labels and their bays are measured: every oxp port was matched to its printed label with a cable on the appliance this project is developed on (os-xgs-npu, 2026-10-13). The left-to-right ORDER of the bays and the two-row arrangement of the copper block are drawn from the appliance's documented layout and have not yet been checked against the metal; a photograph of the front, or the owner's word, confirms it.",
+      "units": 1,
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45 in a block of two rows of four, Port1 above Port2 and so on across; the switch chip drives their LEDs from the coprocessor, so the host cannot blink them.",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "faceplate, SFP cages on the switch",
+          "note": "Two 1G SFP cages on the same switch chip (F3, F4). No transceiver data from the host: the cage EEPROMs are on the coprocessor's I2C.",
+          "items": [
+            {
+              "label": "F3",
+              "type": "sfp"
+            },
+            {
+              "label": "F4",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "10G SFP+ cages on the coprocessor",
+          "note": "Two 10G SFP+ cages on the coprocessor's own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY's.",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "management and console",
+          "note": "The host's own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.",
+          "items": [
+            {
+              "label": "MGMT",
+              "type": "rj45"
+            },
+            {
+              "label": "console",
+              "type": "console"
+            }
+          ]
+        }
+      ]
     }
   },
   "port_types": {

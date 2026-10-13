@@ -345,6 +345,20 @@ def read_chassis(models):
         'product': values.get('smbios.planar.product') or values.get('smbios.system.product', ''),
         'version': values.get('smbios.planar.version') or values.get('smbios.system.version', ''),
     }
+    # The board block comes first because it is the one that names a mainboard sold under more
+    # than one name. But a board whose version is a bare number is giving its own revision, not
+    # the appliance's model - the XGS 3300 reads planar "XGS" / "17" and system "XGS" / "3300r1"
+    # - and a page that says "Sophos XGS 17" is naming the circuit board at the person. So the
+    # NAME shown is the system block's when the board's version is only digits; the match above
+    # still sees both, and a table entry can match either.
+    system_version = values.get('smbios.system.version', '')
+    if fields['version'].strip().isdigit() and system_version and system_version != fields['version']:
+        named = {
+            'product': values.get('smbios.system.product') or fields['product'],
+            'version': system_version,
+        }
+    else:
+        named = {'product': fields['product'], 'version': fields['version']}
 
     chosen, table = 'generic', models.get('generic', {})
     for key, model in models.items():
@@ -359,7 +373,8 @@ def read_chassis(models):
 
     return {
         'vendor': fields['maker'] or 'unknown',
-        'model': (' '.join(x for x in (fields['product'], fields['version']) if x)).strip() or 'unknown',
+        'model': (' '.join(x for x in (named['product'], named['version']) if x)).strip() or 'unknown',
+        'board': (' '.join(x for x in (fields['product'], fields['version']) if x)).strip(),
         'display': table.get('display', 'unrecognised hardware'),
         'table': chosen,
         'verified': bool(table.get('verified')),
