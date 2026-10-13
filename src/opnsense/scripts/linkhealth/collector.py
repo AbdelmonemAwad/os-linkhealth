@@ -344,6 +344,10 @@ def read_chassis(models):
         'maker': values.get('smbios.planar.maker') or values.get('smbios.system.maker', ''),
         'product': values.get('smbios.planar.product') or values.get('smbios.system.product', ''),
         'version': values.get('smbios.planar.version') or values.get('smbios.system.version', ''),
+        # Some boards put the model nowhere but the serial: the XGS 136 says 'XGS' for the
+        # product and nothing useful for the version, and carries its assembly number inside
+        # smbios.planar.serial. A table entry may match on it like on the other three.
+        'serial': values.get('smbios.planar.serial') or values.get('smbios.system.serial', ''),
     }
     # The board block comes first because it is the one that names a mainboard sold under more
     # than one name. But a board whose version is a bare number is giving its own revision, not
