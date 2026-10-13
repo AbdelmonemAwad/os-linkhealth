@@ -216,7 +216,10 @@ Screenshots are not included yet, so here it is in words.
 the reference machine the eight ports of the FleXi module come first under "FleXi module, bay A",
 then "faceplate", then "faceplate, 1G SFP" for the two cages, then "faceplate, 10G SFP+". The bay
 names are whatever `chassis.json` says for your appliance; those four are what the shipped XG330
-entry says. Each port shows its
+entry says, and the Sophos XGS 3300 entry beside it names the twelve ports of the OCTEON TX
+coprocessor the way the panel does - `F1` and `F2` for the two 10G cages on the coprocessor,
+`Port1` to `Port8` for the copper behind the switch chip, `F3` and `F4` for the switch's cages -
+matched port for port against a hand-made assignment on that machine. Each port shows its
 chassis label (`PortA3`), the friendly name it has in the firewall's configuration
 (`LAN_Port9_SFP_1G`), and the interface name (`igb2`), because you need all three to talk about
 the same port with a switch on the other side.
