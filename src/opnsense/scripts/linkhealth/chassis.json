@@ -198,8 +198,8 @@
           "units": [9, 10],
           "label": "Port%d",
           "start": 9,
-          "bay": "faceplate, 1G copper on the coprocessor's own MACs",
-          "note": "Two RJ45s on the CN9131's own gigabit MACs, not on the switch.",
+          "bay": "faceplate, copper on the AQR412C quad PHY, rate-capped at 1G",
+          "note": "Two RJ45s on the AQR412C quad PHY, on the CN9131's own ports and not on the switch; the vendor's platform data on the coprocessor caps them at 1G (ratecap 1000).",
           "identify_led": false
         },
         {
@@ -207,8 +207,8 @@
           "units": [11, 12],
           "label": "Port%d",
           "start": 11,
-          "bay": "faceplate, 2.5G copper on the AQR412C PHY",
-          "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, 2.5G at most.",
+          "bay": "faceplate, 2.5G copper on the AQR412C quad PHY, with PoE",
+          "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.",
           "identify_led": false
         },
         {
