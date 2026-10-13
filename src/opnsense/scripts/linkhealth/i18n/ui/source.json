@@ -319,5 +319,18 @@
  "Two 10G SFP+ cages on the coprocessor's own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY's.",
  "management and console",
  "The host's own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.",
- "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself."
+ "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.",
+ "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.",
+ "faceplate, 1G copper on the coprocessor's own MACs",
+ "Two RJ45s on the CN9131's own gigabit MACs, not on the switch.",
+ "faceplate, 2.5G copper on the AQR412C PHY",
+ "Two multi-gigabit RJ45s on the AQR412C quad PHY, 2.5G at most.",
+ "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.",
+ "The sockets, their labels and their bays are the driver's front-port table and the hardware page (os-xgs-npu, docs/hardware/xgs136.md); their left-to-right order on the panel has not been confirmed at the appliance. The rows are in label order.",
+ "Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, so the host cannot blink them.",
+ "faceplate, copper on the coprocessor",
+ "Labels 9 and 10 on the CN9131's own gigabit MACs; 11 and 12 on the AQR412C quad PHY at 2.5G.",
+ "Two 1G SFP cages on the switch chip (F1, F2). No transceiver data from the host: the cage EEPROMs are on the coprocessor's I2C.",
+ "console",
+ "The serial console at the back. There is no management port: the USB network adapter some benches add keeps its interface name."
 ]
