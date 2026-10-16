@@ -342,6 +342,7 @@ Makefile, pkg-descr, README.md, docs/limits.md
 install/{install.sh,uninstall.sh}
 src/etc/cron.d/linkhealth
 src/etc/rc.syshook.d/start/62-linkhealth
+src/share/pkg/triggers/os-linkhealth.ucl
 src/opnsense/service/conf/actions.d/actions_linkhealth.conf
 src/opnsense/scripts/linkhealth/{linkhealth.py,collector.py,verdict.py,alerts.py,loadtest.py,
                                  state.py,exporters.py,chassis.py,drivers.json,chassis.json,
