@@ -356,8 +356,8 @@ def read_chassis(models):
     # than one name. But a board whose version is a bare number is giving its own revision, not
     # the appliance's model - the XGS 3300 reads planar "XGS" / "17" and system "XGS" / "3300r1"
     # - and a page that says "Sophos XGS 17" is naming the circuit board at the person. So the
-    # NAME shown is the system block's when the board's version is only digits; the match above
-    # still sees both, and a table entry can match either.
+    # NAME shown is the system block's when the board's version is only digits; the match below
+    # sees both, and a table entry can match either.
     system_version = values.get('smbios.system.version', '')
     if fields['version'].strip().isdigit() and system_version and system_version != fields['version']:
         named = {
@@ -367,6 +367,15 @@ def read_chassis(models):
     else:
         named = {'product': fields['product'], 'version': fields['version']}
 
+    # What an entry is matched against: the board's values and, where the board gives only its
+    # revision, the system's as well - so an entry may name either. Until 2026-10-16 only the
+    # board's were tried, and a second XGS 3300 whose board says "09" where the first says "17"
+    # matched nothing but the family entry: no drawing and no labels, although its system block
+    # says "3300r1" like the first one's. The sibling plugins already carry the system's values.
+    candidates = {field: {value} for field, value in fields.items()}
+    candidates['product'].add(named['product'])
+    candidates['version'].add(named['version'])
+
     chosen, table = 'generic', models.get('generic', {})
     for key, model in models.items():
         if key == 'generic':
@@ -374,7 +383,8 @@ def read_chassis(models):
         criteria = model.get('match') or {}
         if not criteria:
             continue
-        if all(re.search(pattern, fields.get(field, '') or '') for field, pattern in criteria.items()):
+        if all(any(re.search(pattern, value or '') for value in candidates.get(field, {''}))
+               for field, pattern in criteria.items()):
             chosen, table = key, model
             break
 
@@ -420,10 +430,13 @@ def label_for(driver, unit, table, chip='', pci=None):
             continue
 
         verify = group.get('verify') or {}
+        # One chip, or a list of the chips this model has been seen with: two XGS 3300s carry
+        # an I210 and an I211 on the same MGMT socket.
         expected_chip = verify.get('chip')
-        if expected_chip and expected_chip.lower() not in (chip or '').lower():
+        chips = expected_chip if isinstance(expected_chip, list) else [expected_chip] if expected_chip else []
+        if chips and not any(c.lower() in (chip or '').lower() for c in chips):
             return dict(blank, refused='the card here is "%s", not the %s this model should have' % (
-                chip or 'unknown', expected_chip))
+                chip or 'unknown', ' or '.join(chips)))
 
         expected_sub = verify.get('subdevice')
         if expected_sub and (pci or {}).get('subdevice') not in (expected_sub if isinstance(expected_sub, list) else [expected_sub]):

@@ -93,7 +93,7 @@
       ]
     },
     "sophos-xgs-3300": {
-      "display": "Sophos XGS 3300 (board XGS 17)",
+      "display": "Sophos XGS 3300",
       "verified": true,
       "verified_by": "matched port for port against the hand-made assignment on the XGS 3300 this project is developed on, 2026-10-13: the driver's oxp0 and oxp1 are the two 10G cages on the coprocessor, oxp2 to oxp9 are Port1 to Port8 behind the 88E6193X switch, oxp10 and oxp11 are the switch's SFP cages F3 and F4",
       "comment": [
@@ -157,14 +157,17 @@
           "bay": "management and console",
           "note": "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.",
           "verify": {
-            "chip": "I210"
+            "chip": [
+              "I210",
+              "I211"
+            ]
           },
           "identify_led": true
         }
       ]
     },
     "sophos-xgs-136": {
-      "display": "Sophos XGS 136 (board XGS 08)",
+      "display": "Sophos XGS 136",
       "verified": true,
       "verified_by": "the driver's own front-port table (contrib/npuep/npuep.c in os-xgs-npu), which names every npup unit by its printed label, and label 9 matched to npup9 with the uplink cable on the XGS 136 this project started on, 2026-10-13",
       "comment": [
