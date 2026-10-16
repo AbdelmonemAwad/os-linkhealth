@@ -25,6 +25,2385 @@
     "GUI says so, plainly, until someone confirms it with the identify button."
   ],
   "models": {
+    "sophos-xgs-2180": {
+      "display": "Sophos XGS 2180",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0004-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            },
+            {
+              "label": "F2",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A"
+      ]
+    },
+    "sophos-xgs-2380-xgs-3180": {
+      "display": "Sophos XGS 2380 / XGS 3180",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0004-0002aR00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            },
+            {
+              "label": "F2",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A"
+      ]
+    },
+    "sophos-xgs-3380-ndr-3300": {
+      "display": "Sophos XGS 3380 / NDR 3300",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0004-0003aR00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "SFP28, 25G",
+          "items": [
+            {
+              "label": "F3",
+              "type": "sfp28"
+            },
+            {
+              "label": "F4",
+              "type": "sfp28"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A"
+      ]
+    },
+    "sophos-xgs-87": {
+      "display": "Sophos XGS 87",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0200-0001R03.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-87w": {
+      "display": "Sophos XGS 87w",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0200-0002R03.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-107": {
+      "display": "Sophos XGS 107",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0200-0003R03.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-107w": {
+      "display": "Sophos XGS 107w",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0200-0004R03.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-126": {
+      "display": "Sophos XGS 126",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0201-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            },
+            {
+              "label": "F2",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port9",
+              "type": "rj45"
+            },
+            {
+              "label": "Port10",
+              "type": "rj45"
+            },
+            {
+              "label": "Port11",
+              "type": "rj45"
+            },
+            {
+              "label": "Port12",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-126w": {
+      "display": "Sophos XGS 126w",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0201-0002R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            },
+            {
+              "label": "F2",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port9",
+              "type": "rj45"
+            },
+            {
+              "label": "Port10",
+              "type": "rj45"
+            },
+            {
+              "label": "Port11",
+              "type": "rj45"
+            },
+            {
+              "label": "Port12",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-136w": {
+      "display": "Sophos XGS 136w",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0201-0004R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            },
+            {
+              "label": "F2",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port9",
+              "type": "rj45"
+            },
+            {
+              "label": "Port10",
+              "type": "rj45"
+            },
+            {
+              "label": "Port11",
+              "type": "rj45"
+            },
+            {
+              "label": "Port12",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-2100": {
+      "display": "Sophos XGS 2100",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0202-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            },
+            {
+              "label": "F2",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A"
+      ]
+    },
+    "sophos-xgs-2300": {
+      "display": "Sophos XGS 2300",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0202-0002R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            },
+            {
+              "label": "F2",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A"
+      ]
+    },
+    "sophos-xgs-3100": {
+      "display": "Sophos XGS 3100",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0202-0003R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F3",
+              "type": "sfp"
+            },
+            {
+              "label": "F4",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A"
+      ]
+    },
+    "sophos-xgs-4300": {
+      "display": "Sophos XGS 4300",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0203-0001R05.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            },
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B"
+      ]
+    },
+    "sophos-xgs-4500": {
+      "display": "Sophos XGS 4500",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0203-0002R05.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            },
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B"
+      ]
+    },
+    "sophos-xgs-5500": {
+      "display": "Sophos XGS 5500",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0204-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            },
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            },
+            {
+              "label": "F5",
+              "type": "sfp+"
+            },
+            {
+              "label": "F6",
+              "type": "sfp+"
+            },
+            {
+              "label": "F7",
+              "type": "sfp+"
+            },
+            {
+              "label": "F8",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "sophos-xgs-6500": {
+      "display": "Sophos XGS 6500",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0204-0002R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            },
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            },
+            {
+              "label": "F5",
+              "type": "sfp+"
+            },
+            {
+              "label": "F6",
+              "type": "sfp+"
+            },
+            {
+              "label": "F7",
+              "type": "sfp+"
+            },
+            {
+              "label": "F8",
+              "type": "sfp+"
+            },
+            {
+              "label": "F9",
+              "type": "sfp+"
+            },
+            {
+              "label": "F10",
+              "type": "sfp+"
+            },
+            {
+              "label": "F11",
+              "type": "sfp+"
+            },
+            {
+              "label": "F12",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "sophos-xgs-6500-amda0204-0099": {
+      "display": "Sophos XGS 6500",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0204-0099R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            },
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            },
+            {
+              "label": "F5",
+              "type": "sfp+"
+            },
+            {
+              "label": "F6",
+              "type": "sfp+"
+            },
+            {
+              "label": "F7",
+              "type": "sfp+"
+            },
+            {
+              "label": "F8",
+              "type": "sfp+"
+            },
+            {
+              "label": "F9",
+              "type": "sfp+"
+            },
+            {
+              "label": "F10",
+              "type": "sfp+"
+            },
+            {
+              "label": "F11",
+              "type": "sfp+"
+            },
+            {
+              "label": "F12",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "sophos-xgs-7500-xgs-8500": {
+      "display": "Sophos XGS 7500 / XGS 8500",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0205-0001aR00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            },
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            },
+            {
+              "label": "F5",
+              "type": "sfp+"
+            },
+            {
+              "label": "F6",
+              "type": "sfp+"
+            },
+            {
+              "label": "F7",
+              "type": "sfp+"
+            },
+            {
+              "label": "F8",
+              "type": "sfp+"
+            },
+            {
+              "label": "F9",
+              "type": "sfp+"
+            },
+            {
+              "label": "F10",
+              "type": "sfp+"
+            },
+            {
+              "label": "F11",
+              "type": "sfp+"
+            },
+            {
+              "label": "F12",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "QSFP28, 40G",
+          "items": [
+            {
+              "label": "F13",
+              "type": "qsfp28"
+            },
+            {
+              "label": "F14",
+              "type": "qsfp28"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "sophos-xgs-116": {
+      "display": "Sophos XGS 116",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0208-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-116w": {
+      "display": "Sophos XGS 116w",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0208-0002R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-88": {
+      "display": "Sophos XGS 88",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0220-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-88w": {
+      "display": "Sophos XGS 88w",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0220-0002R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-108": {
+      "display": "Sophos XGS 108",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0221-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-108w": {
+      "display": "Sophos XGS 108w",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0221-0002R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-118": {
+      "display": "Sophos XGS 118",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0222-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            },
+            {
+              "label": "Port9",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-118w": {
+      "display": "Sophos XGS 118w",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0222-0002R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            },
+            {
+              "label": "Port9",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-128": {
+      "display": "Sophos XGS 128",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0223-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            },
+            {
+              "label": "Port9",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-128w": {
+      "display": "Sophos XGS 128w",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0223-0002R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP, 1G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            },
+            {
+              "label": "Port9",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-138": {
+      "display": "Sophos XGS 138",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0224-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 1G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": []
+    },
+    "sophos-xgs-6580": {
+      "display": "Sophos XGS 6580",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0225-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            },
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            },
+            {
+              "label": "F9",
+              "type": "sfp+"
+            },
+            {
+              "label": "F10",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "SFP28, 25G",
+          "items": [
+            {
+              "label": "F5",
+              "type": "sfp28"
+            },
+            {
+              "label": "F6",
+              "type": "sfp28"
+            },
+            {
+              "label": "F7",
+              "type": "sfp28"
+            },
+            {
+              "label": "F8",
+              "type": "sfp28"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "sophos-xgs-7580": {
+      "display": "Sophos XGS 7580",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0226-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP+, 10G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp+"
+            },
+            {
+              "label": "F2",
+              "type": "sfp+"
+            },
+            {
+              "label": "F3",
+              "type": "sfp+"
+            },
+            {
+              "label": "F4",
+              "type": "sfp+"
+            }
+          ]
+        },
+        {
+          "bay": "SFP28, 25G",
+          "items": [
+            {
+              "label": "F5",
+              "type": "sfp28"
+            },
+            {
+              "label": "F6",
+              "type": "sfp28"
+            },
+            {
+              "label": "F7",
+              "type": "sfp28"
+            },
+            {
+              "label": "F8",
+              "type": "sfp28"
+            },
+            {
+              "label": "F9",
+              "type": "sfp28"
+            },
+            {
+              "label": "F10",
+              "type": "sfp28"
+            },
+            {
+              "label": "F11",
+              "type": "sfp28"
+            },
+            {
+              "label": "F12",
+              "type": "sfp28"
+            }
+          ]
+        },
+        {
+          "bay": "QSFP28, 100G",
+          "items": [
+            {
+              "label": "F13",
+              "type": "qsfp28"
+            },
+            {
+              "label": "F14",
+              "type": "qsfp28"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 10G",
+          "items": [
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "sophos-xgs-4310": {
+      "display": "Sophos XGS 4310",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0228-0001R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP28, 25G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp28"
+            },
+            {
+              "label": "F2",
+              "type": "sfp28"
+            },
+            {
+              "label": "F3",
+              "type": "sfp28"
+            },
+            {
+              "label": "F4",
+              "type": "sfp28"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B"
+      ]
+    },
+    "sophos-xgs-4310-amda0228-0002": {
+      "display": "Sophos XGS 4310",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0228-0002R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP28, 25G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp28"
+            },
+            {
+              "label": "F2",
+              "type": "sfp28"
+            },
+            {
+              "label": "F3",
+              "type": "sfp28"
+            },
+            {
+              "label": "F4",
+              "type": "sfp28"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B"
+      ]
+    },
+    "sophos-xgs-4310-amda0228-0003": {
+      "display": "Sophos XGS 4310",
+      "confirmed": false,
+      "generated": "xgs-bsp/data/AMDA0228-0003R00.txt",
+      "orientation": "front",
+      "rows": [
+        {
+          "bay": "SFP28, 25G",
+          "items": [
+            {
+              "label": "F1",
+              "type": "sfp28"
+            },
+            {
+              "label": "F2",
+              "type": "sfp28"
+            },
+            {
+              "label": "F3",
+              "type": "sfp28"
+            },
+            {
+              "label": "F4",
+              "type": "sfp28"
+            }
+          ]
+        },
+        {
+          "bay": "RJ45, 2.5G",
+          "items": [
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
+          ]
+        }
+      ],
+      "bays": [
+        "A",
+        "B"
+      ]
+    },
     "sophos-xg330": {
       "display": "Sophos XG 330 (rev 2)",
       "confirmed": false,
@@ -223,6 +2602,9 @@
             }
           ]
         }
+      ],
+      "bays": [
+        "A"
       ]
     },
     "sophos-xgs-136": {
@@ -236,39 +2618,84 @@
           "bay": "faceplate, 1G copper behind the 88E6193X switch",
           "note": "Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, so the host cannot blink them.",
           "items": [
-            {"label": "Port1", "type": "rj45"},
-            {"label": "Port2", "type": "rj45"},
-            {"label": "Port3", "type": "rj45"},
-            {"label": "Port4", "type": "rj45"},
-            {"label": "Port5", "type": "rj45"},
-            {"label": "Port6", "type": "rj45"},
-            {"label": "Port7", "type": "rj45"},
-            {"label": "Port8", "type": "rj45"}
+            {
+              "label": "Port1",
+              "type": "rj45"
+            },
+            {
+              "label": "Port2",
+              "type": "rj45"
+            },
+            {
+              "label": "Port3",
+              "type": "rj45"
+            },
+            {
+              "label": "Port4",
+              "type": "rj45"
+            },
+            {
+              "label": "Port5",
+              "type": "rj45"
+            },
+            {
+              "label": "Port6",
+              "type": "rj45"
+            },
+            {
+              "label": "Port7",
+              "type": "rj45"
+            },
+            {
+              "label": "Port8",
+              "type": "rj45"
+            }
           ]
         },
         {
           "bay": "faceplate, copper on the coprocessor",
           "note": "All four on the AQR412C quad PHY on the CN9131's own ports: 9 and 10 rate-capped at 1G, 11 and 12 at 2.5G and the PoE module's ports - the vendor's platform data, read on the coprocessor.",
           "items": [
-            {"label": "Port9", "type": "rj45"},
-            {"label": "Port10", "type": "rj45"},
-            {"label": "Port11", "type": "rj45"},
-            {"label": "Port12", "type": "rj45"}
+            {
+              "label": "Port9",
+              "type": "rj45"
+            },
+            {
+              "label": "Port10",
+              "type": "rj45"
+            },
+            {
+              "label": "Port11",
+              "type": "rj45"
+            },
+            {
+              "label": "Port12",
+              "type": "rj45"
+            }
           ]
         },
         {
           "bay": "faceplate, SFP cages on the switch",
           "note": "Two 1G SFP cages on the switch chip (F1, F2). No transceiver data from the host: the cage EEPROMs are on the coprocessor's I2C.",
           "items": [
-            {"label": "F1", "type": "sfp"},
-            {"label": "F2", "type": "sfp"}
+            {
+              "label": "F1",
+              "type": "sfp"
+            },
+            {
+              "label": "F2",
+              "type": "sfp"
+            }
           ]
         },
         {
           "bay": "console",
           "note": "The serial console at the back. There is no management port: the USB network adapter some benches add keeps its interface name.",
           "items": [
-            {"label": "console", "type": "console"}
+            {
+              "label": "console",
+              "type": "console"
+            }
           ]
         }
       ]
@@ -310,6 +2737,533 @@
       "width": 34,
       "height": 30,
       "shape": "plain"
+    },
+    "sfp28": {
+      "width": 44,
+      "height": 24,
+      "shape": "cage"
+    },
+    "qsfp28": {
+      "width": 54,
+      "height": 26,
+      "shape": "cage"
+    }
+  },
+  "modules": {
+    "AMDA0105-0001": {
+      "display": "4x2.5GBaseT PoE",
+      "ports": [
+        {
+          "n": 1,
+          "type": "rj45",
+          "speed": "2.5G"
+        },
+        {
+          "n": 2,
+          "type": "rj45",
+          "speed": "2.5G"
+        },
+        {
+          "n": 3,
+          "type": "rj45",
+          "speed": "2.5G"
+        },
+        {
+          "n": 4,
+          "type": "rj45",
+          "speed": "2.5G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0105-0001R00.txt"
+    },
+    "AMDA0106-0001": {
+      "display": "8x1000BaseT",
+      "ports": [
+        {
+          "n": 1,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 2,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 3,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 4,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 5,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 6,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 7,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 8,
+          "type": "rj45",
+          "speed": "1G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0106-0001R00.txt"
+    },
+    "AMDA0108-0001": {
+      "display": "8x1000BaseSX (SFP)",
+      "ports": [
+        {
+          "n": 1,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 2,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 3,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 4,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 5,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 6,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 7,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 8,
+          "type": "sfp",
+          "speed": "1G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0108-0001R00.txt"
+    },
+    "AMDA0108-0002": {
+      "display": "8x10GBaseSR (SFP+)",
+      "ports": [
+        {
+          "n": 1,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 2,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 3,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 4,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 5,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 6,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 7,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 8,
+          "type": "sfp+",
+          "speed": "10G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0108-0002R00.txt"
+    },
+    "AMDA0109-0001": {
+      "display": "4x1000BaseT FTW",
+      "ports": [
+        {
+          "n": 1,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 2,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 3,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 4,
+          "type": "rj45",
+          "speed": "1G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0109-0001R00.txt"
+    },
+    "AMDA0110-0001": {
+      "display": "4x1000BaseSX (SFP) 2x1000BaseSX FTW",
+      "ports": [
+        {
+          "n": 1,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 2,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 3,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 4,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 5,
+          "type": "sfp",
+          "speed": "1G"
+        },
+        {
+          "n": 6,
+          "type": "sfp",
+          "speed": "1G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0110-0001R00.txt"
+    },
+    "AMDA0110-0002": {
+      "display": "4x10GBaseSR (SFP+) 2x10GBaseSR FTW",
+      "ports": [
+        {
+          "n": 1,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 2,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 3,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 4,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 5,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 6,
+          "type": "sfp+",
+          "speed": "10G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0110-0002R00.txt"
+    },
+    "AMDA0110-0003": {
+      "display": "2x10GBaseSR FTW",
+      "ports": [
+        {
+          "n": 1,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 2,
+          "type": "sfp+",
+          "speed": "10G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0110-0003R00.txt"
+    },
+    "AMDA0112-0001": {
+      "display": "2x40GBaseSR4 (QSFP)",
+      "ports": [
+        {
+          "n": 1,
+          "type": "qsfp",
+          "speed": "40G"
+        },
+        {
+          "n": 2,
+          "type": "qsfp",
+          "speed": "40G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0112-0001R00.txt"
+    },
+    "AMDA0112-0002": {
+      "display": "1x40GBaseSR4 (QSFP)",
+      "ports": [
+        {
+          "n": 1,
+          "type": "qsfp",
+          "speed": "40G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0112-0002R00.txt"
+    },
+    "AMDA0124-0001": {
+      "display": "4x1000BaseT 4x1000BaseT PoE",
+      "ports": [
+        {
+          "n": 1,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 2,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 3,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 4,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 5,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 6,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 7,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 8,
+          "type": "rj45",
+          "speed": "1G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0124-0001R00.txt"
+    },
+    "AMDA0207-0001": {
+      "display": "4x10GBaseSR (SFP+)",
+      "ports": [
+        {
+          "n": 1,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 2,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 3,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 4,
+          "type": "sfp+",
+          "speed": "10G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0207-0001R00.txt"
+    },
+    "AMDA0213-0001": {
+      "display": "12x1000BaseT 4x2.5GBaseT",
+      "ports": [
+        {
+          "n": 1,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 2,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 3,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 4,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 5,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 6,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 7,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 8,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 9,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 10,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 11,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 12,
+          "type": "rj45",
+          "speed": "1G"
+        },
+        {
+          "n": 13,
+          "type": "rj45",
+          "speed": "2.5G"
+        },
+        {
+          "n": 14,
+          "type": "rj45",
+          "speed": "2.5G"
+        },
+        {
+          "n": 15,
+          "type": "rj45",
+          "speed": "2.5G"
+        },
+        {
+          "n": 16,
+          "type": "rj45",
+          "speed": "2.5G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0213-0001R00.txt"
+    },
+    "AMDA0214-0001": {
+      "display": "2xNBaseT (RJ45) + 2x10GBaseSR (SFP+)",
+      "ports": [
+        {
+          "n": 1,
+          "type": "rj45",
+          "speed": "10G"
+        },
+        {
+          "n": 2,
+          "type": "rj45",
+          "speed": "10G"
+        },
+        {
+          "n": 3,
+          "type": "sfp+",
+          "speed": "10G"
+        },
+        {
+          "n": 4,
+          "type": "sfp+",
+          "speed": "10G"
+        }
+      ],
+      "generated": "xgs-bsp/data/AMDA0214-0001R00.txt"
+    }
+  },
+  "bay_text": {
+    "comment": [
+      "What the drawing says about an expansion bay. Kept here rather than in the code so that",
+      "tools/gen-data-strings.py finds them and the page translates them like every other",
+      "string in this file. The bay's own name is 'expansion bay' and its letter, as the",
+      "board file names the slot (slotA, slotB, ...)."
+    ],
+    "A": {
+      "bay": "expansion bay A"
+    },
+    "B": {
+      "bay": "expansion bay B"
+    },
+    "C": {
+      "bay": "expansion bay C"
+    },
+    "D": {
+      "bay": "expansion bay D"
+    },
+    "empty": {
+      "note": "no module fitted"
+    },
+    "unknown": {
+      "note": "a module this table does not describe yet"
     }
   }
 }

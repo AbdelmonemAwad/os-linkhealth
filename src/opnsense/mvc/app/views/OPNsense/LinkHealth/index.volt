@@ -347,37 +347,8 @@
            tools/gen-data-strings.py, because a note added to chassis.json and forgotten
            here comes out in English on an Arabic page with nothing to say so. */
         const lh_data_text = {
-            'FleXi module, bay A': "{{ lang._('FleXi module, bay A') }}",
-            'This bay enumerates before the faceplate ports.':
-                "{{ lang._('This bay enumerates before the faceplate ports.') }}",
-            'faceplate': "{{ lang._('faceplate') }}",
-            'faceplate, 1G SFP': "{{ lang._('faceplate, 1G SFP') }}",
-            'Intel I210 Fiber. The driver has no transceiver access, so these cages report no module data even with a module seated - the plugin shows link, media and error counters for them and nothing optical.':
-                "{{ lang._('Intel I210 Fiber. The driver has no transceiver access, so these cages report no module data even with a module seated - the plugin shows link, media and error counters for them and nothing optical.') }}",
-            'Looked at on the reference appliance: the cages have no identification light this firewall can drive. The node is there and the write is accepted, and nothing lights, because the cage lights on this board are not wired to the controller pins the driver drives - the copper ports on the same machine do blink. Use the activity light instead.':
-                "{{ lang._('Looked at on the reference appliance: the cages have no identification light this firewall can drive. The node is there and the write is accepted, and nothing lights, because the cage lights on this board are not wired to the controller pins the driver drives - the copper ports on the same machine do blink. Use the activity light instead.') }}",
-            'faceplate, 10G SFP+': "{{ lang._('faceplate, 10G SFP+') }}",
-            'Intel X520. Full transceiver telemetry.':
-                "{{ lang._('Intel X520. Full transceiver telemetry.') }}",
-            '10G SFP+ cages on the coprocessor':
-                "{{ lang._('10G SFP+ cages on the coprocessor') }}",
-            'The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.':
-                "{{ lang._('The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.') }}",
-            'The cage lights are the PHY\'s and nothing on the host drives them.':
-                "{{ lang._('The cage lights are the PHY\'s and nothing on the host drives them.') }}",
             'faceplate, 1G copper behind the 88E6193X switch':
                 "{{ lang._('faceplate, 1G copper behind the 88E6193X switch') }}",
-            'Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.':
-                "{{ lang._('Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.') }}",
-            'The panel LEDs are driven by the switch from the coprocessor; the host has no path to them.':
-                "{{ lang._('The panel LEDs are driven by the switch from the coprocessor; the host has no path to them.') }}",
-            'faceplate, SFP cages on the switch':
-                "{{ lang._('faceplate, SFP cages on the switch') }}",
-            'The switch\'s two SFP cages, 1G. No transceiver access from the host.':
-                "{{ lang._('The switch\'s two SFP cages, 1G. No transceiver access from the host.') }}",
-            'management and console': "{{ lang._('management and console') }}",
-            'The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.':
-                "{{ lang._('The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.') }}",
             'Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.':
                 "{{ lang._('Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.') }}",
             'The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Not yet confirmed by eye.':
@@ -392,12 +363,49 @@
                 "{{ lang._('faceplate, 2.5G copper on the AQR412C quad PHY, with PoE') }}",
             'Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports, 2.5G at most; the PoE module\'s two ports, 62 W budget, as read on the coprocessor.':
                 "{{ lang._('Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports, 2.5G at most; the PoE module\'s two ports, 62 W budget, as read on the coprocessor.') }}",
+            'faceplate, SFP cages on the switch':
+                "{{ lang._('faceplate, SFP cages on the switch') }}",
             'The switch\'s two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor\'s I2C.':
                 "{{ lang._('The switch\'s two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor\'s I2C.') }}",
+            '10G SFP+ cages on the coprocessor':
+                "{{ lang._('10G SFP+ cages on the coprocessor') }}",
+            'The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.':
+                "{{ lang._('The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.') }}",
+            'The cage lights are the PHY\'s and nothing on the host drives them.':
+                "{{ lang._('The cage lights are the PHY\'s and nothing on the host drives them.') }}",
+            'Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.':
+                "{{ lang._('Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.') }}",
+            'The panel LEDs are driven by the switch from the coprocessor; the host has no path to them.':
+                "{{ lang._('The panel LEDs are driven by the switch from the coprocessor; the host has no path to them.') }}",
+            'management and console': "{{ lang._('management and console') }}",
+            'The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.':
+                "{{ lang._('The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.') }}",
+            'The switch\'s two SFP cages, 1G. No transceiver access from the host.':
+                "{{ lang._('The switch\'s two SFP cages, 1G. No transceiver access from the host.') }}",
+            'FleXi module, bay A': "{{ lang._('FleXi module, bay A') }}",
+            'This bay enumerates before the faceplate ports.':
+                "{{ lang._('This bay enumerates before the faceplate ports.') }}",
+            'faceplate': "{{ lang._('faceplate') }}",
+            'faceplate, 1G SFP': "{{ lang._('faceplate, 1G SFP') }}",
+            'Intel I210 Fiber. The driver has no transceiver access, so these cages report no module data even with a module seated - the plugin shows link, media and error counters for them and nothing optical.':
+                "{{ lang._('Intel I210 Fiber. The driver has no transceiver access, so these cages report no module data even with a module seated - the plugin shows link, media and error counters for them and nothing optical.') }}",
+            'Looked at on the reference appliance: the cages have no identification light this firewall can drive. The node is there and the write is accepted, and nothing lights, because the cage lights on this board are not wired to the controller pins the driver drives - the copper ports on the same machine do blink. Use the activity light instead.':
+                "{{ lang._('Looked at on the reference appliance: the cages have no identification light this firewall can drive. The node is there and the write is accepted, and nothing lights, because the cage lights on this board are not wired to the controller pins the driver drives - the copper ports on the same machine do blink. Use the activity light instead.') }}",
+            'faceplate, 10G SFP+': "{{ lang._('faceplate, 10G SFP+') }}",
+            'Intel X520. Full transceiver telemetry.':
+                "{{ lang._('Intel X520. Full transceiver telemetry.') }}",
             'No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll.':
                 "{{ lang._('No port table for this model yet. Add one to chassis.json - see docs/contributing-chassis.md - and the labels appear on the next poll.') }}",
             'Ports keep their interface names. Set a label per port by hand under Interfaces > Link Health > Settings, or contribute a table for this appliance.':
                 "{{ lang._('Ports keep their interface names. Set a label per port by hand under Interfaces > Link Health > Settings, or contribute a table for this appliance.') }}",
+            'SFP, 1G': "{{ lang._('SFP, 1G') }}",
+            'SFP+, 10G': "{{ lang._('SFP+, 10G') }}",
+            'RJ45, 2.5G': "{{ lang._('RJ45, 2.5G') }}",
+            'SFP28, 25G': "{{ lang._('SFP28, 25G') }}",
+            'RJ45, 1G': "{{ lang._('RJ45, 1G') }}",
+            'QSFP28, 40G': "{{ lang._('QSFP28, 40G') }}",
+            'QSFP28, 100G': "{{ lang._('QSFP28, 100G') }}",
+            'RJ45, 10G': "{{ lang._('RJ45, 10G') }}",
             'Port order and bay grouping are corroborated by three independent witnesses on the reference machine: the owner\'s own interface names, the chip and PCI-subdevice boundaries, and two contiguous MAC blocks (8 addresses under one OUI for the module, 12 under another for the mainboard, in printed order). The physical ARRANGEMENT below - which row, and left-to-right position - is drawn from the owner\'s description and has not been checked against the metal.':
                 "{{ lang._('Port order and bay grouping are corroborated by three independent witnesses on the reference machine: the owner\'s own interface names, the chip and PCI-subdevice boundaries, and two contiguous MAC blocks (8 addresses under one OUI for the module, 12 under another for the mainboard, in printed order). The physical ARRANGEMENT below - which row, and left-to-right position - is drawn from the owner\'s description and has not been checked against the metal.') }}",
             'An expansion bay. Its ports enumerate before the faceplate ports, which is why PortA1 is igb0 while the printed Port1 is igb8.':
@@ -426,7 +434,14 @@
                 "{{ lang._('Two 1G SFP cages on the switch chip (F1, F2). No transceiver data from the host: the cage EEPROMs are on the coprocessor\'s I2C.') }}",
             'console': "{{ lang._('console') }}",
             'The serial console at the back. There is no management port: the USB network adapter some benches add keeps its interface name.':
-                "{{ lang._('The serial console at the back. There is no management port: the USB network adapter some benches add keeps its interface name.') }}"
+                "{{ lang._('The serial console at the back. There is no management port: the USB network adapter some benches add keeps its interface name.') }}",
+            'expansion bay A': "{{ lang._('expansion bay A') }}",
+            'expansion bay B': "{{ lang._('expansion bay B') }}",
+            'expansion bay C': "{{ lang._('expansion bay C') }}",
+            'expansion bay D': "{{ lang._('expansion bay D') }}",
+            'no module fitted': "{{ lang._('no module fitted') }}",
+            'a module this table does not describe yet':
+                "{{ lang._('a module this table does not describe yet') }}"
         };
 
         function lh_data(text) {
@@ -1590,7 +1605,9 @@
                     $body.append($('<div class="lh-note lh-fp-bay-note"/>').text(lh_data(row.note)));
                 }
                 $drawing.append($('<div class="lh-fp-bay"/>')
-                    .append($('<div class="lh-fp-bay-name"/>').text(lh_data(row.bay)))
+                    /* An expansion bay names the module fitted in it: a part's own name, not translated. */
+                    .append($('<div class="lh-fp-bay-name"/>').text(lh_data(row.bay) +
+                        (row.module ? ' - ' + row.module : '')))
                     .append($body));
             });
         }
