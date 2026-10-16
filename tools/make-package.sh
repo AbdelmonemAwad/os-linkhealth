@@ -278,7 +278,13 @@ if [ "${HASH}" = "unknown" ] && [ -f "${ROOT}/.git/HEAD" ]; then
 	fi
 fi
 
-PRODUCT_ABI=$(opnsense-version -a 2> /dev/null) || PRODUCT_ABI=
+# On a firewall this is what opnsense-version answers. The release workflow builds in a plain
+# FreeBSD virtual machine, which has no such program, and passes the answer in PRODUCT_ABI
+# instead - so a value already in the environment is kept. Without this the first release run
+# (v1.0) recorded product_abi "unknown" and the workflow refused to publish it.
+if [ -z "${PRODUCT_ABI:-}" ]; then
+	PRODUCT_ABI=$(opnsense-version -a 2> /dev/null) || PRODUCT_ABI=
+fi
 : "${PRODUCT_ABI:=unknown}"
 PRODUCT_ARCH=$(uname -p)
 
