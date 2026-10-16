@@ -427,6 +427,35 @@ character for character. Both the page and the dashboard widget show such a sock
 for rather than colouring it in, so it does not need any JSON to spot; this command is the quickest
 way to see *which* label is wrong.
 
+## Sophos XGS: generated, not written by hand
+
+Every Sophos XGS board and every FleXi module is already in both files, written by
+`tools/gen-xgs-hardware.py` from the vendor's GPL board support files:
+
+```sh
+tools/gen-xgs-hardware.py <path to xgs-bsp/data>            # rewrite the generated entries
+tools/gen-xgs-hardware.py <path to xgs-bsp/data> --check    # exit 1 if they are out of date
+```
+
+- **A board file** (`AMDA0203-0001R05.txt`, "1UL XGS 4300") gives every port's printed label,
+  socket and speed and the board's expansion bays; it becomes a `chassis.json` entry matched on
+  `serial: AMDA0203-0001` and a `faceplates.json` drawing with a row per kind of socket and speed
+  and a `bays` list. Numbered labels are written `Port<n>`, as the hand-made entries write them.
+- **A module file** (`AMDA0207-0001R00.txt`, "phymod 4x10GBaseSR (SFP+)") is a template; it
+  becomes an entry under `modules` in `faceplates.json`, keyed by the part number the coprocessor
+  reads off the fitted module.
+- Test fixtures, an evaluation build and a placeholder file are skipped. Two assemblies sold under
+  one name are both kept, the second under a key ending in its assembly number.
+- The XGS 3300, the XGS 136 and the XG330 entries were checked on the machine and are left alone;
+  their boards are not generated. A generated board on a family os-xgs-npu drives (AMDA0201,
+  AMDA0202) takes that hand-made entry's unit-to-label groups, minus any port the board lacks.
+
+A generated entry is replaced on every run, so a correction to one belongs in the generator or,
+once the board has been checked on the machine, in a hand-made entry - with its assembly added to
+`HAND_MADE` in the generator, which stops generating it. Generated entries are written ahead of the
+hand-made ones, because an exact assembly match must win over a looser one; a board in `HAND_MADE`
+has no generated entry to win.
+
 ## 8. Send it in
 
 Open a pull request that adds your block to `src/opnsense/scripts/linkhealth/chassis.json` — above

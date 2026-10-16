@@ -20,6 +20,645 @@
     "A group may also say 'identify_led': false when somebody has stood in front of that appliance and confirmed the sockets do not light. A /dev/led node only means the driver offered one; whether a light is wired to it is a property of the board, and no interface can be asked. It passes the same verify gate as the labels, so a table cannot make this claim about a card that is not the card it describes."
   ],
   "models": {
+    "sophos-xgs-2180": {
+      "display": "Sophos XGS 2180",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0004-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0004-0001"
+      }
+    },
+    "sophos-xgs-2380-xgs-3180": {
+      "display": "Sophos XGS 2380 / XGS 3180",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0004-0002aR00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0004-0002"
+      }
+    },
+    "sophos-xgs-3380-ndr-3300": {
+      "display": "Sophos XGS 3380 / NDR 3300",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0004-0003aR00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0004-0003"
+      }
+    },
+    "sophos-xgs-87": {
+      "display": "Sophos XGS 87",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0200-0001R03.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0200-0001"
+      }
+    },
+    "sophos-xgs-87w": {
+      "display": "Sophos XGS 87w",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0200-0002R03.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0200-0002"
+      }
+    },
+    "sophos-xgs-107": {
+      "display": "Sophos XGS 107",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0200-0003R03.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0200-0003"
+      }
+    },
+    "sophos-xgs-107w": {
+      "display": "Sophos XGS 107w",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0200-0004R03.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0200-0004"
+      }
+    },
+    "sophos-xgs-126": {
+      "display": "Sophos XGS 126",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0201-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0201-0001"
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            8
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Not yet confirmed by eye."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            9,
+            10
+          ],
+          "label": "Port%d",
+          "start": 9,
+          "bay": "faceplate, copper on the AQR412C quad PHY, rate-capped at 1G",
+          "note": "Two RJ45s on the AQR412C quad PHY, on the CN9131's own ports and not on the switch; the vendor's platform data on the coprocessor caps them at 1G (ratecap 1000).",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            11,
+            12
+          ],
+          "label": "Port%d",
+          "start": 11,
+          "bay": "faceplate, 2.5G copper on the AQR412C quad PHY, with PoE",
+          "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            13,
+            14
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "faceplate, SFP cages on the switch",
+          "note": "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+        }
+      ]
+    },
+    "sophos-xgs-126w": {
+      "display": "Sophos XGS 126w",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0201-0002R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0201-0002"
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            8
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Not yet confirmed by eye."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            9,
+            10
+          ],
+          "label": "Port%d",
+          "start": 9,
+          "bay": "faceplate, copper on the AQR412C quad PHY, rate-capped at 1G",
+          "note": "Two RJ45s on the AQR412C quad PHY, on the CN9131's own ports and not on the switch; the vendor's platform data on the coprocessor caps them at 1G (ratecap 1000).",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            11,
+            12
+          ],
+          "label": "Port%d",
+          "start": 11,
+          "bay": "faceplate, 2.5G copper on the AQR412C quad PHY, with PoE",
+          "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            13,
+            14
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "faceplate, SFP cages on the switch",
+          "note": "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+        }
+      ]
+    },
+    "sophos-xgs-136w": {
+      "display": "Sophos XGS 136w",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0201-0004R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0201-0004"
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            8
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Not yet confirmed by eye."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            9,
+            10
+          ],
+          "label": "Port%d",
+          "start": 9,
+          "bay": "faceplate, copper on the AQR412C quad PHY, rate-capped at 1G",
+          "note": "Two RJ45s on the AQR412C quad PHY, on the CN9131's own ports and not on the switch; the vendor's platform data on the coprocessor caps them at 1G (ratecap 1000).",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            11,
+            12
+          ],
+          "label": "Port%d",
+          "start": 11,
+          "bay": "faceplate, 2.5G copper on the AQR412C quad PHY, with PoE",
+          "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            13,
+            14
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "faceplate, SFP cages on the switch",
+          "note": "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+        }
+      ]
+    },
+    "sophos-xgs-2100": {
+      "display": "Sophos XGS 2100",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0202-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0202-0001"
+      },
+      "groups": [
+        {
+          "driver": "oxp",
+          "units": [
+            0,
+            1
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "10G SFP+ cages on the coprocessor",
+          "note": "The two cages on the coprocessor's own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.",
+          "identify_led": false,
+          "identify_led_note": "The cage lights are the PHY's and nothing on the host drives them."
+        },
+        {
+          "driver": "oxp",
+          "units": [
+            2,
+            9
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45s on the switch chip. Link state is the switch's; the counters are the driver's per port.",
+          "identify_led": false,
+          "identify_led_note": "The panel LEDs are driven by the switch from the coprocessor; the host has no path to them."
+        },
+        {
+          "driver": "igb",
+          "units": [
+            0,
+            0
+          ],
+          "label": "MGMT",
+          "start": 0,
+          "bay": "management and console",
+          "note": "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.",
+          "verify": {
+            "chip": [
+              "I210",
+              "I211"
+            ]
+          },
+          "identify_led": true
+        }
+      ]
+    },
+    "sophos-xgs-2300": {
+      "display": "Sophos XGS 2300",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0202-0002R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0202-0002"
+      },
+      "groups": [
+        {
+          "driver": "oxp",
+          "units": [
+            0,
+            1
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "10G SFP+ cages on the coprocessor",
+          "note": "The two cages on the coprocessor's own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.",
+          "identify_led": false,
+          "identify_led_note": "The cage lights are the PHY's and nothing on the host drives them."
+        },
+        {
+          "driver": "oxp",
+          "units": [
+            2,
+            9
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45s on the switch chip. Link state is the switch's; the counters are the driver's per port.",
+          "identify_led": false,
+          "identify_led_note": "The panel LEDs are driven by the switch from the coprocessor; the host has no path to them."
+        },
+        {
+          "driver": "igb",
+          "units": [
+            0,
+            0
+          ],
+          "label": "MGMT",
+          "start": 0,
+          "bay": "management and console",
+          "note": "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.",
+          "verify": {
+            "chip": [
+              "I210",
+              "I211"
+            ]
+          },
+          "identify_led": true
+        }
+      ]
+    },
+    "sophos-xgs-3100": {
+      "display": "Sophos XGS 3100",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0202-0003R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0202-0003"
+      },
+      "groups": [
+        {
+          "driver": "oxp",
+          "units": [
+            0,
+            1
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "10G SFP+ cages on the coprocessor",
+          "note": "The two cages on the coprocessor's own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.",
+          "identify_led": false,
+          "identify_led_note": "The cage lights are the PHY's and nothing on the host drives them."
+        },
+        {
+          "driver": "oxp",
+          "units": [
+            2,
+            9
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "faceplate, 1G copper behind the 88E6193X switch",
+          "note": "Eight RJ45s on the switch chip. Link state is the switch's; the counters are the driver's per port.",
+          "identify_led": false,
+          "identify_led_note": "The panel LEDs are driven by the switch from the coprocessor; the host has no path to them."
+        },
+        {
+          "driver": "oxp",
+          "units": [
+            10,
+            11
+          ],
+          "label": "F%d",
+          "start": 3,
+          "bay": "faceplate, SFP cages on the switch",
+          "note": "The switch's two SFP cages, 1G. No transceiver access from the host.",
+          "identify_led": false
+        },
+        {
+          "driver": "igb",
+          "units": [
+            0,
+            0
+          ],
+          "label": "MGMT",
+          "start": 0,
+          "bay": "management and console",
+          "note": "The host's own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.",
+          "verify": {
+            "chip": [
+              "I210",
+              "I211"
+            ]
+          },
+          "identify_led": true
+        }
+      ]
+    },
+    "sophos-xgs-4300": {
+      "display": "Sophos XGS 4300",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0203-0001R05.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0203-0001"
+      }
+    },
+    "sophos-xgs-4500": {
+      "display": "Sophos XGS 4500",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0203-0002R05.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0203-0002"
+      }
+    },
+    "sophos-xgs-5500": {
+      "display": "Sophos XGS 5500",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0204-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0204-0001"
+      }
+    },
+    "sophos-xgs-6500": {
+      "display": "Sophos XGS 6500",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0204-0002R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0204-0002"
+      }
+    },
+    "sophos-xgs-6500-amda0204-0099": {
+      "display": "Sophos XGS 6500",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0204-0099R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0204-0099"
+      }
+    },
+    "sophos-xgs-7500-xgs-8500": {
+      "display": "Sophos XGS 7500 / XGS 8500",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0205-0001aR00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0205-0001"
+      }
+    },
+    "sophos-xgs-116": {
+      "display": "Sophos XGS 116",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0208-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0208-0001"
+      }
+    },
+    "sophos-xgs-116w": {
+      "display": "Sophos XGS 116w",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0208-0002R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0208-0002"
+      }
+    },
+    "sophos-xgs-88": {
+      "display": "Sophos XGS 88",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0220-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0220-0001"
+      }
+    },
+    "sophos-xgs-88w": {
+      "display": "Sophos XGS 88w",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0220-0002R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0220-0002"
+      }
+    },
+    "sophos-xgs-108": {
+      "display": "Sophos XGS 108",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0221-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0221-0001"
+      }
+    },
+    "sophos-xgs-108w": {
+      "display": "Sophos XGS 108w",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0221-0002R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0221-0002"
+      }
+    },
+    "sophos-xgs-118": {
+      "display": "Sophos XGS 118",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0222-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0222-0001"
+      }
+    },
+    "sophos-xgs-118w": {
+      "display": "Sophos XGS 118w",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0222-0002R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0222-0002"
+      }
+    },
+    "sophos-xgs-128": {
+      "display": "Sophos XGS 128",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0223-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0223-0001"
+      }
+    },
+    "sophos-xgs-128w": {
+      "display": "Sophos XGS 128w",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0223-0002R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0223-0002"
+      }
+    },
+    "sophos-xgs-138": {
+      "display": "Sophos XGS 138",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0224-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0224-0001"
+      }
+    },
+    "sophos-xgs-6580": {
+      "display": "Sophos XGS 6580",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0225-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0225-0001"
+      }
+    },
+    "sophos-xgs-7580": {
+      "display": "Sophos XGS 7580",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0226-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0226-0001"
+      }
+    },
+    "sophos-xgs-4310": {
+      "display": "Sophos XGS 4310",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0228-0001R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0228-0001"
+      }
+    },
+    "sophos-xgs-4310-amda0228-0002": {
+      "display": "Sophos XGS 4310",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0228-0002R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0228-0002"
+      }
+    },
+    "sophos-xgs-4310-amda0228-0003": {
+      "display": "Sophos XGS 4310",
+      "verified": false,
+      "generated": "xgs-bsp/data/AMDA0228-0003R00.txt",
+      "match": {
+        "maker": "^Sophos$",
+        "serial": "AMDA0228-0003"
+      }
+    },
     "sophos-xg330": {
       "display": "Sophos XG 330 (rev 2)",
       "verified": true,
@@ -188,7 +827,10 @@
       "groups": [
         {
           "driver": "npup",
-          "units": [1, 8],
+          "units": [
+            1,
+            8
+          ],
           "label": "Port%d",
           "start": 1,
           "bay": "faceplate, 1G copper behind the 88E6193X switch",
@@ -199,7 +841,10 @@
         },
         {
           "driver": "npup",
-          "units": [9, 10],
+          "units": [
+            9,
+            10
+          ],
           "label": "Port%d",
           "start": 9,
           "bay": "faceplate, copper on the AQR412C quad PHY, rate-capped at 1G",
@@ -210,7 +855,10 @@
         },
         {
           "driver": "npup",
-          "units": [11, 12],
+          "units": [
+            11,
+            12
+          ],
           "label": "Port%d",
           "start": 11,
           "bay": "faceplate, 2.5G copper on the AQR412C quad PHY, with PoE",
@@ -221,7 +869,10 @@
         },
         {
           "driver": "npup",
-          "units": [13, 14],
+          "units": [
+            13,
+            14
+          ],
           "label": "F%d",
           "start": 1,
           "bay": "faceplate, SFP cages on the switch",

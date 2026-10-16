@@ -63,6 +63,9 @@ CONFIG_XML = '/conf/config.xml'
 # os-xgs-npu's management link to an appliance's coprocessor: where it is installed, a chassis
 # group may say its lights are driven from that side (identify: coprocessor).
 NPU_LINK = '/usr/local/opnsense/scripts/npuctl/mgmt-link.sh'
+# What os-xgs-npu learned at boot about the ports beyond a board's own: an expansion module's,
+# each with the name the coprocessor's board file gives it, its bay and the module's part number.
+XGS_PORTS = '/var/db/os-xgs-npu/ports.json'
 
 # "10Gbase-SR" -> 10000, "1000baseT" -> 1000, "2500Base-T" -> 2500
 _MEDIA_SPEED = re.compile(r'^(\d+)\s*(G|M)?base', re.IGNORECASE)
@@ -335,6 +338,26 @@ def read_pci():
     return layout
 
 
+def read_xgs_ports():
+    """(address -> module port, bay letter -> what is fitted there), from os-xgs-npu.
+
+    An expansion module's ports are numbered by the driver after the board's own, in the order the
+    coprocessor reports them, so no unit-based table can name them; os-xgs-npu joins each one to
+    the coprocessor's board file by its address at boot and writes the result, and the address is
+    what an interface here carries too. Absent on any machine without os-xgs-npu or a module.
+    """
+    try:
+        with open(XGS_PORTS, encoding='utf-8') as handle:
+            doc = json.load(handle)
+    except (OSError, ValueError):
+        return {}, {}
+    by_mac = {}
+    for port in doc.get('extra') or []:
+        if port.get('mac'):
+            by_mac[port['mac'].lower()] = port
+    return by_mac, doc.get('slots') or {}
+
+
 def read_chassis(models):
     """Identify the appliance from SMBIOS and pick its port-label table."""
     values = {}
@@ -488,6 +511,7 @@ def collect():
     behind = read_bridge_map(interfaces)
     hosts = read_arp()
     chassis, table = read_chassis(chassis_models)
+    module_ports, module_slots = read_xgs_ports()
     pci = read_pci()
     # who introduces themselves on each cable, when lldpd is installed to ask
     lldp = neighbours.by_interface()
@@ -556,6 +580,12 @@ def collect():
         placement = label_for(driver_base, unit, table, chip, pci.get(name))
         label, bay, note, refused = (placement['label'], placement['bay'],
                                      placement['note'], placement['refused'])
+        # A port the table has no name for may be an expansion module's, named by os-xgs-npu.
+        module = module_ports.get(data['ether']) if not label else None
+        if module:
+            label = module.get('name')
+            if module.get('slot'):
+                bay = 'expansion bay %s' % module['slot']
 
         # The node existing only means the driver offered one. Whether a light is
         # wired to the other end of it is a fact about the board, and the only
@@ -602,6 +632,7 @@ def collect():
             'label_refused': refused,
             'mtu': data['mtu'],
             'mac': data['ether'],
+            'module': (module or {}).get('module') or '',
             'caps': caps,
             'serves': serves[:8],
             'neighbour': lldp.get(name, {}),
@@ -623,7 +654,7 @@ def collect():
             'optics': optics or {'present': False},
         })
 
-    return {'chassis': chassis, 'ports': ports}
+    return {'chassis': chassis, 'ports': ports, 'modules': module_slots}
 
 
 def boottime():

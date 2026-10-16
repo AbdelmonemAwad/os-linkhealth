@@ -495,6 +495,31 @@ before the faceplate: on the XG330 the FleXi module takes `igb0`–`igb7` while 
 Unknown hardware falls back to the interface name and still works — you lose the printed labels,
 nothing else — and any single port can be renamed by hand in the GUI.
 
+### Every Sophos XGS board, and every FleXi module
+
+The XGS range is in both files whole: **35 boards** — the desktops from the XGS 87 to the 138, the
+1U and 2U models from the XGS 2100 to the 8500 — and **14 FleXi modules**, from 8 x 1G copper to
+2 x 40G QSFP. They are not typed in: `tools/gen-xgs-hardware.py` writes them from the vendor's own
+board support files (`xgs-bsp/data` in its GPL release), which name every port as it is printed,
+its kind of socket and its speed, and the expansion bays each board has. Each board is matched on
+the assembly number in its own serial (`AMDA0203-0001` is an XGS 4300), ahead of the looser
+entries, so a model is recognised exactly. Generated entries say so (`"generated"`, `"verified":
+false`); the XGS 3300, the XGS 136 and the XG330, which were checked socket by socket on the
+machine, keep their hand-made entries, and the generator never touches them.
+
+A board draws a row per kind of socket and speed and **one row per expansion bay**, which is filled
+at run time from what is fitted: on an XGS appliance running
+[os-xgs-npu](https://github.com/AbdelmonemAwad/os-xgs-npu), the coprocessor's own board file names
+the fitted module and its ports at boot, and the collector reads that from
+`/var/db/os-xgs-npu/ports.json` and names each module port by its address — `A1` to `A4` for a
+4 x 10G module in bay A. Measured on an XGS 3300 with that module: the bay drawn "4x10GBaseSR
+(SFP+)", its four cages joined to `oxp12`–`oxp15`. A bay with nothing in it says so; a module the
+table does not describe still shows the ports the coprocessor reported.
+
+A board's ports get their printed names only where a driver presents them — today the XGS 2100 to
+3300 and the XGS 126 and 136, through os-xgs-npu. Every other board is drawn and named, and its
+sockets read "absent" until something presents them.
+
 If your appliance is not in the file, adding it is one JSON block and that is the entire
 contribution path. A second, optional block in `faceplates.json` says how the sockets are arranged
 on the front, which is what the drawn panel needs; a machine with labels and no layout is a

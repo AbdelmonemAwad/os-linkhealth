@@ -309,6 +309,7 @@ def sweep(now=None, quiet=False):
         'boottime': boot,
         'window_seconds': window,
         'chassis': snapshot['chassis'],
+        'modules': snapshot.get('modules') or {},
         'ports': ports,
     }
 
@@ -397,6 +398,43 @@ def faceplate():
                 'can_flicker': bool(port and identify.can_flicker(port)),
             })
         rows.append({'bay': row.get('bay', ''), 'note': row.get('note', ''), 'items': items})
+
+    # The expansion bays, filled from what is fitted. The board names its bays (slotA, slotB...);
+    # os-xgs-npu reads the fitted module's part number off the coprocessor at boot; the module
+    # table, generated from the vendor's own templates, says which sockets that module carries.
+    # A module the table does not know still shows the ports the coprocessor reported for it.
+    texts = layouts.get('bay_text') or {}
+    fitted = status.get('modules') or {}
+    for letter in model.get('bays', []):
+        bay = (texts.get(letter) or {}).get('bay', 'expansion bay %s' % letter)
+        part = (fitted.get(letter) or {}).get('assembly.partno')
+        layout = (layouts.get('modules') or {}).get(part) if part else None
+        if layout:
+            sockets = [('%s%d' % (letter, p['n']), p.get('type', 'unknown')) for p in layout['ports']]
+            note, module = '', layout.get('display', part)
+        elif part:
+            sockets = sorted(((p['label'], 'unknown') for p in status.get('ports', [])
+                              if p.get('bay') == bay), key=lambda s: s[0])
+            note, module = (texts.get('unknown') or {}).get('note', ''), part
+        else:
+            sockets, note, module = [], (texts.get('empty') or {}).get('note', ''), ''
+        items = []
+        for name, kind in sockets:
+            port = by_label.get((bay, name)) or next(
+                (p for p in status.get('ports', []) if p.get('label') == name), None)
+            items.append({
+                'label': name,
+                'type': kind,
+                'if': port['if'] if port else None,
+                'name': port.get('name') if port else '',
+                'state': port['verdict']['state'] if port else 'absent',
+                'error_ppm': (port.get('window') or {}).get('error_ppm', 0) if port else 0,
+                'speed_mbps': (port.get('link') or {}).get('speed_mbps', 0) if port else 0,
+                'serves': port.get('serves', []) if port else [],
+                'can_identify': bool(port and 'IDENTIFY_LED' in port.get('caps', [])),
+                'can_flicker': bool(port and identify.can_flicker(port)),
+            })
+        rows.append({'bay': bay, 'note': note, 'module': module, 'items': items})
 
     return {
         'available': True,

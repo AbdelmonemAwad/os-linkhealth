@@ -339,5 +339,19 @@
   "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.": "مقبسا RJ45 متعددا الجيجابت على PHY الرباعي AQR412C، على منافذ CN9131 الخاصة، بحد أقصى 2.5G؛ وهما منفذا وحدة PoE بميزانية 62 واط كما قُرئت في المعالج المساعد.",
   "All four on the AQR412C quad PHY on the CN9131's own ports: 9 and 10 rate-capped at 1G, 11 and 12 at 2.5G and the PoE module's ports - the vendor's platform data, read on the coprocessor.": "الأربعة كلها على PHY الرباعي AQR412C على منافذ CN9131 الخاصة: 9 و10 مقيَّدان بسرعة 1G، و11 و12 بسرعة 2.5G وهما منفذا وحدة PoE - بيانات منصة المورّد كما قُرئت في المعالج المساعد.",
   "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Not yet confirmed by eye.": "مصابيح اللوحة تابعة للمبدّل ويقودها المعالج المساعد؛ المضيف يطلب من أداة التعريف الخاصة بالمعالج المساعد عبر وصلة الإدارة في os-xgs-npu، بالتسمية المطبوعة. لم يُؤكَّد بالعين بعد.",
-  "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye.": "يُضاء المصباح بأداة التعريف الخاصة بالمعالج المساعد عبر وصلة الإدارة، بالتسمية المطبوعة؛ لم يُؤكَّد بالعين بعد."
+  "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye.": "يُضاء المصباح بأداة التعريف الخاصة بالمعالج المساعد عبر وصلة الإدارة، بالتسمية المطبوعة؛ لم يُؤكَّد بالعين بعد.",
+  "SFP, 1G": "منافذ SFP بسرعة 1G",
+  "SFP+, 10G": "منافذ SFP+ بسرعة 10G",
+  "RJ45, 2.5G": "منافذ RJ45 بسرعة 2.5G",
+  "SFP28, 25G": "منافذ SFP28 بسرعة 25G",
+  "RJ45, 1G": "منافذ RJ45 بسرعة 1G",
+  "QSFP28, 40G": "منافذ QSFP28 بسرعة 40G",
+  "QSFP28, 100G": "منافذ QSFP28 بسرعة 100G",
+  "RJ45, 10G": "منافذ RJ45 بسرعة 10G",
+  "expansion bay A": "فتحة التوسعة A",
+  "expansion bay B": "فتحة التوسعة B",
+  "expansion bay C": "فتحة التوسعة C",
+  "expansion bay D": "فتحة التوسعة D",
+  "no module fitted": "لا توجد بطاقة مركّبة",
+  "a module this table does not describe yet": "بطاقة لا يصفها هذا الجدول بعد"
 }

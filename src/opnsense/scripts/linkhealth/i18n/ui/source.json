@@ -339,5 +339,19 @@
  "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.",
  "All four on the AQR412C quad PHY on the CN9131's own ports: 9 and 10 rate-capped at 1G, 11 and 12 at 2.5G and the PoE module's ports - the vendor's platform data, read on the coprocessor.",
  "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Not yet confirmed by eye.",
- "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+ "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye.",
+ "SFP, 1G",
+ "SFP+, 10G",
+ "RJ45, 2.5G",
+ "SFP28, 25G",
+ "RJ45, 1G",
+ "QSFP28, 40G",
+ "QSFP28, 100G",
+ "RJ45, 10G",
+ "expansion bay A",
+ "expansion bay B",
+ "expansion bay C",
+ "expansion bay D",
+ "no module fitted",
+ "a module this table does not describe yet"
 ]
