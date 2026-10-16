@@ -7,6 +7,7 @@
 
 rm -f /usr/local/etc/cron.d/linkhealth
 rm -f /usr/local/etc/rc.syshook.d/start/62-linkhealth
+rm -f /usr/local/share/pkg/triggers/os-linkhealth.ucl
 rm -f /usr/local/opnsense/service/conf/actions.d/actions_linkhealth.conf
 rm -f /usr/local/opnsense/www/js/widgets/LinkHealth.js
 rm -f /usr/local/opnsense/www/js/widgets/Metadata/LinkHealth.xml
