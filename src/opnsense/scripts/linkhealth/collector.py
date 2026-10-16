@@ -430,10 +430,13 @@ def label_for(driver, unit, table, chip='', pci=None):
             continue
 
         verify = group.get('verify') or {}
+        # One chip, or a list of the chips this model has been seen with: two XGS 3300s carry
+        # an I210 and an I211 on the same MGMT socket.
         expected_chip = verify.get('chip')
-        if expected_chip and expected_chip.lower() not in (chip or '').lower():
+        chips = expected_chip if isinstance(expected_chip, list) else [expected_chip] if expected_chip else []
+        if chips and not any(c.lower() in (chip or '').lower() for c in chips):
             return dict(blank, refused='the card here is "%s", not the %s this model should have' % (
-                chip or 'unknown', expected_chip))
+                chip or 'unknown', ' or '.join(chips)))
 
         expected_sub = verify.get('subdevice')
         if expected_sub and (pci or {}).get('subdevice') not in (expected_sub if isinstance(expected_sub, list) else [expected_sub]):
