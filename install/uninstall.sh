@@ -5,6 +5,9 @@
 # stays in /var/db/linkhealth, so a reinstall keeps the per-port history and the
 # counter baseline instead of spending its first window measuring nothing.
 
+# the daily self-update first, so that it cannot reinstall half way through this
+rm -f /usr/local/etc/cron.d/linkhealth-update
+rm -rf /usr/local/share/os-linkhealth
 rm -f /usr/local/etc/cron.d/linkhealth
 rm -f /usr/local/etc/rc.syshook.d/start/62-linkhealth
 rm -f /usr/local/share/pkg/triggers/os-linkhealth.ucl
