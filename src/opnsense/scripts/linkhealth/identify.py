@@ -540,6 +540,16 @@ def coprocessor_placement(interface):
         models = collector.load_json('chassis.json').get('models') or {}
         _, table = collector.read_chassis(models)
         placement = collector.label_for(match.group(1), int(match.group(2)), table)
+        if not placement.get('label'):
+            # An expansion module's port: named by os-xgs-npu and found by its address, its
+            # light driven the way the panel's is (collector.module_identify).
+            data = collector.parse_ifconfig(collector._run(['/sbin/ifconfig', interface])).get(interface) or {}
+            module = collector.read_xgs_ports()[0].get(data.get('ether', ''))
+            lit = collector.module_identify(table, match.group(1)) if module else None
+            if lit is not None and module.get('name'):
+                placement = dict(placement, label=module['name'], identify='coprocessor',
+                                 identify_led=True,
+                                 identify_led_note=lit.get('module_identify_note') or lit.get('identify_led_note', ''))
     except (OSError, ValueError, KeyError, AttributeError):
         return None
     if placement.get('identify') != 'coprocessor' or not placement.get('label'):

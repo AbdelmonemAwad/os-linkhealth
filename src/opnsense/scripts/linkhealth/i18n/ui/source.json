@@ -373,5 +373,8 @@
  "dBm",
  "No link health data yet. The collector runs once a minute.",
  "Link health was last measured at %s and is no longer being updated.",
- "Could not read the link health status."
+ "Could not read the link health status.",
+ "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; confirmed by eye on an XGS 3300 on 2026-10-17.",
+ "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; not yet confirmed by eye.",
+ "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over its console, through os-xgs-npu, by the printed label. Confirmed by eye on an XGS 3300 on 2026-10-17."
 ]

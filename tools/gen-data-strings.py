@@ -33,7 +33,7 @@ END = '        };'
 # The fields in the data files that end up in front of a reader. A field not listed here
 # is either an identifier the page never prints (driver, units, verify) or a name that is
 # not ours to translate (a vendor's model string).
-TEXT_FIELDS = ('bay', 'note', 'identify_led_note', 'confirmed_note', 'hint')
+TEXT_FIELDS = ('bay', 'note', 'identify_led_note', 'module_identify_note', 'confirmed_note', 'hint')
 
 
 def harvest():

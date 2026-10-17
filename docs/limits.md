@@ -146,7 +146,9 @@ other way to make a port noticeable is to disturb its traffic~~ with one excepti
 appliance, whose port lights are driven by its coprocessor. There the request goes to the
 coprocessor's own identify tool through os-xgs-npu - over the management link on an XGS 126 or 136
 (confirmed by eye on an XGS 136 on 2026-10-17), over the coprocessor's console on the OCTEON TX
-boards, the XGS 2100 to 3300 (not yet confirmed by eye). Anywhere else the only other way to make a
+boards, the XGS 2100 to 3300 (~~not yet confirmed by eye~~ confirmed by eye on an XGS 3300 on 2026-10-17), and on
+an expansion module's ports there too, by the names os-xgs-npu gives them (not yet confirmed by eye).
+Anywhere else the only other way to make a
 port noticeable is to disturb its traffic, which this plugin will not do to find out where a socket
 is.
 
