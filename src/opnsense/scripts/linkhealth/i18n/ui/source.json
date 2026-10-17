@@ -357,5 +357,21 @@
  "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye.",
  "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye.",
  "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17.",
- "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
+ "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17.",
+ "How often the counters are read. The collector wakes every minute, so the interval is used in whole minutes. Every verdict is the difference between two readings, never the total since boot, which is also why this is the span a rate is measured over: a port that had a bad hour last month reads clean today.",
+ "The language of the fault and recovery messages, and of the test message. This page follows the language the GUI is set to, as every page does; a mail has no browser behind it to ask, so it is told here. Leave it on the system language and the two stay together.",
+ "Interfaces: Link Health",
+ "Allow access to the port health page, its settings and the on-demand cable test",
+ "a few frames are being corrupted",
+ "needs attention",
+ "link is down",
+ "port is disabled",
+ "the drawing shows a socket this machine does not report",
+ "The front panel, as you face the front of the appliance",
+ "position not confirmed against the machine yet",
+ "Negotiating below the fastest speed this port advertises",
+ "dBm",
+ "No link health data yet. The collector runs once a minute.",
+ "Link health was last measured at %s and is no longer being updated.",
+ "Could not read the link health status."
 ]
