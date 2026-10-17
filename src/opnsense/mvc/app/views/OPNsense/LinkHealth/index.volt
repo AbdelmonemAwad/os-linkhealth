@@ -2678,3 +2678,5 @@
 </div>
 
 {{ partial("layout_partials/base_dialog", ['fields': portForm, 'id': formGridPort['edit_dialog_id'], 'label': lang._('Edit port override')]) }}
+
+{{ partial("OPNsense/LinkHealth/credit") }}

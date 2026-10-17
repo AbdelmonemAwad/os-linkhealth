@@ -385,5 +385,7 @@
   "Appliance": "الجهاز",
   "Health": "الصحة",
   "Ports with link": "منافذ متصلة",
-  "ports with errors in this window": "منافذ فيها أخطاء في هذه النافذة"
+  "ports with errors in this window": "منافذ فيها أخطاء في هذه النافذة",
+  "BSD-2-Clause licence": "رخصة BSD-2-Clause",
+  "An independent project, not affiliated with Deciso B.V.": "مشروع مستقل لا يتبع Deciso B.V."
 }
