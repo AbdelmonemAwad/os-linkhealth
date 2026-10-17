@@ -2524,7 +2524,7 @@
       "rows": [
         {
           "bay": "faceplate, 1G copper behind the 88E6193X switch",
-          "note": "Eight RJ45 in a block of two rows of four, Port1 above Port2 and so on across; the switch chip drives their LEDs from the coprocessor, so the host cannot blink them.",
+          "note": "Eight RJ45 in a block of two rows of four, Port1 above Port2 and so on across; the switch chip drives their LEDs from the coprocessor, and identify blinks one through the coprocessor's own tool.",
           "items": [
             {
               "label": "Port1",
@@ -2576,7 +2576,7 @@
         },
         {
           "bay": "10G SFP+ cages on the coprocessor",
-          "note": "Two 10G SFP+ cages on the coprocessor's own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY's.",
+          "note": "Two 10G SFP+ cages on the coprocessor's own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY's, blinked for identify through the coprocessor's own tool.",
           "items": [
             {
               "label": "F1",
@@ -2616,7 +2616,7 @@
       "rows": [
         {
           "bay": "faceplate, 1G copper behind the 88E6193X switch",
-          "note": "Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, so the host cannot blink them.",
+          "note": "Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, and identify blinks one through the coprocessor's own tool.",
           "items": [
             {
               "label": "Port1",
