@@ -353,5 +353,9 @@
  "expansion bay C",
  "expansion bay D",
  "no module fitted",
- "a module this table does not describe yet"
+ "a module this table does not describe yet",
+ "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye.",
+ "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye.",
+ "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17.",
+ "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
 ]

@@ -104,7 +104,7 @@
           "note": "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Not yet confirmed by eye."
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -118,7 +118,7 @@
           "note": "Two RJ45s on the AQR412C quad PHY, on the CN9131's own ports and not on the switch; the vendor's platform data on the coprocessor caps them at 1G (ratecap 1000).",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -132,7 +132,7 @@
           "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -146,7 +146,7 @@
           "note": "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         }
       ]
     },
@@ -171,7 +171,7 @@
           "note": "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Not yet confirmed by eye."
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -185,7 +185,7 @@
           "note": "Two RJ45s on the AQR412C quad PHY, on the CN9131's own ports and not on the switch; the vendor's platform data on the coprocessor caps them at 1G (ratecap 1000).",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -199,7 +199,7 @@
           "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -213,7 +213,7 @@
           "note": "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         }
       ]
     },
@@ -238,7 +238,7 @@
           "note": "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Not yet confirmed by eye."
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -252,7 +252,7 @@
           "note": "Two RJ45s on the AQR412C quad PHY, on the CN9131's own ports and not on the switch; the vendor's platform data on the coprocessor caps them at 1G (ratecap 1000).",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -266,7 +266,7 @@
           "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -280,7 +280,7 @@
           "note": "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         }
       ]
     },
@@ -303,8 +303,9 @@
           "start": 1,
           "bay": "10G SFP+ cages on the coprocessor",
           "note": "The two cages on the coprocessor's own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.",
-          "identify_led": false,
-          "identify_led_note": "The cage lights are the PHY's and nothing on the host drives them."
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye."
         },
         {
           "driver": "oxp",
@@ -316,8 +317,9 @@
           "start": 1,
           "bay": "faceplate, 1G copper behind the 88E6193X switch",
           "note": "Eight RJ45s on the switch chip. Link state is the switch's; the counters are the driver's per port.",
-          "identify_led": false,
-          "identify_led_note": "The panel LEDs are driven by the switch from the coprocessor; the host has no path to them."
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye."
         },
         {
           "driver": "igb",
@@ -358,8 +360,9 @@
           "start": 1,
           "bay": "10G SFP+ cages on the coprocessor",
           "note": "The two cages on the coprocessor's own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.",
-          "identify_led": false,
-          "identify_led_note": "The cage lights are the PHY's and nothing on the host drives them."
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye."
         },
         {
           "driver": "oxp",
@@ -371,8 +374,9 @@
           "start": 1,
           "bay": "faceplate, 1G copper behind the 88E6193X switch",
           "note": "Eight RJ45s on the switch chip. Link state is the switch's; the counters are the driver's per port.",
-          "identify_led": false,
-          "identify_led_note": "The panel LEDs are driven by the switch from the coprocessor; the host has no path to them."
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye."
         },
         {
           "driver": "igb",
@@ -413,8 +417,9 @@
           "start": 1,
           "bay": "10G SFP+ cages on the coprocessor",
           "note": "The two cages on the coprocessor's own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.",
-          "identify_led": false,
-          "identify_led_note": "The cage lights are the PHY's and nothing on the host drives them."
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye."
         },
         {
           "driver": "oxp",
@@ -426,8 +431,9 @@
           "start": 1,
           "bay": "faceplate, 1G copper behind the 88E6193X switch",
           "note": "Eight RJ45s on the switch chip. Link state is the switch's; the counters are the driver's per port.",
-          "identify_led": false,
-          "identify_led_note": "The panel LEDs are driven by the switch from the coprocessor; the host has no path to them."
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye."
         },
         {
           "driver": "oxp",
@@ -439,7 +445,9 @@
           "start": 3,
           "bay": "faceplate, SFP cages on the switch",
           "note": "The switch's two SFP cages, 1G. No transceiver access from the host.",
-          "identify_led": false
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye."
         },
         {
           "driver": "igb",
@@ -757,8 +765,9 @@
           "start": 1,
           "bay": "10G SFP+ cages on the coprocessor",
           "note": "The two cages on the coprocessor's own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.",
-          "identify_led": false,
-          "identify_led_note": "The cage lights are the PHY's and nothing on the host drives them."
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye."
         },
         {
           "driver": "oxp",
@@ -770,8 +779,9 @@
           "start": 1,
           "bay": "faceplate, 1G copper behind the 88E6193X switch",
           "note": "Eight RJ45s on the switch chip. Link state is the switch's; the counters are the driver's per port.",
-          "identify_led": false,
-          "identify_led_note": "The panel LEDs are driven by the switch from the coprocessor; the host has no path to them."
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye."
         },
         {
           "driver": "oxp",
@@ -783,7 +793,9 @@
           "start": 3,
           "bay": "faceplate, SFP cages on the switch",
           "note": "The switch's two SFP cages, 1G. No transceiver access from the host.",
-          "identify_led": false
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye."
         },
         {
           "driver": "igb",
@@ -837,7 +849,7 @@
           "note": "Eight RJ45s on the switch chip. Link state and media come from the coprocessor's network agent; the counters are the driver's per port.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Not yet confirmed by eye."
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -851,7 +863,7 @@
           "note": "Two RJ45s on the AQR412C quad PHY, on the CN9131's own ports and not on the switch; the vendor's platform data on the coprocessor caps them at 1G (ratecap 1000).",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -865,7 +877,7 @@
           "note": "Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131's own ports, 2.5G at most; the PoE module's two ports, 62 W budget, as read on the coprocessor.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         },
         {
           "driver": "npup",
@@ -879,7 +891,7 @@
           "note": "The switch's two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor's I2C.",
           "identify_led": true,
           "identify": "coprocessor",
-          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; not yet confirmed by eye."
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
         }
       ]
     },

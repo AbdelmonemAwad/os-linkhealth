@@ -510,6 +510,19 @@ def start_flicker_detached(interface, seconds=DEFAULT_SECONDS, target=None):
 
 
 NPU_LINK = '/usr/local/opnsense/scripts/npuctl/mgmt-link.sh'
+# os-xgs-npu's runner: over the management link where there is one (the XGS 136), over the
+# coprocessor's console otherwise (the XGS 3300, which has no such link). Preferred when present;
+# the link script alone is what an older os-xgs-npu installs, on the XGS 136 only.
+NPU_RUN = '/usr/local/opnsense/scripts/xgs/npu-run.sh'
+
+
+def coprocessor_transport():
+    """The command prefix that runs one command on the coprocessor, or None."""
+    if os.access(NPU_RUN, os.X_OK):
+        return ['/bin/sh', NPU_RUN, '8']
+    if os.access(NPU_LINK, os.X_OK):
+        return ['/bin/sh', NPU_LINK, 'ssh']
+    return None
 
 
 def coprocessor_placement(interface):
@@ -517,11 +530,11 @@ def coprocessor_placement(interface):
 
     On the Sophos XGS appliances the front ports belong to a coprocessor and their lights
     are the switch's, driven from that side; the host has no led(4) node for them. Where the
-    chassis group says `identify: coprocessor`, os-xgs-npu's management link carries the
-    request to the vendor's own identify tool over there, by the label printed on the panel.
+    chassis group says `identify: coprocessor`, os-xgs-npu carries the request to the
+    vendor's own identify tool over there, by the label printed on the panel.
     """
     match = re.match(r'^([a-z]+)([0-9]+)$', interface or '')
-    if not match or not os.access(NPU_LINK, os.X_OK):
+    if not match or coprocessor_transport() is None:
         return None
     try:
         models = collector.load_json('chassis.json').get('models') or {}
@@ -538,17 +551,20 @@ def coprocessor_identify(placement, seconds):
     """Ask the coprocessor to light one port's identification for a while, detached.
 
     The vendor's tool takes the panel label - '9' for Port9, 'F1' for F1 - and the seconds,
-    lights the port and puts it back itself; nothing here has to undo anything. The ssh is
-    left to run in a session of its own so configd gets its answer at once.
+    hands them to the coprocessor's xgs-sff-event, which lights the port and puts it back
+    itself; nothing here has to undo anything. The transport is left to run in a session of
+    its own so configd gets its answer at once - over the console that takes a few seconds.
     """
+    transport = coprocessor_transport()
+    if transport is None:
+        return {'status': 'error', 'message': 'nothing on this host can reach the coprocessor'}
     label = placement['label']
     if label.startswith('Port'):
         label = label[len('Port'):]
     if not re.match(r'^[A-Za-z0-9]{1,4}$', label):
         return {'status': 'error', 'message': 'this label cannot be handed to the coprocessor'}
     seconds = max(1, min(int(seconds or DEFAULT_SECONDS), MAX_SECONDS))
-    subprocess.Popen(['/bin/sh', NPU_LINK, 'ssh',
-                      'xgs-led-identify -l %s %d' % (label, seconds)],
+    subprocess.Popen(transport + ['xgs-led-identify -l %s %d' % (label, seconds)],
                      stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                      stderr=subprocess.DEVNULL, start_new_session=True)
     return {'status': 'started', 'interface': placement.get('interface', ''),

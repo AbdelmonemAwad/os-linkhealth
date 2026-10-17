@@ -63,6 +63,10 @@ CONFIG_XML = '/conf/config.xml'
 # os-xgs-npu's management link to an appliance's coprocessor: where it is installed, a chassis
 # group may say its lights are driven from that side (identify: coprocessor).
 NPU_LINK = '/usr/local/opnsense/scripts/npuctl/mgmt-link.sh'
+# os-xgs-npu's runner for one command on the coprocessor, on both families: over the management
+# link where there is one, over the coprocessor's console otherwise (the XGS 3300). Newer than the
+# link script, so either one carries an identify request.
+NPU_RUN = '/usr/local/opnsense/scripts/xgs/npu-run.sh'
 # What os-xgs-npu learned at boot about the ports beyond a board's own: an expansion module's,
 # each with the name the coprocessor's board file gives it, its bay and the module's part number.
 XGS_PORTS = '/var/db/os-xgs-npu/ports.json'
@@ -597,10 +601,12 @@ def collect():
             caps.remove('IDENTIFY_LED')
             identify_note = placement['identify_led_note']
         # The other way a light is reached: a port the host has no LED node for, on an
-        # appliance whose coprocessor drives the panel lights and can be asked over
-        # os-xgs-npu's management link. The chassis group says so, and the capability is
-        # offered only while that link's script is here to carry the request.
-        if placement.get('identify') == 'coprocessor' and os.access(NPU_LINK, os.X_OK):
+        # appliance whose coprocessor drives the panel lights and can be asked through
+        # os-xgs-npu - its runner, or on an older install its management link. The chassis
+        # group says so, and the capability is offered only while one of the two is here to
+        # carry the request.
+        if placement.get('identify') == 'coprocessor' and (
+                os.access(NPU_RUN, os.X_OK) or os.access(NPU_LINK, os.X_OK)):
             if 'IDENTIFY_LED' not in caps:
                 caps.append('IDENTIFY_LED')
             identify_note = placement['identify_led_note']

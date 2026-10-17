@@ -134,7 +134,7 @@ only be a label.
 | `NETSTAT` | aggregate in/out error counters | always (`netstat -i -b -n -W`, read once for the whole machine) |
 | `MEDIA_LADDER` | the list of media the PHY advertises, which is what makes downshift detectable | `ifconfig -m` printed a `supported media` block |
 | `COUNTERS` | per-cause hardware counters (CRC, alignment, symbol, length, …) | the driver is in `drivers.json` **and** one probe OID answers |
-| `IDENTIFY_LED` | this socket's own LED can be made to blink, which is what turns a drawn layout from a claim into something somebody has checked | `/dev/led/<interface>` exists, which is the driver's own answer and the whole test |
+| `IDENTIFY_LED` | this socket's own LED can be made to blink, which is what turns a drawn layout from a claim into something somebody has checked | `/dev/led/<interface>` exists, which is the driver's own answer ~~and the whole test~~; or, on a Sophos XGS appliance, its chassis group says `identify: coprocessor` and os-xgs-npu can reach the coprocessor (`npu-run.sh`, or the management link) |
 | `OPTICS_INVENTORY` | module type, vendor, part number, serial number | `ifconfig -v` printed a `plugged:` line |
 | `OPTICS_DOM` | temperature, voltage, receive power, transmit bias | `ifconfig -v` also printed a `module temperature:` line |
 
