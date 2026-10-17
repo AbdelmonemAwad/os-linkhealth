@@ -371,12 +371,14 @@
                 "{{ lang._('10G SFP+ cages on the coprocessor') }}",
             'The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.':
                 "{{ lang._('The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.') }}",
-            'The light is lit by the coprocessor\'s identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye.':
-                "{{ lang._('The light is lit by the coprocessor\'s identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye.') }}",
+            'The light is lit by the coprocessor\'s identify tool, reached over its console through os-xgs-npu, by the printed label; confirmed by eye on an XGS 3300 on 2026-10-17.':
+                "{{ lang._('The light is lit by the coprocessor\'s identify tool, reached over its console through os-xgs-npu, by the printed label; confirmed by eye on an XGS 3300 on 2026-10-17.') }}",
+            'An expansion module\'s lights are lit by the same identify tool, by the name the coprocessor\'s board file gives the port; not yet confirmed by eye.':
+                "{{ lang._('An expansion module\'s lights are lit by the same identify tool, by the name the coprocessor\'s board file gives the port; not yet confirmed by eye.') }}",
             'Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.':
                 "{{ lang._('Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.') }}",
-            'The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye.':
-                "{{ lang._('The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye.') }}",
+            'The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over its console, through os-xgs-npu, by the printed label. Confirmed by eye on an XGS 3300 on 2026-10-17.':
+                "{{ lang._('The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over its console, through os-xgs-npu, by the printed label. Confirmed by eye on an XGS 3300 on 2026-10-17.') }}",
             'management and console': "{{ lang._('management and console') }}",
             'The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.':
                 "{{ lang._('The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.') }}",

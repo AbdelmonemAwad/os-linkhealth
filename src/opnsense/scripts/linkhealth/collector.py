@@ -362,6 +362,21 @@ def read_xgs_ports():
     return by_mac, doc.get('slots') or {}
 
 
+def module_identify(table, driver):
+    """The group whose lights the coprocessor drives, for an expansion module's port, or None.
+
+    A module's ports are not in any unit-based group, so nothing in the table says how their
+    lights are driven. On an appliance whose own panel groups say `identify: coprocessor` the
+    module's lights are the coprocessor's too - the module sits on its bay and its cages are named
+    in the same board file the vendor's identify tool reads - so a module port borrows the first
+    such group of its driver: its method and its note, and the name os-xgs-npu gave the port.
+    """
+    for group in table.get('groups') or []:
+        if group.get('driver') == driver and group.get('identify') == 'coprocessor':
+            return group
+    return None
+
+
 def read_chassis(models):
     """Identify the appliance from SMBIOS and pick its port-label table."""
     values = {}
@@ -590,6 +605,11 @@ def collect():
             label = module.get('name')
             if module.get('slot'):
                 bay = 'expansion bay %s' % module['slot']
+            # Its light is the coprocessor's, like the panel's, where the panel's is.
+            lit = module_identify(table, driver_base)
+            if lit is not None:
+                placement = dict(placement, identify='coprocessor', identify_led=True,
+                                 identify_led_note=lit.get('module_identify_note') or lit.get('identify_led_note', ''))
 
         # The node existing only means the driver offered one. Whether a light is
         # wired to the other end of it is a fact about the board, and the only
