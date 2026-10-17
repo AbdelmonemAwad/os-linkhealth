@@ -416,18 +416,18 @@
                 "{{ lang._('These cages have no identification light this firewall can drive: the driver registers the LED node, accepts the write and nothing lights, because it drives one fixed LED index that this board does not wire. Measured on this appliance, where the copper ports do blink. Use the activity light instead - the second button on the port detail.') }}",
             'The sockets, their labels and their bays are measured: every oxp port was matched to its printed label with a cable on the appliance this project is developed on (os-xgs-npu, 2026-10-13). The left-to-right ORDER of the bays and the two-row arrangement of the copper block are drawn from the appliance\'s documented layout and have not yet been checked against the metal; a photograph of the front, or the owner\'s word, confirms it.':
                 "{{ lang._('The sockets, their labels and their bays are measured: every oxp port was matched to its printed label with a cable on the appliance this project is developed on (os-xgs-npu, 2026-10-13). The left-to-right ORDER of the bays and the two-row arrangement of the copper block are drawn from the appliance\'s documented layout and have not yet been checked against the metal; a photograph of the front, or the owner\'s word, confirms it.') }}",
-            'Eight RJ45 in a block of two rows of four, Port1 above Port2 and so on across; the switch chip drives their LEDs from the coprocessor, so the host cannot blink them.':
-                "{{ lang._('Eight RJ45 in a block of two rows of four, Port1 above Port2 and so on across; the switch chip drives their LEDs from the coprocessor, so the host cannot blink them.') }}",
+            'Eight RJ45 in a block of two rows of four, Port1 above Port2 and so on across; the switch chip drives their LEDs from the coprocessor, and identify blinks one through the coprocessor\'s own tool.':
+                "{{ lang._('Eight RJ45 in a block of two rows of four, Port1 above Port2 and so on across; the switch chip drives their LEDs from the coprocessor, and identify blinks one through the coprocessor\'s own tool.') }}",
             'Two 1G SFP cages on the same switch chip (F3, F4). No transceiver data from the host: the cage EEPROMs are on the coprocessor\'s I2C.':
                 "{{ lang._('Two 1G SFP cages on the same switch chip (F3, F4). No transceiver data from the host: the cage EEPROMs are on the coprocessor\'s I2C.') }}",
-            'Two 10G SFP+ cages on the coprocessor\'s own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY\'s.':
-                "{{ lang._('Two 10G SFP+ cages on the coprocessor\'s own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY\'s.') }}",
+            'Two 10G SFP+ cages on the coprocessor\'s own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY\'s, blinked for identify through the coprocessor\'s own tool.':
+                "{{ lang._('Two 10G SFP+ cages on the coprocessor\'s own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY\'s, blinked for identify through the coprocessor\'s own tool.') }}",
             'The host\'s own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.':
                 "{{ lang._('The host\'s own gigabit NIC (igb0, printed MGMT) and the serial console; neither is a front port of the coprocessor, and the chassis table leaves igb0 with its interface name.') }}",
             'The sockets, their labels and their bays are the driver\'s front-port table and the hardware page (os-xgs-npu, docs/hardware/xgs136.md); their left-to-right order on the panel has not been confirmed at the appliance. The rows are in label order.':
                 "{{ lang._('The sockets, their labels and their bays are the driver\'s front-port table and the hardware page (os-xgs-npu, docs/hardware/xgs136.md); their left-to-right order on the panel has not been confirmed at the appliance. The rows are in label order.') }}",
-            'Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, so the host cannot blink them.':
-                "{{ lang._('Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, so the host cannot blink them.') }}",
+            'Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, and identify blinks one through the coprocessor\'s own tool.':
+                "{{ lang._('Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, and identify blinks one through the coprocessor\'s own tool.') }}",
             'faceplate, copper on the coprocessor':
                 "{{ lang._('faceplate, copper on the coprocessor') }}",
             'All four on the AQR412C quad PHY on the CN9131\'s own ports: 9 and 10 rate-capped at 1G, 11 and 12 at 2.5G and the PoE module\'s ports - the vendor\'s platform data, read on the coprocessor.':
@@ -448,7 +448,13 @@
 
         function lh_data(text) {
             if (!text) { return ''; }
-            return lh_data_text[text] || text;
+            /* Both sides of the map can carry an entity where the text has an apostrophe: OPNsense's
+               API escapes the strings it returns, and the template escapes what lang._() writes
+               into the map's values. Each is read back as text, or a note is shown with
+               "coprocessor&#039;s" in it (seen on an XGS 3300, 2026-10-17). */
+            const decode = function (s) { return $('<textarea/>').html(String(s)).text(); };
+            const plain = decode(text);
+            return lh_data_text[plain] ? decode(lh_data_text[plain]) : plain;
         }
 
         function lh_num(value) {
@@ -1408,13 +1414,18 @@
         /* The framework's own contextual colours, so that a theme which repaints the page
            repaints the drawing with it. Every shape is filled and stroked with `currentColor`,
            which is exactly what these classes set, so one class on the group colours the outline,
-           the fill and the label in one go. Grey for the three states that are not a judgement,
+           the fill and the label in one go. Grey for the two states that are not a judgement and carry no link,
            and for a socket the machine says nothing about. */
         const faceplate_class = {
             'fail': 'text-danger',
             'warn': 'text-warning',
             'watch': 'text-info',
             'ok': 'text-success',
+            /* A link with too little traffic to judge is still a link: green, faded (.lh-fp-quiet),
+               so a socket in use is told from an empty one at a glance. "quiet" is the drawing's
+               own word for an idle verdict on a port that reports a speed; an idle port with no
+               speed stays grey. */
+            'quiet': 'text-success',
             'idle': 'text-muted',
             'down': 'text-muted',
             'disabled': 'text-muted',
@@ -1424,11 +1435,12 @@
         /* The drawing knows one word the ports list does not: a socket the layout draws and the
            firewall reports no port for. */
         const faceplate_text = $.extend({}, verdict_text, {
+            'quiet': "{{ lang._('link up, too little traffic to judge') }}",
             'absent': "{{ lang._('not reported') }}"
         });
 
         /* Worst first in the key as well, so it reads in the order the ports list is sorted in. */
-        const faceplate_order = ['fail', 'warn', 'watch', 'ok', 'idle', 'down', 'disabled', 'absent'];
+        const faceplate_order = ['fail', 'warn', 'watch', 'ok', 'quiet', 'idle', 'down', 'disabled', 'absent'];
 
         /* The last panel document, read by a tooltip as it opens and by the correction dialog in
            the identify file included further down. That file is rendered into this same scope and
@@ -1452,6 +1464,9 @@
            attribute, and the vocabulary of a verdict is closed. */
         function faceplate_state(item) {
             const state = (item || {}).state;
+            if (state === 'idle' && Number((item || {}).speed_mbps) > 0) {
+                return 'quiet';
+            }
             return faceplate_class[state] ? state : 'absent';
         }
 
@@ -1754,7 +1769,7 @@
                 }
                 $legend.append($('<span class="lh-fp-key"/>')
                     .append($('<i class="fa fa-fw ' + (state === 'absent' ? 'fa-square-o' : 'fa-square') +
-                        ' ' + faceplate_class[state] + '"></i> '))
+                        ' ' + faceplate_class[state] + ' lh-fp-' + state + '"></i> '))
                     .append($('<span/>').text(faceplate_text[state] || state)));
             });
         }
@@ -2453,6 +2468,11 @@
 
     .lh-fp-absent .lh-fp-detail {
         display: none;
+    }
+
+    /* A link too quiet to judge: green, like a clean one, and faded so the two differ. */
+    .lh-fp-quiet {
+        opacity: 0.55;
     }
 
     .lh-fp-open {
