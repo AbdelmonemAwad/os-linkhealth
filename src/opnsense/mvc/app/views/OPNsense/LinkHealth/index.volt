@@ -351,14 +351,14 @@
                 "{{ lang._('faceplate, 1G copper behind the 88E6193X switch') }}",
             'Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.':
                 "{{ lang._('Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.') }}",
-            'The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Not yet confirmed by eye.':
-                "{{ lang._('The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Not yet confirmed by eye.') }}",
+            'The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17.':
+                "{{ lang._('The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17.') }}",
             'faceplate, copper on the AQR412C quad PHY, rate-capped at 1G':
                 "{{ lang._('faceplate, copper on the AQR412C quad PHY, rate-capped at 1G') }}",
             'Two RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports and not on the switch; the vendor\'s platform data on the coprocessor caps them at 1G (ratecap 1000).':
                 "{{ lang._('Two RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports and not on the switch; the vendor\'s platform data on the coprocessor caps them at 1G (ratecap 1000).') }}",
-            'The light is lit by the coprocessor\'s identify tool over the management link, by the printed label; not yet confirmed by eye.':
-                "{{ lang._('The light is lit by the coprocessor\'s identify tool over the management link, by the printed label; not yet confirmed by eye.') }}",
+            'The light is lit by the coprocessor\'s identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17.':
+                "{{ lang._('The light is lit by the coprocessor\'s identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17.') }}",
             'faceplate, 2.5G copper on the AQR412C quad PHY, with PoE':
                 "{{ lang._('faceplate, 2.5G copper on the AQR412C quad PHY, with PoE') }}",
             'Two multi-gigabit RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports, 2.5G at most; the PoE module\'s two ports, 62 W budget, as read on the coprocessor.':
@@ -371,12 +371,12 @@
                 "{{ lang._('10G SFP+ cages on the coprocessor') }}",
             'The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.':
                 "{{ lang._('The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.') }}",
-            'The cage lights are the PHY\'s and nothing on the host drives them.':
-                "{{ lang._('The cage lights are the PHY\'s and nothing on the host drives them.') }}",
+            'The light is lit by the coprocessor\'s identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye.':
+                "{{ lang._('The light is lit by the coprocessor\'s identify tool, reached over its console through os-xgs-npu, by the printed label; not yet confirmed by eye.') }}",
             'Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.':
                 "{{ lang._('Eight RJ45s on the switch chip. Link state is the switch\'s; the counters are the driver\'s per port.') }}",
-            'The panel LEDs are driven by the switch from the coprocessor; the host has no path to them.':
-                "{{ lang._('The panel LEDs are driven by the switch from the coprocessor; the host has no path to them.') }}",
+            'The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye.':
+                "{{ lang._('The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over its console, through os-xgs-npu, by the printed label. Not yet confirmed by eye.') }}",
             'management and console': "{{ lang._('management and console') }}",
             'The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.':
                 "{{ lang._('The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.') }}",

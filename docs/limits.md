@@ -141,9 +141,14 @@ it can do.
 Identify works through `led(4)`. A driver that supports it registers one `/dev/led/<interface>`
 node per port, and writing a blink pattern to that node drives the NIC's identification LED
 through the controller's own LED register. A driver that does not register the node offers nothing
-to write to, and that port simply has no identify button — there is no fallback, because the only
-other way to make a port noticeable is to disturb its traffic, which this plugin will not do to
-find out where a socket is.
+to write to, and that port simply has no identify button — ~~there is no fallback, because the only
+other way to make a port noticeable is to disturb its traffic~~ with one exception: a Sophos XGS
+appliance, whose port lights are driven by its coprocessor. There the request goes to the
+coprocessor's own identify tool through os-xgs-npu - over the management link on an XGS 126 or 136
+(confirmed by eye on an XGS 136 on 2026-10-17), over the coprocessor's console on the OCTEON TX
+boards, the XGS 2100 to 3300 (not yet confirmed by eye). Anywhere else the only other way to make a
+port noticeable is to disturb its traffic, which this plugin will not do to find out where a socket
+is.
 
 FreeBSD's `e1000` driver (`em`, `igb`, `igc`) and its `ixgbe` driver (`ix`) both register the
 node. On the reference machine all twenty ports have one — `igb0` through `igb17` and `ix0`,

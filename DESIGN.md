@@ -61,7 +61,7 @@ Capability is detected **per port** as seven independent flags. A "tier" is only
 | `COUNTERS` | per-cause hardware counters | the driver appears in `drivers.json` **and** one probe OID answers |
 | `OPTICS_INVENTORY` | module type/vendor/PN/SN | `ifconfig -v` printed a `plugged:` line |
 | `OPTICS_DOM` | temperature, voltage, power, bias | `ifconfig -v` also printed a `module temperature:` line |
-| `IDENTIFY_LED` | a light on this socket can be made to blink | `/dev/led/<if>` exists **and** no verified chassis group says the light is not wired |
+| `IDENTIFY_LED` | a light on this socket can be made to blink | `/dev/led/<if>` exists **and** no verified chassis group says the light is not wired; or the chassis group says `identify: coprocessor` and os-xgs-npu can reach the coprocessor |
 
 Rules that follow from this:
 
