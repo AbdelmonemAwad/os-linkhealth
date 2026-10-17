@@ -306,7 +306,7 @@
           "identify_led": true,
           "identify": "coprocessor",
           "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; confirmed by eye on an XGS 3300 on 2026-10-17.",
-          "module_identify_note": "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; not yet confirmed by eye."
+          "module_identify_note": "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; confirmed by eye on an XGS 3300 on 2026-10-17."
         },
         {
           "driver": "oxp",
@@ -364,7 +364,7 @@
           "identify_led": true,
           "identify": "coprocessor",
           "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; confirmed by eye on an XGS 3300 on 2026-10-17.",
-          "module_identify_note": "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; not yet confirmed by eye."
+          "module_identify_note": "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; confirmed by eye on an XGS 3300 on 2026-10-17."
         },
         {
           "driver": "oxp",
@@ -422,7 +422,7 @@
           "identify_led": true,
           "identify": "coprocessor",
           "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; confirmed by eye on an XGS 3300 on 2026-10-17.",
-          "module_identify_note": "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; not yet confirmed by eye."
+          "module_identify_note": "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; confirmed by eye on an XGS 3300 on 2026-10-17."
         },
         {
           "driver": "oxp",
@@ -771,7 +771,7 @@
           "identify_led": true,
           "identify": "coprocessor",
           "identify_led_note": "The light is lit by the coprocessor's identify tool, reached over its console through os-xgs-npu, by the printed label; confirmed by eye on an XGS 3300 on 2026-10-17.",
-          "module_identify_note": "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; not yet confirmed by eye."
+          "module_identify_note": "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; confirmed by eye on an XGS 3300 on 2026-10-17."
         },
         {
           "driver": "oxp",
