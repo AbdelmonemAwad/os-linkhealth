@@ -867,7 +867,56 @@
             }
         });
 
+        /* Summary cards, as on the coprocessor's pages: one for each thing a glance is for, in the
+           theme's colours. Drawn from the same document as the line under them. */
+        function card(cls, icon, key, value, sub) {
+            return $('<div class="lh-card"/>').addClass(cls)
+                .append($('<i class="fa"/>').addClass(icon))
+                .append($('<div class="k"/>').text(key))
+                .append($('<div class="v"/>').text(value))
+                .append($('<div class="s"/>').text(sub || ' '));
+        }
+
+        function render_cards(doc) {
+            const chassis = doc.chassis || {};
+            const ports = doc.ports || [];
+            const counts = {};
+            let linked = 0;
+            let erring = 0;
+            ports.forEach(function (port) {
+                const state = (port.verdict || {}).state || 'ok';
+                counts[state] = (counts[state] || 0) + 1;
+                if ((port.link || {}).state === 'active') {
+                    linked += 1;
+                }
+                if (Number((port.window || {}).error_ppm || 0) > 0) {
+                    erring += 1;
+                }
+            });
+            /* the worst judgement present is the headline; the rest are the line under it */
+            const worst = ['fail', 'warn', 'watch', 'ok'].find(function (state) { return counts[state]; });
+            const tone = {'fail': 'bad', 'warn': 'warn', 'watch': 'warn', 'ok': 'ok'};
+            const rest = Object.keys(verdict_rank).filter(function (state) {
+                return counts[state] && state !== worst;
+            }).map(function (state) {
+                return (verdict_text[state] || state) + ' ' + counts[state];
+            }).join(', ');
+            const measured = duration_text(doc.window_seconds);
+            $('#ports-cards').empty()
+                .append(card('', 'fa-server', "{{ lang._('Appliance') }}",
+                    [chassis.vendor, chassis.model].filter(Boolean).join(' ') || "{{ lang._('unknown') }}",
+                    doc.generated ? "{{ lang._('last sweep {time}') }}".replace('{time}', format_time(doc.generated)) : ''))
+                .append(card(linked > 0 ? 'ok' : 'warn', 'fa-plug', "{{ lang._('Ports with link') }}",
+                    linked + ' / ' + ports.length,
+                    measured ? "{{ lang._('measured over {duration}') }}".replace('{duration}', measured) : ''))
+                .append(card(worst ? tone[worst] : '', 'fa-heartbeat', "{{ lang._('Health') }}",
+                    worst ? (verdict_text[worst] || worst) + ' ' + counts[worst] : "{{ lang._('no traffic') }}", rest))
+                .append(card(erring > 0 ? 'warn' : 'ok', 'fa-exclamation-triangle', "{{ lang._('Errors') }}",
+                    String(erring), "{{ lang._('ports with errors in this window') }}"));
+        }
+
         function render_summary(doc) {
+            render_cards(doc);
             const chassis = doc.chassis || {};
             const parts = [];
             const machine = [chassis.vendor, chassis.model].filter(Boolean).join(' ');
@@ -2333,6 +2382,20 @@
         font-weight: bold;
     }
 
+    /* Summary cards, the same as the coprocessor's pages: the theme's text and a faint tint of it. */
+    .lh-cards { display: flex; flex-wrap: wrap; gap: 12px; padding: 15px 15px 5px; }
+    .lh-card { flex: 1 1 200px; min-width: 190px; border: 1px solid rgba(128, 128, 128, 0.25);
+               border-inline-start: 4px solid #9e9e9e; border-radius: 3px; padding: 10px 14px;
+               background-color: rgba(128, 128, 128, 0.04); }
+    .lh-card.ok { border-inline-start-color: #5cb85c; }
+    .lh-card.warn { border-inline-start-color: #f0ad4e; }
+    .lh-card.bad { border-inline-start-color: #d9534f; }
+    .lh-card .k { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; opacity: 0.6; }
+    .lh-card .v { font-size: 19px; font-weight: 600; line-height: 1.3; margin: 2px 0; }
+    .lh-card .s { font-size: 12px; opacity: 0.7; }
+    .lh-card .fa { opacity: 0.35; float: inline-end; font-size: 18px; margin-top: 2px; }
+    .lh-summary-line { padding: 5px 15px 10px; }
+
     .lh-alert {
         padding: 8px 12px;
     }
@@ -2540,9 +2603,9 @@
 
 <div class="tab-content content-box" id="linkhealth">
     <div id="ports" class="tab-pane fade in">
-        <div class="alert alert-info" role="alert" style="margin: 10px;">
-            <i class="fa fa-fw fa-info-circle"></i>
-            <span id="ports-summary">{{ lang._('Reading the last measurement...') }}</span>
+        <div class="lh-cards" id="ports-cards"></div>
+        <div class="lh-summary-line">
+            <span id="ports-summary" class="text-muted">{{ lang._('Reading the last measurement...') }}</span>
             <button id="refreshAct" class="btn btn-xs btn-default" type="button">
                 <i class="fa fa-fw fa-refresh"></i> {{ lang._('Refresh') }}
             </button>
@@ -2566,9 +2629,8 @@
     </div>
 
     <div id="faceplate" class="tab-pane fade in">
-        <div class="alert alert-info" role="alert" style="margin: 10px;">
-            <i class="fa fa-fw fa-info-circle"></i>
-            <span id="faceplate-summary">{{ lang._('Reading the front panel layout...') }}</span>
+        <div class="lh-summary-line">
+            <span id="faceplate-summary" class="text-muted">{{ lang._('Reading the front panel layout...') }}</span>
             <button id="faceplateRefreshAct" class="btn btn-xs btn-default" type="button">
                 <i class="fa fa-fw fa-refresh"></i> {{ lang._('Refresh') }}
             </button>

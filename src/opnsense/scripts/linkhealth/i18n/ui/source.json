@@ -381,5 +381,9 @@
  "Two 10G SFP+ cages on the coprocessor's own MAC through one 88X5113 PHY (F1, F2). Their lights are the PHY's, blinked for identify through the coprocessor's own tool.",
  "Eight RJ45 on the switch chip, labels 1 to 8; the switch drives their LEDs from the coprocessor, and identify blinks one through the coprocessor's own tool.",
  "link up, too little traffic to judge",
- "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; confirmed by eye on an XGS 3300 on 2026-10-17."
+ "An expansion module's lights are lit by the same identify tool, by the name the coprocessor's board file gives the port; confirmed by eye on an XGS 3300 on 2026-10-17.",
+ "Appliance",
+ "Health",
+ "Ports with link",
+ "ports with errors in this window"
 ]
