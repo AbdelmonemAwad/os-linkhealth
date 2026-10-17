@@ -448,11 +448,13 @@
 
         function lh_data(text) {
             if (!text) { return ''; }
-            /* OPNsense's API escapes every string it returns, so a note with an apostrophe
-               arrives as "coprocessor&#039;s": it is read back as text first, or the lookup
-               below misses and the entity is shown as it is (seen on an XGS 3300, 2026-10-17). */
-            const plain = $('<textarea/>').html(String(text)).text();
-            return lh_data_text[plain] || plain;
+            /* Both sides of the map can carry an entity where the text has an apostrophe: OPNsense's
+               API escapes the strings it returns, and the template escapes what lang._() writes
+               into the map's values. Each is read back as text, or a note is shown with
+               "coprocessor&#039;s" in it (seen on an XGS 3300, 2026-10-17). */
+            const decode = function (s) { return $('<textarea/>').html(String(s)).text(); };
+            const plain = decode(text);
+            return lh_data_text[plain] ? decode(lh_data_text[plain]) : plain;
         }
 
         function lh_num(value) {
@@ -1419,9 +1421,12 @@
             'warn': 'text-warning',
             'watch': 'text-info',
             'ok': 'text-success',
-            /* A link with too little traffic to judge is still a link: green, faded (.lh-fp-idle),
-               so a socket in use is told from an empty one at a glance. */
-            'idle': 'text-success',
+            /* A link with too little traffic to judge is still a link: green, faded (.lh-fp-quiet),
+               so a socket in use is told from an empty one at a glance. "quiet" is the drawing's
+               own word for an idle verdict on a port that reports a speed; an idle port with no
+               speed stays grey. */
+            'quiet': 'text-success',
+            'idle': 'text-muted',
             'down': 'text-muted',
             'disabled': 'text-muted',
             'absent': 'text-muted'
@@ -1430,11 +1435,12 @@
         /* The drawing knows one word the ports list does not: a socket the layout draws and the
            firewall reports no port for. */
         const faceplate_text = $.extend({}, verdict_text, {
+            'quiet': "{{ lang._('link up, too little traffic to judge') }}",
             'absent': "{{ lang._('not reported') }}"
         });
 
         /* Worst first in the key as well, so it reads in the order the ports list is sorted in. */
-        const faceplate_order = ['fail', 'warn', 'watch', 'ok', 'idle', 'down', 'disabled', 'absent'];
+        const faceplate_order = ['fail', 'warn', 'watch', 'ok', 'quiet', 'idle', 'down', 'disabled', 'absent'];
 
         /* The last panel document, read by a tooltip as it opens and by the correction dialog in
            the identify file included further down. That file is rendered into this same scope and
@@ -1458,6 +1464,9 @@
            attribute, and the vocabulary of a verdict is closed. */
         function faceplate_state(item) {
             const state = (item || {}).state;
+            if (state === 'idle' && Number((item || {}).speed_mbps) > 0) {
+                return 'quiet';
+            }
             return faceplate_class[state] ? state : 'absent';
         }
 
@@ -2462,7 +2471,7 @@
     }
 
     /* A link too quiet to judge: green, like a clean one, and faded so the two differ. */
-    .lh-fp-idle {
+    .lh-fp-quiet {
         opacity: 0.55;
     }
 
