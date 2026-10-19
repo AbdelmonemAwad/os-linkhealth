@@ -1,4 +1,8 @@
 #!/usr/local/bin/python3
+#-
+# SPDX-License-Identifier: BSD-2-Clause
+# Copyright (c) 2026 Abdelmonem Awad <eg2@live.com>
+#
 """Every string the page asks the catalogue for, against every string the catalogue holds.
 
 A msgid that reaches lang._() without being in source.json is shown in English on an
