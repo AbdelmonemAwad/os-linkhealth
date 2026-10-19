@@ -63,7 +63,7 @@ jobs:
       PRODUCT_ABI: '26.7'
     steps:
       - name: This repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # The whole history and, below, the tags: the release notes are read out of the
           # annotated tag object by git, locally, so a shallow checkout has nothing to
