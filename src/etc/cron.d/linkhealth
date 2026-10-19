@@ -1,3 +1,7 @@
+#-
+# SPDX-License-Identifier: BSD-2-Clause
+# Copyright (c) 2026 Abdelmonem Awad <eg2@live.com>
+#
 # Link health collector: samples the per-port counters and judges the change over the window.
 # This line only wakes the script every minute; the polling interval, the thresholds and the
 # alert cooldown are configured under Interfaces: Link Health.
