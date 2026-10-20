@@ -20,7 +20,10 @@ find /usr/local/opnsense/scripts/linkhealth -type f -name '*.py' -exec chmod 755
 find /usr/local/opnsense/scripts/linkhealth -type f ! -name '*.py' -exec chmod 644 {} +
 chmod 755 /usr/local/etc/rc.syshook.d/start/62-linkhealth
 chmod 644 /usr/local/etc/cron.d/linkhealth
-chmod 644 /usr/local/etc/cron.d/linkhealth-update
+# No daily self-update since 2026-10-20: a release is installed from XGS: Updates
+# (its Plugins tab, in os-xgs-npu) or by hand with self-update.py. An older
+# install's cron entry goes.
+rm -f /usr/local/etc/cron.d/linkhealth-update
 chmod 644 /usr/local/opnsense/service/conf/actions.d/actions_linkhealth.conf
 chmod 644 /usr/local/opnsense/www/js/widgets/LinkHealth.js
 chmod 644 /usr/local/opnsense/www/js/widgets/Metadata/LinkHealth.xml
@@ -85,7 +88,7 @@ fi
 echo "translated strings added: $(/usr/local/opnsense/scripts/linkhealth/merge_ui_translations.py)"
 configctl webgui restart > /dev/null 2>&1 || true
 
-# What this install is, for the daily self-update: the commit, from a git checkout, or from the
+# What this install is, for the self-update: the commit, from a git checkout, or from the
 # .source-commit stamp that an xgs-image-builder image or the self-update leaves in the tree.
 # Without either it is recorded as unknown, and the self-update takes the latest release once.
 REV=; RDATE=; RSRC=unknown
