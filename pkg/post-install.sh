@@ -68,43 +68,9 @@ if [ -f /usr/local/etc/rc.configure_plugins ]; then
 	/usr/local/etc/rc.configure_plugins POST_INSTALL
 fi
 
-# The GUI strings are merged into the gettext catalogues of every installed language.
-# This is the same thing /usr/local/etc/rc.syshook.d/start/62-linkhealth does at every
-# boot - the catalogues belong to the opnsense-lang package, which replaces them on its
-# own schedule, independent of the core version - so doing it now takes no new liberty
-# with the machine; it only brings the first run forward from the next reboot to now. It
-# does mean pkg check -s opnsense-lang names the altered catalogues afterwards, exactly as
-# it does after the hand installation; post-deinstall.sh says why that is not a fault.
-#
-# stderr is deliberately not discarded: when the merge cannot read a catalogue it names
-# it, and an install is the one moment somebody is watching. The exit status is kept
-# beside the count rather than folded into it, so that a merge which wrote some strings
-# and then died still gets the webgui restart those strings need, and so that a failure
-# is reported as a failure instead of as "0 added".
-if [ -x /usr/local/opnsense/scripts/linkhealth/merge_ui_translations.py ]; then
-	ADDED=$(/usr/local/opnsense/scripts/linkhealth/merge_ui_translations.py)
-	STATUS=$?
-	if [ "${STATUS}" -eq 0 ]; then
-		echo "translated strings added: ${ADDED:-0}"
-	elif [ -n "${ADDED}" ]; then
-		echo "the GUI string merge added ${ADDED} and then failed (exit ${STATUS});"
-		echo "the next boot runs the same merge again"
-	else
-		echo "the GUI strings were not merged (the merge exited ${STATUS}): the page"
-		echo "keeps the words it has until the next boot, which runs the same merge"
-	fi
-	if [ -n "${ADDED}" ] && [ "${ADDED}" != "0" ]; then
-		# A restart takes away every logged-in session's php worker, so a page that
-		# is open goes quiet for a moment. Say so: this is the one line of output
-		# that explains why the GUI somebody is watching just stopped answering.
-		echo "restarting the web GUI so that it reads the strings just added"
-		# absolute, because a pkg script does not necessarily inherit a PATH with
-		# /usr/local/sbin in it - which is why os-vnstat's own post-install calls
-		# /usr/local/sbin/configctl by its full path too
-		[ -f /usr/local/sbin/configctl ] &&
-		    /usr/local/sbin/configctl webgui restart > /dev/null 2>&1 || true
-	fi
-fi
+# The page's and the mail's Arabic is in opnsense-arabic's catalogue since 2026-10-22: nothing
+# is merged from here, and the merge's record from an earlier version goes.
+rm -f /var/db/linkhealth/i18n-owned.json
 
 # Take the first sample now instead of a minute from now: "dry" measures and stores the
 # baseline without mailing anything, so the first run from cron already has something to

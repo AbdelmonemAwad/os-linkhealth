@@ -71,7 +71,8 @@ fi
 #   still has them starts judging immediately instead of spending its first window
 #   measuring nothing.  Remove it with:  rm -rf /var/db/linkhealth
 #
-#   the strings this plugin merged into a GUI gettext catalogue. It has only ever written to
+#   the strings a version before 2026-10-22 merged into a GUI gettext catalogue (since then
+#   their Arabic is in opnsense-arabic's own catalogue and nothing is merged). It only ever wrote to
 #   one. merge_ui_translations.py works from the i18n/ui/<locale>.json files the plugin
 #   ships, and it ships ar_SA alone, so on a machine with no Arabic catalogue none of this
 #   happened at all - the merge skips a language whose OPNsense.mo is not there. Where it did

@@ -9,7 +9,7 @@
         silently drop the widget off the dashboards it is already on. It stays "linkhealth".
 
         Every string in <translations> is passed through gettext() by the dashboard controller, so
-        the English text here is the msgid the plugin's i18n/ui catalogues translate.
+        the English text here is the msgid opnsense-arabic's catalogue translates.
 
         NOTHING goes inside <translations>, including a comment. The controller does
 

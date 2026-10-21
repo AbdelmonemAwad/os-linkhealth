@@ -53,7 +53,7 @@
     None of the sentences below are written in Python. Every one of them is a
     msgid, looked up in the very catalogue the GUI reads: the domain OPNsense
     under /usr/local/share/locale/<locale>/LC_MESSAGES/OPNsense.mo, which is
-    where merge_ui_translations.py puts this plugin's Arabic at boot. The
+    where opnsense-arabic installs the Arabic of this plugin with the rest. The
     English string is the key, here as on the page.
 
     V, 2026-09-22, reference appliance, OPNsense 26.7.4_1:
