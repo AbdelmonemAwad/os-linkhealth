@@ -341,12 +341,10 @@ test saturates the link while it runs.
 Makefile, pkg-descr, README.md, docs/limits.md
 install/{install.sh,uninstall.sh}
 src/etc/cron.d/linkhealth
-src/etc/rc.syshook.d/start/62-linkhealth
-src/share/pkg/triggers/os-linkhealth.ucl
 src/opnsense/service/conf/actions.d/actions_linkhealth.conf
 src/opnsense/scripts/linkhealth/{linkhealth.py,collector.py,verdict.py,alerts.py,loadtest.py,
                                  state.py,exporters.py,chassis.py,drivers.json,chassis.json,
-                                 thresholds.json,merge_ui_translations.py,i18n/}
+                                 thresholds.json,i18n/ui/source.json}
 src/opnsense/mvc/app/models/OPNsense/LinkHealth/{LinkHealth.xml,LinkHealth.php,Menu/Menu.xml,ACL/ACL.xml}
 src/opnsense/mvc/app/controllers/OPNsense/LinkHealth/{IndexController.php,forms/general.xml,
                                  Api/SettingsController.php,Api/ServiceController.php}

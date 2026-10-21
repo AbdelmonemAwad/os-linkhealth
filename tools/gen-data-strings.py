@@ -126,8 +126,10 @@ def main():
     catalogue = os.path.join(SCRIPTS, 'i18n', 'ui')
     with open(os.path.join(catalogue, 'source.json'), encoding='utf-8') as handle:
         source = json.load(handle)
-    with open(os.path.join(catalogue, 'ar_SA.json'), encoding='utf-8') as handle:
-        arabic = json.load(handle)
+    # the Arabic is in opnsense-arabic's catalogue since 2026-10-22
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import arabic_catalogue
+    arabic = {k: v for k, v in arabic_catalogue.catalogue().items() if v}
 
     missing = [s for s in strings if s not in source]
     untranslated = [s for s in strings if s not in arabic]

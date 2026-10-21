@@ -430,9 +430,12 @@ pkg delete os-linkhealth
 ```
 
 Settings stay in `config.xml` and the counter baseline in `/var/db/linkhealth`, so a
-reinstall picks up where it left off. One thing removal cannot undo: the translated
+reinstall picks up where it left off. ~~One thing removal cannot undo: the translated
 strings were merged into the shared GUI catalogues, and they stay until those
-catalogues are next replaced by an OPNsense update.
+catalogues are next replaced by an OPNsense update.~~ Since 2026-10-22 this plugin merges
+nothing into the catalogues: its Arabic, the page's and the mail's, is in
+[opnsense-arabic](https://github.com/AbdelmonemAwad/opnsense-arabic)'s catalogue with the rest
+of the GUI, so the page and the alerts are in Arabic where that plugin is installed.
 
 ### What a package outside the OPNsense repository does not get
 

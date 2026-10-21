@@ -18,7 +18,6 @@ cp -R "${HERE}/src/" /usr/local/
 # every script in the directory needs the bit; the data files beside them are only read
 find /usr/local/opnsense/scripts/linkhealth -type f -name '*.py' -exec chmod 755 {} +
 find /usr/local/opnsense/scripts/linkhealth -type f ! -name '*.py' -exec chmod 644 {} +
-chmod 755 /usr/local/etc/rc.syshook.d/start/62-linkhealth
 chmod 644 /usr/local/etc/cron.d/linkhealth
 # No daily self-update since 2026-10-20: a release is installed from XGS: Updates
 # (its Plugins tab, in os-xgs-npu) or by hand with self-update.py. An older
@@ -84,8 +83,10 @@ if [ -f "${HERE}/tools/gen-data-strings.py" ]; then
         echo "run tools/gen-data-strings.py and translate what it names"
 fi
 
-# GUI strings for every installed language, then reload php so the new catalogs are used
-echo "translated strings added: $(/usr/local/opnsense/scripts/linkhealth/merge_ui_translations.py)"
+# The page's and the mail's Arabic is in opnsense-arabic's catalogue since 2026-10-22, so this
+# plugin merges nothing into it any more. What an earlier install put here for that goes: the
+# copy of the Arabic, its merge, the boot hook and the pkg trigger that ran it, and its record.
+rm -f /usr/local/opnsense/scripts/linkhealth/i18n/ui/ar_SA.json     /usr/local/opnsense/scripts/linkhealth/i18n/ui/part-a.json     /usr/local/opnsense/scripts/linkhealth/i18n/ui/part-b.json     /usr/local/opnsense/scripts/linkhealth/i18n/ui/part-c.json     /usr/local/opnsense/scripts/linkhealth/i18n/ui/part-d.json     /usr/local/opnsense/scripts/linkhealth/i18n/ui/glossary.json     /usr/local/opnsense/scripts/linkhealth/merge_ui_translations.py     /usr/local/etc/rc.syshook.d/start/62-linkhealth     /usr/local/share/pkg/triggers/os-linkhealth.ucl     /var/db/linkhealth/i18n-owned.json
 configctl webgui restart > /dev/null 2>&1 || true
 
 # What this install is, for the self-update: the commit, from a git checkout, or from the

@@ -10,6 +10,7 @@
 rm -f /usr/local/etc/cron.d/linkhealth-update
 rm -rf /usr/local/share/os-linkhealth
 rm -f /usr/local/etc/cron.d/linkhealth
+# A version before 2026-10-22 merged its own Arabic from a boot hook and a pkg trigger.
 rm -f /usr/local/etc/rc.syshook.d/start/62-linkhealth
 rm -f /usr/local/share/pkg/triggers/os-linkhealth.ucl
 rm -f /usr/local/opnsense/service/conf/actions.d/actions_linkhealth.conf

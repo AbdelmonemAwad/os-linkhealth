@@ -15,6 +15,9 @@ that the page has since reworded. The second is the one worth a build failure - 
 alert and the page disagreeing about the same port is a bug, and it is invisible until
 somebody with an Arabic GUI reads an alert about a port the page is describing
 differently in the next window.
+
+The Arabic is in opnsense-arabic's catalogue since 2026-10-22 (tools/arabic_catalogue.py), and a
+catalogued string with no Arabic there fails: a string added here needs its Arabic there first.
 """
 import glob
 import json
@@ -38,7 +41,13 @@ for path in sorted(glob.glob('src/opnsense/mvc/app/views/OPNsense/*/*.volt')):
 base = 'src/opnsense/scripts/'
 name = sorted(glob.glob(base + '*/i18n/ui/source.json'))[0]
 src = set(json.load(open(name, encoding='utf-8')))
-ar = json.load(open(name.replace('source.json', 'ar_SA.json'), encoding='utf-8'))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import arabic_catalogue                                                  # noqa: E402
+try:
+    ar = arabic_catalogue.catalogue()
+except (OSError, ValueError) as exc:
+    print("opnsense-arabic's catalogue cannot be read: %s" % exc)
+    sys.exit(1)
 
 # The mail's msgids come from alerts.py itself rather than from a copy kept here, so
 # there is no second list to forget. It imports nothing outside the standard library,
@@ -53,19 +62,19 @@ if os.path.exists(os.path.join(scripts, 'alerts.py')):
 
 absent = sorted(used - src)
 stale = sorted(src - used - mail)
-missing = sorted(k for k in src if k not in ar)
+missing = sorted(k for k in src if not ar.get(k))
 uncatalogued = sorted(mail - src)
 drifted = sorted(shared - used)
 
-print('in templates: %d | in the mail: %d | catalogued: %d | translated: %d'
-      % (len(used), len(mail), len(src), len(ar)))
+print('in templates: %d | in the mail: %d | catalogued: %d | translated in opnsense-arabic: %d'
+      % (len(used), len(mail), len(src), len(src) - len(missing)))
 print('used but not catalogued: %d' % len(absent))
 for key in absent[:25]:
     print('   + ' + key[:100])
 print('catalogued but unused: %d' % len(stale))
 for key in stale[:25]:
     print('   - ' + key[:100])
-print('catalogued but untranslated: %d' % len(missing))
+print('catalogued but with no Arabic in opnsense-arabic: %d' % len(missing))
 for key in missing[:25]:
     print('   ? ' + key[:100])
 
@@ -76,7 +85,8 @@ print('the mail says this and the page no longer does: %d' % len(drifted))
 for key in drifted:
     print('   ! ' + key[:100])
 
-# Only the two faults that make a message lie are fatal. The three counts above are
-# reported and not enforced, as they always were: the form XML and the PHP say plenty
+# The two faults that make a message lie are fatal, and so is a catalogued string with no
+# Arabic - a step of the workflow enforced that one until 2026-10-22. The other two counts
+# are reported and not enforced, as they always were: the form XML and the PHP say plenty
 # that no .volt asks for, and that is not a bug.
-sys.exit(1 if uncatalogued or drifted else 0)
+sys.exit(1 if uncatalogued or drifted or missing else 0)
