@@ -389,14 +389,14 @@ Read it before you install it. Nothing about a package file makes it trustworthy
 these questions are answered out of the file itself, without touching the machine:
 
 ```sh
-pkg info -F  /tmp/os-linkhealth-1.0.pkg    # version, licence, dependencies, description
-pkg info -lF /tmp/os-linkhealth-1.0.pkg    # every file it will write, and it writes no others
+pkg info -F  /tmp/os-linkhealth-*.pkg      # version, licence, dependencies, description
+pkg info -lF /tmp/os-linkhealth-*.pkg      # every file it will write, and it writes no others
 ```
 
 Then, as root:
 
 ```sh
-pkg add /tmp/os-linkhealth-1.0.pkg
+pkg add /tmp/os-linkhealth-*.pkg
 ```
 
 Then open **Interfaces → Link Health**. Give it two minutes before you judge the
