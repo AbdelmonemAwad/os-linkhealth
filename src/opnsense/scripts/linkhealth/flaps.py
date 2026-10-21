@@ -40,6 +40,15 @@
     The driver's own local_faults / remote_faults counters are NOT used for
     this. They increment on administrative up and down as well, so both healthy
     ports on the reference machine carry hundreds of them.
+
+    A boot is not a flap. Every boot brings each port down and up while its
+    driver attaches, and some drivers more than once: on an XGS 136 on
+    2026-10-21 Port3 went DOWN, UP, DOWN and UP between 37 and 58 seconds into
+    every boot, and six boots inside an hour - an update, a restore, tests -
+    read as "failing, the link went down and came back 18 times". The kernel
+    stamps each line with its seconds since boot ("<6>[37] npup3: ..."), so a
+    transition stamped inside BOOT_SECONDS of its own boot is the boot's, and
+    is not counted. An XGS 3300's ports settle by 122 seconds into a boot.
 """
 
 import datetime
@@ -48,11 +57,14 @@ import re
 
 LOG = '/var/log/system/latest.log'
 MAX_BYTES = 2 * 1024 * 1024
+BOOT_SECONDS = 180
 
 # "<6>[9065] ix1: link state changed to UP" inside an RFC 5424 line that
-# begins with the timestamp we need.
+# begins with the timestamp we need; the bracketed number is the kernel's
+# seconds since boot.
 _LINE = re.compile(
     r'(?P<when>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}).*?'
+    r'(?:\[(?P<uptime>\d+)\] )?'
     r'(?P<if>[a-z][a-z0-9_]*\d): link state changed to (?P<state>UP|DOWN)'
 )
 
@@ -87,6 +99,9 @@ def recent(window_seconds, debounce_seconds, now=None):
             continue
         if when < cutoff:
             continue
+        uptime = match.group('uptime')
+        if uptime is not None and int(uptime) < BOOT_SECONDS:
+            continue  # the port coming up with its boot, not the link failing
         entry = seen.setdefault(match.group('if'), [])
         if entry and when - entry[-1] < debounce_seconds:
             continue  # same reseat, not a second event

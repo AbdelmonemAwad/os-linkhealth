@@ -218,6 +218,12 @@ The loss number never decides the verdict by itself.
   flapping for longer than the log goes back, the flap count is only as complete as the log is.
   The drivers' own `local_faults` / `remote_faults` are not used for this, for the reason in the
   next bullet.
+- **A boot is not a flap.** Every boot takes each port down and up while its driver attaches,
+  and some drivers do it twice; a transition the kernel stamps within 180 seconds of its own boot
+  is the boot's and is not counted. Measured 2026-10-21: an XGS 136 rebooted six times in an
+  hour read "failing, the link went down and came back 18 times" on a port whose link never left
+  outside those boots; counted this way, once. A link that really drops in the first three
+  minutes after a boot is missed by the count - its frames are still judged.
 - **`local_faults` and `remote_faults` are not error counters.** They count link transitions,
   administrative ones included: the two healthy 10G ports on the reference machine carry 997 and
   832 remote faults and 22 and 41 local ones, with nothing wrong on either (measured here). They
