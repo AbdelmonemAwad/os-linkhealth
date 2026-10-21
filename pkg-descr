@@ -18,6 +18,13 @@ traffic to be judged on with the on-demand load test.
 Plugin Changelog
 ================
 
+1.0.2
+
+* The page's and the alerts' Arabic is in opnsense-arabic's catalogue;
+  this plugin merges nothing into the GUI's catalogues any more
+* 1.0.1: a boot is not a flap - a link change within 180 seconds of its
+  own boot is not counted
+
 1.0
 
 * Initial release
