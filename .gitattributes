@@ -11,7 +11,9 @@
 # about the project itself, and the repository's own tools, which run from a checkout here and in
 # CI (2026-10-22). A file an appliance starts to read leaves this list in the same change.
 # Kept from tools/: the two checks install/install.sh runs (check-widget-metadata.py,
-# gen-data-strings.py) and make-package.sh, which is run on a firewall to build a package.
+# gen-data-strings.py), arabic_catalogue.py, which gen-data-strings.py imports, and
+# make-package.sh, which is run on a firewall to build a package. Left out once, the import failed
+# on the first boot of an image (2026-10-22): "No module named 'arabic_catalogue'".
 docs/ export-ignore
 .github/ export-ignore
 CODE_OF_CONDUCT.md export-ignore
@@ -19,7 +21,6 @@ CONTRIBUTING.md export-ignore
 SECURITY.md export-ignore
 DESIGN.md export-ignore
 tools/add-copyright.py export-ignore
-tools/arabic_catalogue.py export-ignore
 tools/check-code-language.py export-ignore
 tools/check-private-data.py export-ignore
 tools/check-strings.py export-ignore
