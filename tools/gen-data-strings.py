@@ -129,10 +129,16 @@ def main():
     # the Arabic is in opnsense-arabic's catalogue since 2026-10-22
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import arabic_catalogue
-    arabic = {k: v for k, v in arabic_catalogue.catalogue().items() if v}
+    try:
+        arabic = {k: v for k, v in arabic_catalogue.catalogue().items() if v}
+    except OSError as error:
+        # no catalogue on this machine and none to fetch: say so, and check the rest
+        print('the Arabic catalogue could not be read (%s): the Arabic is not checked'
+              % getattr(error, 'reason', error))
+        arabic = None
 
     missing = [s for s in strings if s not in source]
-    untranslated = [s for s in strings if s not in arabic]
+    untranslated = [s for s in strings if arabic is not None and s not in arabic]
 
     if check:
         problems = 0
@@ -146,7 +152,8 @@ def main():
             print('no Arabic: %s' % value[:80])
             problems += 1
         if problems == 0:
-            print('data strings: %d, all mapped and translated' % len(strings))
+            print('data strings: %d, all mapped%s' % (len(strings),
+                  ' and translated' if arabic is not None else ''))
         return 1 if problems else 0
 
     if updated != text:
