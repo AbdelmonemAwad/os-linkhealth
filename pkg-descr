@@ -18,6 +18,11 @@ traffic to be judged on with the on-demand load test.
 Plugin Changelog
 ================
 
+1.0.4
+
+* Each port's MAC address in the Ports table, after the interface,
+  and in the port's detail: the status document carries it now
+
 1.0.3
 
 * The installer's string check reads the Arabic catalogue installed on
