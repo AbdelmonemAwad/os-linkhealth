@@ -18,6 +18,15 @@ traffic to be judged on with the on-demand load test.
 Plugin Changelog
 ================
 
+1.0.3
+
+* The installer's string check reads the Arabic catalogue installed on
+  the appliance before the network: an offline first boot from an image
+  printed a traceback
+* The archive an appliance installs from leaves out the documentation,
+  the workflows and the repository's tools, and keeps the one tool the
+  installer's check imports
+
 1.0.2
 
 * The page's and the alerts' Arabic is in opnsense-arabic's catalogue;
