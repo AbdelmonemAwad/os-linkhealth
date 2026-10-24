@@ -276,6 +276,7 @@ def sweep(now=None, quiet=False):
             'kind': port['kind'],
             'caps': port['caps'],
             'mtu': port['mtu'],
+            'mac': port.get('mac', ''),
             'serves': port['serves'],
             'neighbour': port.get('neighbour', {}),
             'link': port['link'],
