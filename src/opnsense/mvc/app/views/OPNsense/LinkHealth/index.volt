@@ -571,6 +571,9 @@
                 }
                 return html;
             },
+            mac: function (column, row) {
+                return tech(row.mac);
+            },
             serves: function (column, row) {
                 const neighbours = row.serves || [];
                 if (neighbours.length === 0) {
@@ -684,7 +687,7 @@
            A phone is left with the socket, the verdict and the buttons: the verdict sentence
            already carries the frame count and the error rate that the dropped columns would
            have shown, so nothing is lost that is not said in words somewhere else. */
-        const GRID_OPTIONAL = ['serves_text', 'optics_text', 'if', 'link_speed', 'error_ppm'];
+        const GRID_OPTIONAL = ['serves_text', 'optics_text', 'mac', 'if', 'link_speed', 'error_ppm'];
         const GRID_NARROW = 768;
         const GRID_MEDIUM = 1200;
         let grid_hidden_now = null;
@@ -703,7 +706,7 @@
             if (width < GRID_NARROW) {
                 hidden = GRID_OPTIONAL;
             } else if (width < GRID_MEDIUM) {
-                hidden = ['serves_text', 'optics_text'];
+                hidden = ['serves_text', 'optics_text', 'mac'];
             } else {
                 hidden = [];
             }
@@ -1028,6 +1031,7 @@
                    one. Without it, a missing optics panel looks like something went wrong. */
                 ["{{ lang._('About this bay') }}", esc(lh_data(port.bay_note))],
                 ["{{ lang._('Interface') }}", tech(port['if'])],
+                ["{{ lang._('MAC address') }}", tech(port.mac)],
                 ["{{ lang._('Name in the configuration') }}", tech(port.name)],
                 ["{{ lang._('Configuration key') }}", tech(port.confkey)],
                 ["{{ lang._('Driver') }}", port.driver ? tech(port.driver + (port.unit === undefined ? '' : port.unit)) : ''],
@@ -2615,6 +2619,7 @@
                 <tr>
                     <th data-column-id="label" data-formatter="port" data-width="9em">{{ lang._('Port') }}</th>
                     <th data-column-id="if" data-formatter="iface" data-width="10em">{{ lang._('Interface') }}</th>
+                    <th data-column-id="mac" data-formatter="mac" data-width="11em">{{ lang._('MAC address') }}</th>
                     <th data-column-id="serves_text" data-formatter="serves">{{ lang._('Serves') }}</th>
                     <th data-column-id="link_speed" data-formatter="link" data-sorter="number" data-width="10em">{{ lang._('Link') }}</th>
                     <th data-column-id="error_ppm" data-formatter="rate" data-sorter="number" data-width="10em">{{ lang._('Errors in this window') }}</th>
