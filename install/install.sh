@@ -62,6 +62,11 @@ for f in $(find /usr/local/opnsense/scripts/linkhealth -name '*.json'); do
         { echo "malformed JSON: $f"; exit 1; }
 done
 
+# Where the page goes in the menu: XGS when os-xgs-npu is installed, Interfaces when it is not.
+# OPNsense's menu file takes no condition, so place-menu.sh writes it from menu/ and says which.
+chmod 755 /usr/local/opnsense/scripts/linkhealth/place-menu.sh
+MENUPLACE=$(/usr/local/opnsense/scripts/linkhealth/place-menu.sh)
+
 # reload configd so it picks up the new actions
 service configd restart > /dev/null
 
@@ -112,5 +117,9 @@ if ! /usr/local/opnsense/scripts/linkhealth/linkhealth.py collect dry > /dev/nul
     echo "the first sample could not be taken; the next cycle will try again"
 fi
 
-echo "Link Health installed: the page is at Interfaces > Link Health"
+if [ "${MENUPLACE}" = xgs ]; then
+    echo "Link Health installed: XGS > Link Health"
+else
+    echo "Link Health installed: Interfaces > Link Health"
+fi
 echo "the widget is at Lobby > Dashboard, under Add widget > Link Health"

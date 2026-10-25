@@ -63,6 +63,15 @@ if [ -x /usr/local/opnsense/scripts/firmware/register.php ]; then
 	/usr/local/opnsense/scripts/firmware/register.php install os-linkhealth > /dev/null 2>&1 || true
 fi
 
+# Where the page goes in the menu: XGS when os-xgs-npu is installed, Interfaces when it is not.
+# OPNsense's menu file takes no condition, so it is not one of the package's files: place-menu.sh
+# writes it, before the reload below drops the menu cache.
+MENUPLACE=
+if [ -x /usr/local/opnsense/scripts/linkhealth/place-menu.sh ]; then
+	MENUPLACE=$(/usr/local/opnsense/scripts/linkhealth/place-menu.sh) ||
+	    echo "the menu entry could not be written: run /usr/local/opnsense/scripts/linkhealth/place-menu.sh"
+fi
+
 if [ -f /usr/local/etc/rc.configure_plugins ]; then
 	echo "Reloading plugin configuration"
 	/usr/local/etc/rc.configure_plugins POST_INSTALL
@@ -81,5 +90,9 @@ if [ -x /usr/local/opnsense/scripts/linkhealth/linkhealth.py ]; then
 	    echo "the first sample could not be taken; the next cycle will try again"
 fi
 
-echo "Link Health installed: the page is at Interfaces > Link Health"
+if [ "${MENUPLACE}" = xgs ]; then
+	echo "Link Health installed: the page is at XGS > Link Health"
+else
+	echo "Link Health installed: the page is at Interfaces > Link Health"
+fi
 echo "the widget is at Lobby > Dashboard, under Add widget > Link Health"

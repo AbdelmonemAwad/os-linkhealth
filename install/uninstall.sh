@@ -17,6 +17,9 @@ rm -f /usr/local/opnsense/service/conf/actions.d/actions_linkhealth.conf
 rm -f /usr/local/opnsense/www/js/widgets/LinkHealth.js
 rm -f /usr/local/opnsense/www/js/widgets/Metadata/LinkHealth.xml
 rm -rf /usr/local/opnsense/scripts/linkhealth
+# the menu file place-menu.sh wrote, which no list of the package's files names
+rm -f /usr/local/opnsense/mvc/app/models/OPNsense/LinkHealth/Menu/Menu.xml
+rmdir /usr/local/opnsense/mvc/app/models/OPNsense/LinkHealth/Menu 2> /dev/null || true
 rm -rf /usr/local/opnsense/mvc/app/models/OPNsense/LinkHealth
 rm -rf /usr/local/opnsense/mvc/app/controllers/OPNsense/LinkHealth
 rm -rf /usr/local/opnsense/mvc/app/views/OPNsense/LinkHealth

@@ -345,14 +345,16 @@ src/opnsense/service/conf/actions.d/actions_linkhealth.conf
 src/opnsense/scripts/linkhealth/{linkhealth.py,collector.py,verdict.py,alerts.py,loadtest.py,
                                  state.py,exporters.py,chassis.py,drivers.json,chassis.json,
                                  thresholds.json,i18n/ui/source.json}
-src/opnsense/mvc/app/models/OPNsense/LinkHealth/{LinkHealth.xml,LinkHealth.php,Menu/Menu.xml,ACL/ACL.xml}
+src/opnsense/scripts/linkhealth/{place-menu.sh,menu/own.xml,menu/xgs.xml}   the menu place, written at install
+src/opnsense/mvc/app/models/OPNsense/LinkHealth/{LinkHealth.xml,LinkHealth.php,ACL/ACL.xml}
 src/opnsense/mvc/app/controllers/OPNsense/LinkHealth/{IndexController.php,forms/general.xml,
                                  Api/SettingsController.php,Api/ServiceController.php}
 src/opnsense/mvc/app/views/OPNsense/LinkHealth/index.volt
 src/opnsense/www/js/widgets/{LinkHealth.js,Metadata/LinkHealth.xml}
 ```
 
-Menu: **Interfaces → Link Health**, order 235 (next to Overview at 230).
+Menu: **Interfaces → Link Health**, order 235 (next to Overview at 230) - **XGS → Link Health**,
+order 62, when os-xgs-npu is installed.
 ACL: `ui/linkhealth/*` and `api/linkhealth/*`.
 
 The widget is two files and nothing else: core registers widgets by globbing
