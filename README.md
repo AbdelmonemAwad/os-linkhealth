@@ -399,7 +399,8 @@ Then, as root:
 pkg add /tmp/os-linkhealth-*.pkg
 ```
 
-Then open **Interfaces → Link Health**. Give it two minutes before you judge the
+Then open **Interfaces → Link Health** - **XGS → Link Health** when os-xgs-npu is installed.
+Give it two minutes before you judge the
 page: the first run only records a baseline, and a verdict needs a window to compare
 against.
 
