@@ -18,6 +18,12 @@ traffic to be judged on with the on-demand load test.
 Plugin Changelog
 ================
 
+1.0.5
+
+* The page goes in the XGS section when os-xgs-npu is installed - among
+  the appliance's pages, in OPNsense's order - and under Interfaces when it is
+  not; os-xgs-npu moves it when it is installed or removed
+
 1.0.4
 
 * Each port's MAC address in the Ports table, after the interface,
