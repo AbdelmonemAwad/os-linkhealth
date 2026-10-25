@@ -13,7 +13,6 @@
 #   place-menu.sh xgs|own    put it there whatever is installed (a test)
 #
 # Prints where it put it: "xgs" or "own".
-#
 MODEL=LinkHealth
 HERE=$(cd "$(dirname "$0")" && pwd)
 MENU=/usr/local/opnsense/mvc/app/models/OPNsense/${MODEL}/Menu/Menu.xml
