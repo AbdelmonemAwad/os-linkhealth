@@ -25,3 +25,6 @@ tools/check-code-language.py export-ignore
 tools/check-private-data.py export-ignore
 tools/check-strings.py export-ignore
 tools/gen-xgs-hardware.py export-ignore
+# README.md is left out too since 2026-10-30: nothing on an appliance reads it, and an image kept it
+# beside the code (measured on an XGS 3300). LICENSE stays, the terms the code is given under.
+/README.md export-ignore

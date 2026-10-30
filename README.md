@@ -1,3 +1,22 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/banner-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/readme/banner-light.svg">
+  <img src="docs/images/readme/banner-light.svg" alt="os-linkhealth - A failing cable or transceiver, by the name on the chassis" width="100%">
+</picture>
+
+<p align="center">
+  <a href="https://github.com/AbdelmonemAwad/os-linkhealth/releases/latest"><img alt="the newest release" src="https://img.shields.io/github/v/release/AbdelmonemAwad/os-linkhealth?sort=semver&amp;style=flat-square&amp;label=release&amp;color=8250df"></a>
+  <a href="https://github.com/AbdelmonemAwad/os-linkhealth/actions/workflows/checks.yml"><img alt="checks on main" src="https://img.shields.io/github/actions/workflow/status/AbdelmonemAwad/os-linkhealth/checks.yml?branch=main&amp;style=flat-square&amp;label=checks"></a>
+  <a href="LICENSE"><img alt="licence: BSD-2-Clause" src="https://img.shields.io/badge/licence-BSD--2--Clause-blue.svg?style=flat-square"></a>
+  <a href="#link-health-for-opnsense"><img alt="OPNsense 26.7" src="https://img.shields.io/badge/OPNsense-26.7-d94f00.svg?style=flat-square"></a>
+  <a href="https://github.com/AbdelmonemAwad/opnsense-arabic"><img alt="the page in English and in Arabic" src="https://img.shields.io/badge/GUI-English%20%C2%B7%20Arabic-2da44e.svg?style=flat-square"></a>
+  <a href="https://github.com/AbdelmonemAwad/os-xgs-npu"><img alt="part of os-xgs-npu" src="https://img.shields.io/badge/part%20of-os--xgs--npu-9a6700.svg?style=flat-square"></a>
+  <br>
+  <a href="#the-fault-that-produced-this-plugin"><img alt="a 10G fibre with 3.81% of received frames failing CRC while every page said the link was up - measured on the reference machine" src="https://img.shields.io/badge/10G%20fibre-3.81%20%25%20of%20frames%20failing%20CRC%2C%20link%20up-brightgreen.svg?style=flat-square"></a>
+  <a href="#what-it-does"><img alt="one port had carried 5,945 input errors since boot while clean for hours, and is judged clean: the verdict is on the change over a window" src="https://img.shields.io/badge/old%20errors-5%2C945%20since%20boot%2C%20port%20judged%20clean-brightgreen.svg?style=flat-square"></a>
+  <a href="#link-health-for-opnsense"><img alt="tested on OPNsense 26.7.4_1 on an XG 330 with eighteen igb ports and two ix ports" src="https://img.shields.io/badge/tested%20on-XG%20330%2C%2018%20igb%20and%202%20ix%20ports-brightgreen.svg?style=flat-square"></a>
+</p>
+
 # Link Health for OPNsense
 
 A plugin that watches every physical port on the firewall and tells you **which cable or
@@ -15,6 +34,8 @@ telemetry.
 Tested on OPNsense 26.7.4_1 / FreeBSD 15.1, on one machine: an ex-Sophos XG330 with eighteen
 `igb` ports and two `ix` ports. Everything below that says **measured here** was measured on that
 machine. Everything else comes from the FreeBSD driver sources, and is marked where it matters.
+
+<p align="center"><b>Contents:</b> <a href="#what-it-does">What it does</a> &middot; <a href="#what-it-does-not-do">What it does not do</a> &middot; <a href="#the-fault-that-produced-this-plugin">The fault that produced this plugin</a> &middot; <a href="#verdict-states">Verdict states</a> &middot; <a href="#what-a-port-can-tell-you">What a port can tell you</a> &middot; <a href="#the-page">The page</a> &middot; <a href="#the-front-panel-and-why-it-is-drawn-rather-than-photographed">The front panel, and why it is drawn rather than photographed</a> &middot; <a href="#the-load-test">The load test</a> &middot; <a href="#alerts">Alerts</a> &middot; <a href="#installation">Installation</a> &middot; <a href="#how-it-works">How it works</a> &middot; <a href="#port-labels-and-adding-your-appliance">Port labels, and adding your appliance</a> &middot; <a href="#known-limitations">Known limitations</a> &middot; <a href="#in-the-xgs-image">In the XGS image</a> &middot; <a href="#updates">Updates</a> &middot; <a href="#license">License</a></p>
 
 ## What it does
 
