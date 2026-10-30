@@ -12,6 +12,6 @@
         place-menu.sh chooses between this file and own.xml.
     -->
     <XGS VisibleName="XGS" cssClass="fa fa-microchip fa-fw" order="35">
-        <LinkHealth order="50" VisibleName="Link Health" url="/ui/linkhealth"/>
+        <LinkHealth order="50" VisibleName="Link Health" cssClass="fa fa-heart-pulse fa-fw" url="/ui/linkhealth"/>
     </XGS>
 </menu>
