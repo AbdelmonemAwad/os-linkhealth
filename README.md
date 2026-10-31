@@ -33,7 +33,7 @@ telemetry.
 
 Tested on OPNsense 26.7.4_1 / FreeBSD 15.1, on one machine: an ex-Sophos XG330 with eighteen
 `igb` ports and two `ix` ports. Everything below that says **measured here** was measured on that
-machine. Everything else comes from the FreeBSD driver sources, and is marked where it matters.
+machine. Everything else comes from the FreeBSD driver sources, and is marked where it matters. On 2026-10-31 it runs on OPNsense 26.7.8_1 on the first XGS 3300.
 
 <p align="center"><b>Contents:</b> <a href="#what-it-does">What it does</a> &middot; <a href="#what-it-does-not-do">What it does not do</a> &middot; <a href="#the-fault-that-produced-this-plugin">The fault that produced this plugin</a> &middot; <a href="#verdict-states">Verdict states</a> &middot; <a href="#what-a-port-can-tell-you">What a port can tell you</a> &middot; <a href="#the-page">The page</a> &middot; <a href="#the-front-panel-and-why-it-is-drawn-rather-than-photographed">The front panel, and why it is drawn rather than photographed</a> &middot; <a href="#the-load-test">The load test</a> &middot; <a href="#alerts">Alerts</a> &middot; <a href="#installation">Installation</a> &middot; <a href="#how-it-works">How it works</a> &middot; <a href="#port-labels-and-adding-your-appliance">Port labels, and adding your appliance</a> &middot; <a href="#known-limitations">Known limitations</a> &middot; <a href="#in-the-xgs-image">In the XGS image</a> &middot; <a href="#updates">Updates</a> &middot; <a href="#license">License</a></p>
 
@@ -352,7 +352,7 @@ start one on a link carrying something you care about.
 ## Alerts
 
 Mail goes out directly over SMTP, reusing the mail settings already configured for Monit — the
-same approach my other plugin uses and which is proven on this machine (measured here). Monit
+same approach os-netreport, another plugin of the family, uses and which is proven on this machine (measured here). Monit
 itself is not the transport: its alerts are plain text truncated at 512 bytes, on a 120-second
 cycle, with no per-port cooldown. A `check program` script ships for people who want Monit to
 watch as well; it is **off by default**, because running both mails every fault twice.
