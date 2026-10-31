@@ -369,8 +369,8 @@
                 "{{ lang._('The switch\'s two SFP cages (its ports 9 and 10), 1G. No transceiver access from the host: the cage EEPROMs are on the coprocessor\'s I2C.') }}",
             '10G SFP+ cages on the coprocessor':
                 "{{ lang._('10G SFP+ cages on the coprocessor') }}",
-            'The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.':
-                "{{ lang._('The two cages on the coprocessor\'s own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.') }}",
+            'The two cages on the coprocessor\'s own MAC (BGX2), 10G. Their modules are read on the coprocessor, and XGS: Transceivers shows what they report; here, link and counters.':
+                "{{ lang._('The two cages on the coprocessor\'s own MAC (BGX2), 10G. Their modules are read on the coprocessor, and XGS: Transceivers shows what they report; here, link and counters.') }}",
             'The light is lit by the coprocessor\'s identify tool, reached over its console through os-xgs-npu, by the printed label; confirmed by eye on an XGS 3300 on 2026-10-17.':
                 "{{ lang._('The light is lit by the coprocessor\'s identify tool, reached over its console through os-xgs-npu, by the printed label; confirmed by eye on an XGS 3300 on 2026-10-17.') }}",
             'An expansion module\'s lights are lit by the same identify tool, by the name the coprocessor\'s board file gives the port; confirmed by eye on an XGS 3300 on 2026-10-17.':
