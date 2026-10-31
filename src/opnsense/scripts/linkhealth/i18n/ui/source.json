@@ -306,7 +306,7 @@
  "Sent by Link Health. The full picture is on the Link Health page, under Interfaces.",
  "[test] {subject}",
  "10G SFP+ cages on the coprocessor",
- "The two cages on the coprocessor's own MAC (BGX2), 10G. Transceiver data comes from the 88X5113 PHY on the coprocessor side, which this host cannot read yet, so these report link and counters only.",
+ "The two cages on the coprocessor's own MAC (BGX2), 10G. Their modules are read on the coprocessor, and XGS: Transceivers shows what they report; here, link and counters.",
  "The cage lights are the PHY's and nothing on the host drives them.",
  "faceplate, 1G copper behind the 88E6193X switch",
  "Eight RJ45s on the switch chip. Link state is the switch's; the counters are the driver's per port.",
