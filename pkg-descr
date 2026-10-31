@@ -18,6 +18,12 @@ traffic to be judged on with the on-demand load test.
 Plugin Changelog
 ================
 
+1.0.7
+
+* The note on the XGS 3300's two coprocessor cages said their modules
+  could not be read; os-xgs-npu's XGS: Transceivers reads them on the
+  coprocessor, and the note now says so (#51)
+
 1.0.6
 
 * The page's entry in the XGS section of the menu carries an icon, as
