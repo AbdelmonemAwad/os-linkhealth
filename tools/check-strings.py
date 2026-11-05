@@ -17,7 +17,8 @@ somebody with an Arabic GUI reads an alert about a port the page is describing
 differently in the next window.
 
 The Arabic is in opnsense-arabic's catalogue since 2026-10-22 (tools/arabic_catalogue.py), and a
-catalogued string with no Arabic there fails: a string added here needs its Arabic there first.
+catalogued string with no Arabic there fails - except on a contributor's pull request and on main,
+where its Arabic may follow later and it is a warning (ARABIC_LATER, below).
 """
 import glob
 import json
@@ -43,6 +44,27 @@ name = sorted(glob.glob(base + '*/i18n/ui/source.json'))[0]
 src = set(json.load(open(name, encoding='utf-8')))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import arabic_catalogue                                                  # noqa: E402
+
+# A contributor who does not write Arabic leaves it out (CONTRIBUTING.md). On a pull request from a
+# fork and on main, checks.yml sets ARABIC_LATER=1: a string without Arabic is then a warning on the
+# pull request and not a failure, and opnsense-arabic's "Strings waiting for Arabic" lists it until
+# its Arabic is there. A pull request from a branch of this repository still fails on one.
+LATER = os.environ.get('ARABIC_LATER') == '1'
+
+
+def later(keys):
+    """Each string without Arabic as a warning GitHub shows on the pull request, and in its summary."""
+    if not LATER:
+        return
+    for key in keys:
+        print('::warning title=Arabic to follow::' +
+              key.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+    summary = os.environ.get('GITHUB_STEP_SUMMARY')
+    if keys and summary:
+        with open(summary, 'a', encoding='utf-8') as handle:
+            handle.write('### Strings waiting for Arabic\n\n' + ''.join('- %s\n' % key for key in keys))
+
+
 try:
     ar = arabic_catalogue.catalogue()
 except (OSError, ValueError) as exc:
@@ -77,6 +99,7 @@ for key in stale[:25]:
 print('catalogued but with no Arabic in opnsense-arabic: %d' % len(missing))
 for key in missing[:25]:
     print('   ? ' + key[:100])
+later(missing)
 
 print('asked for by the mail but not catalogued: %d' % len(uncatalogued))
 for key in uncatalogued:
@@ -86,7 +109,7 @@ for key in drifted:
     print('   ! ' + key[:100])
 
 # The two faults that make a message lie are fatal, and so is a catalogued string with no
-# Arabic - a step of the workflow enforced that one until 2026-10-22. The other two counts
-# are reported and not enforced, as they always were: the form XML and the PHP say plenty
-# that no .volt asks for, and that is not a bug.
-sys.exit(1 if uncatalogued or drifted or missing else 0)
+# Arabic - a step of the workflow enforced that one until 2026-10-22 - unless ARABIC_LATER is
+# set, where it is a warning. The other two counts are reported and not enforced, as they
+# always were: the form XML and the PHP say plenty that no .volt asks for, and that is not a bug.
+sys.exit(1 if uncatalogued or drifted or (missing and not LATER) else 0)
