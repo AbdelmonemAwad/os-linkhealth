@@ -12,7 +12,12 @@ HERE=$(cd "$(dirname "$0")/.." && pwd)
 CONFIGPHP=/usr/local/opnsense/mvc/app/config/config.php
 
 # plugin files: src/ maps to /usr/local
+# The public keys a release must be signed with for self-update.py to install it (its
+# SIGNED RELEASES) are the set this tree holds and no other: the installed ones go first,
+# so a key the tree dropped goes with this install.
+rm -rf /usr/local/opnsense/scripts/linkhealth/release-keys
 cp -R "${HERE}/src/" /usr/local/
+chmod 644 /usr/local/opnsense/scripts/linkhealth/release-keys/*.pub
 
 # the collector runs from cron and the load test runs itself as a detached worker, so
 # every script in the directory needs the bit; the data files beside them are only read

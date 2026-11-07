@@ -24,6 +24,14 @@ name: release
 # Makefile, the notes come from the message of the annotated tag, and the file name comes
 # from the builder. Cutting a release is: write the tag message, push the tag.
 #
+# A release is made a draft here, with the package and its checksum, and published by the
+# owner's private signing repository once it has signed it (since 2026-11-07): the tag's
+# archive, its manifest and the manifest's signature are added to the draft, and the release
+# is published with them - its files cannot be added afterwards, GitHub takes none into a
+# published release here. A firewall installs a release only as signed (SIGNED RELEASES in
+# src/opnsense/scripts/linkhealth/self-update.py). A draft is seen by no firewall and no
+# visitor, so a release whose signing fails stays one, and nothing is installed from it.
+#
 # This workflow needs, in this repository:
 #   Makefile                 PLUGIN_NAME and PLUGIN_VERSION
 #   pkg-descr                the long description that goes in the manifest
@@ -44,7 +52,20 @@ on:
       - 'v*'
   # Run it by hand to find out whether the FreeBSD build still works without having to
   # spend a tag on the question. Off a tag it builds and inspects and publishes nothing.
+  # With a tag named it builds that tag and makes its release a draft, or puts the files
+  # into the draft there is, when its release is not published yet - after a run its push
+  # started failed before that, say - and starts its signing. A release that is published
+  # already cannot get its files: this repository's releases are immutable, and GitHub
+  # takes no file into one once it is published (measured 2026-10-28: v1.0.3, published by
+  # hand without its package, refused it with HTTP 422 "Cannot upload assets to an
+  # immutable release"). Its package comes with the next version, cut by pushing an
+  # annotated tag, as above.
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'A tag to build and publish, whose release is not published yet; empty: build only'
+        required: false
+        default: ''
 
 # The floor for every job in this file. The one job below raises it by exactly one thing.
 permissions:
@@ -65,27 +86,33 @@ jobs:
       # opnsense-version(8); a plain FreeBSD virtual machine has no such program, so the
       # answer is stated here and the built package is checked against it further down.
       PRODUCT_ABI: '26.7'
+      # The tag this run builds and publishes: the one pushed, or the one named when it
+      # is run by hand; empty when there is none, and then nothing is published.
+      TAG: ${{ inputs.tag || (startsWith(github.ref, 'refs/tags/') && github.ref_name || '') }}
     steps:
       - name: This repository
         uses: actions/checkout@v7
         with:
+          # The tag's tree when there is one, so a run started by hand builds what it names.
+          ref: ${{ env.TAG || github.ref }}
           # The whole history and, below, the tags: the release notes are read out of the
           # annotated tag object by git, locally, so a shallow checkout has nothing to
           # read them from.
           fetch-depth: 0
 
       - name: The tag, the Makefile and main have to agree
-        if: startsWith(github.ref, 'refs/tags/')
+        if: env.TAG != ''
         run: |
           set -eu
           git fetch --force --tags --quiet origin
           git fetch --force --no-tags --quiet origin +refs/heads/main:refs/remotes/origin/main
+          SHA=$(git rev-parse "${TAG}^{commit}")
 
           # A tag on a commit that never went through main would publish code that the
           # branch protection - the required checks, the review - never saw. That is the
           # one way to get an unchecked file into a release, so close it here.
-          if ! git merge-base --is-ancestor "${GITHUB_SHA}" origin/main; then
-            echo "${GITHUB_REF_NAME} points at ${GITHUB_SHA}, which is not on main."
+          if ! git merge-base --is-ancestor "${SHA}" origin/main; then
+            echo "${TAG} points at ${SHA}, which is not on main."
             echo "Everything published from here has to have gone through a pull request"
             echo "and the checks, because that is where the syntax, privacy and"
             echo "translation rules are enforced. Tag a commit that is on main."
@@ -96,19 +123,19 @@ jobs:
           # else would publish os-linkhealth-1.0.pkg under the heading v1.1.
           version=$(sed -n 's/^PLUGIN_VERSION[[:space:]]*=[[:space:]]*//p' Makefile |
               sed -e '1!d' -e 's/[[:space:]]*$//')
-          if [ "${GITHUB_REF_NAME#v}" != "${version}" ]; then
-            echo "the tag is ${GITHUB_REF_NAME} and the Makefile says PLUGIN_VERSION=${version}."
+          if [ "${TAG#v}" != "${version}" ]; then
+            echo "the tag is ${TAG} and the Makefile says PLUGIN_VERSION=${version}."
             echo "The package is named after the Makefile, so these two have to match."
             echo "Either move the tag or raise PLUGIN_VERSION and tag again."
             exit 1
           fi
-          echo "${GITHUB_REF_NAME} is on main and matches PLUGIN_VERSION=${version}"
+          echo "${TAG} is on main and matches PLUGIN_VERSION=${version}"
 
           # Not fatal: gh falls back to the commit message. But an annotated tag is where
           # the release notes are supposed to come from, so say when there are none.
-          if [ "$(git cat-file -t "${GITHUB_REF_NAME}")" != "tag" ]; then
-            echo "NOTE: ${GITHUB_REF_NAME} is a lightweight tag, so the release notes will"
-            echo "be the commit message. For notes of your own: git tag -a ${GITHUB_REF_NAME}"
+          if [ "$(git cat-file -t "${TAG}")" != "tag" ]; then
+            echo "NOTE: ${TAG} is a lightweight tag, so the release notes will"
+            echo "be the commit message. For notes of your own: git tag -a ${TAG}"
           fi
 
       - name: The builder is here and parses
@@ -195,27 +222,63 @@ jobs:
           sha256sum -- *.pkg > SHA256SUMS
           cat SHA256SUMS
           {
-            echo '### '"${GITHUB_REF_NAME}"
+            echo '### '"${TAG:-${GITHUB_REF_NAME}}"
             echo
             echo '```'
             cat SHA256SUMS
             echo '```'
           } >> "${GITHUB_STEP_SUMMARY}"
 
-      - name: Publish the release
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Make the release a draft, with its files
+        if: env.TAG != ''
         env:
           # The job token, with the contents:write granted above and nothing else. There
-          # is no secret of the owner's in this workflow.
+          # is no secret of the owner's in this step.
           GH_TOKEN: ${{ github.token }}
         run: |
           set -eu
+          # A release published already - by hand, as v1.0.3 was on 2026-10-28 - is said
+          # plainly rather than as "a release with the same tag name already exists": no
+          # file goes into it, and only a draft is signed. A draft there is already - from
+          # a run that stopped after making it - gets the files built here.
+          if gh release view "${TAG}" > /dev/null 2>&1; then
+            if [ "$(gh release view "${TAG}" --json isDraft --jq .isDraft)" != true ]; then
+              echo "${TAG} is published already: GitHub takes no file into it, and only a draft is signed."
+              echo "The package built here comes with the next version - raise PLUGIN_VERSION,"
+              echo "write its notes as the message of an annotated tag, and push the tag."
+              exit 1
+            fi
+            gh release upload "${TAG}" --clobber dist/*.pkg dist/SHA256SUMS
+            echo "${TAG} was a draft already: the files built here put into it"
+            exit 0
+          fi
           # --notes-from-tag is why the tag has to be annotated and why the checkout is
           # not shallow: gh reads the message out of the local tag object. It also means
           # --repo cannot be passed, which is fine - gh takes the repository from this
           # checkout's origin.
-          gh release create "${GITHUB_REF_NAME}" \
+          gh release create "${TAG}" \
             --verify-tag \
             --notes-from-tag \
-            --title "${GITHUB_REF_NAME}" \
+            --title "${TAG}" \
+            --draft \
             dist/*.pkg dist/SHA256SUMS
+          echo "${TAG}: its release a draft, to be signed and published"
+
+      # The signing repository is another one, private, whose workflow this run's own token
+      # cannot start: SIGNING_DISPATCH_TOKEN is a fine-grained token with Actions read and
+      # write on it alone. Without it, that repository's own look every six hours finds the
+      # draft.
+      - name: Start the signing of the release
+        if: env.TAG != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.SIGNING_DISPATCH_TOKEN }}
+        run: |
+          set -eu
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "no SIGNING_DISPATCH_TOKEN: os-xgs-npu-release-signing signs and publishes ${TAG} at its next look, within six hours"
+            exit 0
+          fi
+          gh workflow run sign.yml -R AbdelmonemAwad/os-xgs-npu-release-signing \
+            -f repository="${GITHUB_REPOSITORY#*/}" -f tag="${TAG}"
+          echo "os-xgs-npu-release-signing is signing ${TAG}; it publishes the release once its files are up"
