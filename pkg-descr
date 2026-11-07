@@ -18,6 +18,12 @@ traffic to be judged on with the on-demand load test.
 Plugin Changelog
 ================
 
+1.0.8
+
+* Signed releases: a release is installed only as its owner signed it
+* self-update.py: the latest release's signature read by the tag its
+  manifest names
+
 1.0.7
 
 * The note on the XGS 3300's two coprocessor cages said their modules
