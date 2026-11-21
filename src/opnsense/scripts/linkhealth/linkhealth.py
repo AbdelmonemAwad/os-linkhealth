@@ -380,6 +380,13 @@ def faceplate():
     for row in model.get('rows', []):
         items = []
         for item in row.get('items', []):
+            # Drawn where it is on the metal and nothing more: a power inlet or a reset hole has
+            # no port behind it, so it is neither joined nor given a state.
+            if item.get('join') is False:
+                items.append({'label': item['label'], 'type': item.get('type', 'unknown'),
+                              'display': item.get('display', ''), 'below': bool(item.get('below')),
+                              'join': False})
+                continue
             port = by_label.get((row.get('bay', ''), item['label']))
             if port is None:
                 # fall back to the label alone: a bay may have been renamed by
@@ -389,6 +396,8 @@ def faceplate():
             items.append({
                 'label': item['label'],
                 'type': item.get('type', 'unknown'),
+                'display': item.get('display', ''),
+                'below': bool(item.get('below')),
                 'if': port['if'] if port else None,
                 'name': port.get('name') if port else '',
                 'state': port['verdict']['state'] if port else 'absent',

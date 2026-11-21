@@ -325,8 +325,9 @@
             const groups = [];
             if (doc && doc.available && Array.isArray(doc.rows)) {
                 $.each(doc.rows, function (index, row) {
+                    /* a power inlet or a reset hole is drawn, and no port can be named after it */
                     const labels = $.map(row.items || [], function (item) {
-                        return item.label ? String(item.label) : null;
+                        return item.label && item.join !== false ? String(item.label) : null;
                     });
                     if (labels.length > 0) {
                         groups.push({bay: row.bay || '', labels: labels});

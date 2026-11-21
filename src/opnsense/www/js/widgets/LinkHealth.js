@@ -458,7 +458,9 @@ export default class LinkHealth extends BaseTableWidget {
 
         const blocks = [];
         rows.forEach((row, bay) => {
-            const items = Array.isArray(row.items) ? row.items : [];
+            /* a power inlet or a reset hole is drawn on the page for orientation; the strip is
+               the ports alone */
+            const items = (Array.isArray(row.items) ? row.items : []).filter((item) => item.join !== false);
             items.forEach((item, position) => {
                 const port = byInterface[item['if']]
                     || byLabel[this._socketKey(row.bay, item.label)]

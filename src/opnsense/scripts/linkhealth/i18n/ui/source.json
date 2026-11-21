@@ -387,5 +387,11 @@
  "Ports with link",
  "ports with errors in this window",
  "BSD-2-Clause licence",
- "An independent project, not affiliated with Deciso B.V."
+ "An independent project, not affiliated with Deciso B.V.",
+ "1G copper on the 88E6193X switch",
+ "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+ "1G SFP cage on the 88E6193X switch",
+ "2.5G copper on the AQR412C quad PHY",
+ "Drawn from photographs of the back of an XGS 87, where all its network sockets are: DC IN, COM with a USB port below it, the F1 cage, the four copper sockets in two lines (1/LAN over 2/WAN, 3/DMZ over 4), and Reset. The cables in 1/LAN and 2/WAN matched the two ports the same appliance reported up. No socket has been watched blink yet.",
+ "back panel"
 ]

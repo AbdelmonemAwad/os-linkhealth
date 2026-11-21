@@ -360,13 +360,16 @@ same shape: a `version`, a `comment`, and a `models` object you add one entry to
 | `confirmed` | `true` only if somebody stood in front of the machine and watched the sockets blink in this order. `false` otherwise, and the page then tells its reader the layout is unchecked. Default to `false`; it costs nothing and claims nothing. |
 | `confirmed_note` | one paragraph, shown on the page: what you checked, how, and — just as useful — what you did **not** check. The shipped XG330 entry says its port order has three independent witnesses and its physical arrangement has none, which is exactly the kind of sentence to write. |
 | `units` | how many rack units tall the appliance is. Recorded for completeness; no code reads it yet, so do not spend time on it. |
-| `orientation` | which face these rows describe. It defaults to `front`, and `front` is the only value anything has needed so far. |
+| `orientation` | which face these rows describe: `front`, the default, or `rear` for an appliance whose sockets are on the back (the XGS 87). The page says which face it is drawing. |
 | `rows` | the rows of sockets, top to bottom as you face that side of the box. |
 | `bay` | the bay this row of sockets sits in, spelled as the `bay` of the matching group in `chassis.json`. |
 | `note` | optional, one sentence about the row, shown on the page. |
 | `items` | the sockets of that row, **in the order they are printed on the metal**, reading the way you would read the front of the box. |
 | `label` | the printed label of one socket, spelled exactly as `chassis.json` produces it — `PortA1`, not `PortA%d` and not `porta1`. |
-| `type` | one of `rj45`, `sfp`, `sfp+`, `qsfp`, `console`, `usb`, `unknown`. It picks the width and the shape the socket is drawn with; `port_types` at the bottom of the file holds those hints and you should not need to touch it. |
+| `type` | one of `rj45`, `sfp`, `sfp+`, `sfp28`, `qsfp`, `qsfp28`, `console`, `usb`, `dc`, `reset`, `unknown`. It picks the width and the shape the socket is drawn with; `port_types` at the bottom of the file holds those hints and you should not need to touch it. |
+| `display` | optional: the text printed on the metal, where it is not the label the port is joined on. The XGS 87 prints `1/LAN` beside the socket its chassis entry calls `Port1`; the drawing shows `1/LAN` and the join still uses `Port1`. |
+| `below` | optional, `true` for an item that sits under the one before it, in the same column: the second line of a stacked block. A bay is otherwise one line of sockets, left to right. |
+| `join` | optional, `false` for something drawn only so the sockets around it can be found - a power inlet, a reset hole, a console or USB port no network port is behind. It is never joined to a port, carries no state, and is left out of the key, the tooltips and the dashboard strip. |
 
 **An item names a bay and a printed label, and never an interface.** That is deliberate and it is
 the safety property of the whole feature: the binding from a printed label to `igb2` lives in
@@ -391,6 +394,9 @@ A few rules that follow from the file being a drawing and not a photograph:
 - **A partial row is better than a guessed one.** If the machine has a console port and two USB
   sockets and you are not sure where they sit, leave them out. A drawing that is short a socket is
   honest; one with a socket in an invented place is not.
+- **Stacked sockets are columns.** Write a two-line block column by column, top socket first and
+  the one under it with `below: true`. The XGS 87's back is one bay: `DC IN 1`, then `COM` with
+  `USB` below it, `F1`, `Port1` with `Port2` below it, `Port3` with `Port4` below it, then `Reset`.
 
 Check it parses before anything reads it, exactly as with the other file:
 
@@ -449,6 +455,14 @@ tools/gen-xgs-hardware.py <path to xgs-bsp/data> --check    # exit 1 if they are
 - The XGS 3300, the XGS 136 and the XG330 entries were checked on the machine and are left alone;
   their boards are not generated. A generated board on a family os-xgs-npu drives (AMDA0201,
   AMDA0202) takes that hand-made entry's unit-to-label groups, minus any port the board lacks.
+- The other ARMADA desktops - the XGS 87, 107, 116 and 138 (AMDA0200, AMDA0208, AMDA0224) - are
+  wired differently from the XGS 136 and take their own groups, `ARMADA_GROUPS` in the generator,
+  from npuep's front-port table for that board in os-xgs-npu: on an XGS 87, `npup1` to `npup4` are
+  `Port1` to `Port4` and `npup5` is `F1`.
+- A board in `HAND_DRAWN` keeps its generated `chassis.json` entry and a hand-made drawing: the
+  XGS 87, whose sockets are all on the back. Its drawing is not confirmed: it is taken from
+  photographs, and no socket has been watched blink. The XGS 87w, of which there is no photograph,
+  keeps its generated front drawing.
 
 A generated entry is replaced on every run, so a correction to one belongs in the generator or,
 once the board has been checked on the machine, in a hand-made entry - with its assembly added to

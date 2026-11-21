@@ -542,8 +542,9 @@ the fitted module and its ports at boot, and the collector reads that from
 table does not describe still shows the ports the coprocessor reported.
 
 A board's ports get their printed names only where a driver presents them — today the XGS 2100 to
-3300 and the XGS 126 and 136, through os-xgs-npu. Every other board is drawn and named, and its
-sockets read "absent" until something presents them.
+3300 and the ARMADA desktops, the XGS 87 to 138, through os-xgs-npu. Every other board is drawn and
+named, and its sockets read "absent" until something presents them. The XGS 87 is drawn from the
+back, where its sockets are, from photographs of one; that drawing is not yet confirmed.
 
 If your appliance is not in the file, adding it is one JSON block and that is the entire
 contribution path. A second, optional block in `faceplates.json` says how the sockets are arranged
