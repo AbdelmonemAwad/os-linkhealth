@@ -1766,7 +1766,8 @@
                     group.setAttribute('class', 'lh-fp-socket lh-fp-' + state + ' ' +
                         faceplate_class[state] + (iface === '' ? '' : ' lh-fp-open'));
                     group.setAttribute('data-if', iface);
-                    group.setAttribute('aria-label', [item.label, faceplate_text[state] || state, iface]
+                    group.setAttribute('aria-label', [[item.display, item.label].filter(Boolean).join(' · '),
+                        faceplate_text[state] || state, iface]
                         .filter(Boolean).join(' — '));
                     if (iface === '') {
                         group.removeAttribute('tabindex');

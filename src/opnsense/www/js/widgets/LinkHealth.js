@@ -548,7 +548,8 @@ export default class LinkHealth extends BaseTableWidget {
            that was renamed since the layout was fetched is named in the tooltip the way the rest
            of the firewall is naming it now. */
         const label = absent ? this.translations.state_absent : style.label;
-        const identity = [item.label, port ? port['if'] : item['if'], port ? port.name : '', row.bay]
+        const identity = [[item.display, item.label].filter((part) => !!part).join(' · '),
+            port ? port['if'] : item['if'], port ? port.name : '', row.bay]
             .filter((part) => !!part)
             .join(' - ');
         const tip = [identity, label, unconfirmed ? this.translations.unconfirmed : '']

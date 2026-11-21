@@ -2369,7 +2369,6 @@
       "display": "Sophos XGS 87",
       "confirmed": false,
       "confirmed_note": "Drawn from photographs of the back of an XGS 87, where all its network sockets are: DC IN, COM with a USB port below it, the F1 cage, the four copper sockets in two lines (1/LAN over 2/WAN, 3/DMZ over 4), and Reset. The cables in 1/LAN and 2/WAN matched the two ports the same appliance reported up. No socket has been watched blink yet.",
-      "units": 1,
       "orientation": "rear",
       "rows": [
         {
