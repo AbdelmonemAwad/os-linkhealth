@@ -18,6 +18,17 @@ traffic to be judged on with the on-demand load test.
 Plugin Changelog
 ================
 
+1.0.9
+
+* the XGS 87, 87w, 107, 107w, 116, 116w and 138: each npup port named
+  as os-xgs-npu's port table names it (Port1 on, F1, F2), so the Front
+  panel joins each socket to its port; every socket was drawn "not
+  reported" on them (os-xgs-npu#1204)
+* the XGS 87 drawn from photographs of its back, where its sockets
+  are: the four copper sockets in two lines beside F1, with DC IN,
+  COM, USB and Reset; the 87w keeps its drawing until one is seen
+* identify on these models is not tried yet
+
 1.0.8
 
 * an update installed only as its owner signed it: the release's
