@@ -18,6 +18,10 @@ traffic to be judged on with the on-demand load test.
 Plugin Changelog
 ================
 
+1.0.9
+
+* Port groups for the XGS 87 to 138; the XGS 87 drawn from its back
+
 1.0.8
 
 * an update installed only as its owner signed it: the release's
