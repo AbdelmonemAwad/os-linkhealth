@@ -458,7 +458,9 @@ export default class LinkHealth extends BaseTableWidget {
 
         const blocks = [];
         rows.forEach((row, bay) => {
-            const items = Array.isArray(row.items) ? row.items : [];
+            /* a power inlet or a reset hole is drawn on the page for orientation; the strip is
+               the ports alone */
+            const items = (Array.isArray(row.items) ? row.items : []).filter((item) => item.join !== false);
             items.forEach((item, position) => {
                 const port = byInterface[item['if']]
                     || byLabel[this._socketKey(row.bay, item.label)]
@@ -546,7 +548,8 @@ export default class LinkHealth extends BaseTableWidget {
            that was renamed since the layout was fetched is named in the tooltip the way the rest
            of the firewall is naming it now. */
         const label = absent ? this.translations.state_absent : style.label;
-        const identity = [item.label, port ? port['if'] : item['if'], port ? port.name : '', row.bay]
+        const identity = [[item.display, item.label].filter((part) => !!part).join(' · '),
+            port ? port['if'] : item['if'], port ? port.name : '', row.bay]
             .filter((part) => !!part)
             .join(' - ');
         const tip = [identity, label, unconfirmed ? this.translations.unconfirmed : '']

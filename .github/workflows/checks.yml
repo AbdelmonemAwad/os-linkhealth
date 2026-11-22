@@ -39,6 +39,17 @@ jobs:
       - name: self-update.py takes a release only as signed
         run: python3 tools/test-self-update.py
 
+  faceplate:
+    name: chassis groups and drawing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # The ARMADA boards' unit-to-label groups, the faceplate join, the page's draw_bay run in node
+      # (the runner's), and the generator keeping a hand-made drawing.
+      - name: Groups, join and drawing
+        run: python3 tools/test-faceplate.py
+
   syntax:
     name: syntax
     runs-on: ubuntu-latest

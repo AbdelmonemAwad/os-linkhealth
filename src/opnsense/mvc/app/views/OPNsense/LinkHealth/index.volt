@@ -347,12 +347,17 @@
            tools/gen-data-strings.py, because a note added to chassis.json and forgotten
            here comes out in English on an Arabic page with nothing to say so. */
         const lh_data_text = {
+            '1G copper on the 88E6193X switch': "{{ lang._('1G copper on the 88E6193X switch') }}",
+            'Named by the npuep driver\'s port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor\'s network agent.':
+                "{{ lang._('Named by the npuep driver\'s port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor\'s network agent.') }}",
+            'The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17.':
+                "{{ lang._('The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17.') }}",
+            '1G SFP cage on the 88E6193X switch':
+                "{{ lang._('1G SFP cage on the 88E6193X switch') }}",
             'faceplate, 1G copper behind the 88E6193X switch':
                 "{{ lang._('faceplate, 1G copper behind the 88E6193X switch') }}",
             'Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.':
                 "{{ lang._('Eight RJ45s on the switch chip. Link state and media come from the coprocessor\'s network agent; the counters are the driver\'s per port.') }}",
-            'The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17.':
-                "{{ lang._('The panel lights are the switch\'s, driven from the coprocessor; the host asks the coprocessor\'s own identify tool over os-xgs-npu\'s management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17.') }}",
             'faceplate, copper on the AQR412C quad PHY, rate-capped at 1G':
                 "{{ lang._('faceplate, copper on the AQR412C quad PHY, rate-capped at 1G') }}",
             'Two RJ45s on the AQR412C quad PHY, on the CN9131\'s own ports and not on the switch; the vendor\'s platform data on the coprocessor caps them at 1G (ratecap 1000).':
@@ -384,6 +389,8 @@
                 "{{ lang._('The host\'s own gigabit NIC, printed MGMT on the panel: not a front port of the coprocessor, and the one port the host drives itself.') }}",
             'The switch\'s two SFP cages, 1G. No transceiver access from the host.':
                 "{{ lang._('The switch\'s two SFP cages, 1G. No transceiver access from the host.') }}",
+            '2.5G copper on the AQR412C quad PHY':
+                "{{ lang._('2.5G copper on the AQR412C quad PHY') }}",
             'FleXi module, bay A': "{{ lang._('FleXi module, bay A') }}",
             'This bay enumerates before the faceplate ports.':
                 "{{ lang._('This bay enumerates before the faceplate ports.') }}",
@@ -408,6 +415,9 @@
             'QSFP28, 40G': "{{ lang._('QSFP28, 40G') }}",
             'QSFP28, 100G': "{{ lang._('QSFP28, 100G') }}",
             'RJ45, 10G': "{{ lang._('RJ45, 10G') }}",
+            'Drawn from photographs of the back of an XGS 87, where all its network sockets are: DC IN, COM with a USB port below it, the F1 cage, the four copper sockets in two lines (1/LAN over 2/WAN, 3/DMZ over 4), and Reset. The cables in 1/LAN and 2/WAN matched the two ports the same appliance reported up. No socket has been watched blink yet.':
+                "{{ lang._('Drawn from photographs of the back of an XGS 87, where all its network sockets are: DC IN, COM with a USB port below it, the F1 cage, the four copper sockets in two lines (1/LAN over 2/WAN, 3/DMZ over 4), and Reset. The cables in 1/LAN and 2/WAN matched the two ports the same appliance reported up. No socket has been watched blink yet.') }}",
+            'back panel': "{{ lang._('back panel') }}",
             'Port order and bay grouping are corroborated by three independent witnesses on the reference machine: the owner\'s own interface names, the chip and PCI-subdevice boundaries, and two contiguous MAC blocks (8 addresses under one OUI for the module, 12 under another for the mainboard, in printed order). The physical ARRANGEMENT below - which row, and left-to-right position - is drawn from the owner\'s description and has not been checked against the metal.':
                 "{{ lang._('Port order and bay grouping are corroborated by three independent witnesses on the reference machine: the owner\'s own interface names, the chip and PCI-subdevice boundaries, and two contiguous MAC blocks (8 addresses under one OUI for the module, 12 under another for the mainboard, in printed order). The physical ARRANGEMENT below - which row, and left-to-right position - is drawn from the owner\'s description and has not been checked against the metal.') }}",
             'An expansion bay. Its ports enumerate before the faceplate ports, which is why PortA1 is igb0 while the printed Port1 is igb8.':
@@ -1461,6 +1471,7 @@
         const FP_PAD = 14;      /* the metal around the sockets, in the units the layout file uses */
         const FP_GAP = 12;      /* between two sockets: enough that two printed labels never touch */
         const FP_LABEL = 17;    /* the line under a socket that carries its printed name */
+        const FP_LINE = 10;     /* between two lines of a stacked block: room for the light above */
         const FP_SCALE = 1.25;  /* drawing units to screen pixels, before the page shrinks it to fit */
         const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -1569,27 +1580,63 @@
                 return [svg_node('rect', {'class': 'lh-fp-body', x: 0, y: 0, width: w, height: h, rx: 2}),
                     detail];
             }
+            if (shape === 'round') {
+                /* a power inlet or a pinhole: a circle in the middle of its cell */
+                return [svg_node('circle', {'class': 'lh-fp-body', cx: w / 2, cy: h / 2,
+                    r: Math.max(1, Math.min(w, h) / 2 - 1)})];
+            }
             return [svg_node('rect', {'class': 'lh-fp-body', x: 0, y: 0, width: w, height: h, rx: 3})];
         }
 
-        /* One bay, drawn as its own block of metal. Sockets are set on a single line and bottom
-           aligned, so that a row of mixed heights still has all of its printed labels on one
-           line, the way they are printed on the appliance. */
+        /* One bay, drawn as its own block of metal. Sockets are set in columns along one line
+           and bottom aligned, so that a row of mixed heights still has all of its printed labels
+           on one line, the way they are printed on the appliance. An item marked `below` sits
+           under the one before it in the same column: the two lines of a stacked copper block. */
         function draw_bay(row, row_index, types) {
             const items = row.items || [];
-            const placed = [];
-            let width = FP_PAD;
-            let tallest = 0;
+            const columns = [];
             $.each(items, function (index, item) {
                 const hint = types[item.type] || types.unknown || {};
-                const w = Number(hint.width) > 0 ? Number(hint.width) : 34;
-                const h = Number(hint.height) > 0 ? Number(hint.height) : 30;
-                placed.push({item: item, index: index, x: width, w: w, h: h, shape: hint.shape || 'plain'});
-                width += w + FP_GAP;
-                tallest = Math.max(tallest, h);
+                const cell = {
+                    item: item, index: index, shape: hint.shape || 'plain',
+                    w: Number(hint.width) > 0 ? Number(hint.width) : 34,
+                    h: Number(hint.height) > 0 ? Number(hint.height) : 30
+                };
+                if (item.below === true && columns.length > 0) {
+                    columns[columns.length - 1].push(cell);
+                } else {
+                    columns.push([cell]);
+                }
+            });
+            /* a column's height: each socket and its printed name, and room for the light above
+               every socket but the first */
+            function stack(column) {
+                let total = (column.length - 1) * FP_LINE;
+                $.each(column, function (i, cell) {
+                    total += cell.h + FP_LABEL;
+                });
+                return total;
+            }
+            let body = 0;
+            $.each(columns, function (i, column) {
+                body = Math.max(body, stack(column));
+            });
+            const placed = [];
+            let width = FP_PAD;
+            $.each(columns, function (i, column) {
+                let wide = 0;
+                $.each(column, function (j, cell) {
+                    wide = Math.max(wide, cell.w);
+                });
+                let y = FP_PAD + body - stack(column);
+                $.each(column, function (j, cell) {
+                    placed.push($.extend(cell, {x: width + (wide - cell.w) / 2, y: y}));
+                    y += cell.h + FP_LABEL + FP_LINE;
+                });
+                width += wide + FP_GAP;
             });
             width = items.length > 0 ? width - FP_GAP + FP_PAD : FP_PAD * 2;
-            const height = FP_PAD * 2 + tallest + FP_LABEL;
+            const height = FP_PAD * 2 + Math.max(body, FP_LABEL);
             const svg = svg_node('svg', {
                 'class': 'lh-fp-svg',
                 viewBox: '0 0 ' + width + ' ' + height,
@@ -1605,10 +1652,29 @@
             }));
             $.each(placed, function (order, spot) {
                 const key = 'r' + row_index + 'i' + spot.index;
+                /* A power inlet, a reset hole: drawn so the sockets around it can be found, and
+                   nothing else - no state, no light, no tooltip, nothing to click. */
+                if (spot.item.join === false) {
+                    const fixture = svg_node('g', {
+                        'class': 'lh-fp-fixture text-muted',
+                        transform: 'translate(' + spot.x + ',' + spot.y + ')'
+                    });
+                    $.each(socket_shape(spot.shape, spot.w, spot.h), function (index, node) {
+                        fixture.appendChild(node);
+                    });
+                    const text = svg_node('text', {
+                        'class': 'lh-fp-label', x: spot.w / 2, y: spot.h + FP_LABEL - 5,
+                        'text-anchor': 'middle'
+                    });
+                    text.textContent = spot.item.display || spot.item.label || '';
+                    fixture.appendChild(text);
+                    svg.appendChild(fixture);
+                    return;
+                }
                 const group = svg_node('g', {
                     'class': 'lh-fp-socket',
                     'data-key': key,
-                    transform: 'translate(' + spot.x + ',' + (FP_PAD + tallest - spot.h) + ')'
+                    transform: 'translate(' + spot.x + ',' + spot.y + ')'
                 });
                 /* The area that answers the mouse. A socket drawn as an outline catches a pointer
                    on the line and nowhere else, and the label under it would catch nothing at
@@ -1627,7 +1693,9 @@
                     /* middle, always. start and end are the two that turn over with the page. */
                     'text-anchor': 'middle'
                 });
-                label.textContent = spot.item.label || '';
+                /* the text printed on the metal where it differs from the name the port is
+                   joined on: 1/LAN beside the socket the chassis table calls Port1 */
+                label.textContent = spot.item.display || spot.item.label || '';
                 group.appendChild(label);
                 /* The light above the socket, and the only thing on this page that can prove the
                    drawing right: a layout is a claim until somebody has watched one jack blink.
@@ -1654,7 +1722,8 @@
             return [doc.display, doc.orientation, doc.confirmed ? '1' : '0', doc.confirmed_note,
                 $.map(doc.rows || [], function (row) {
                     return row.bay + '[' + $.map(row.items || [], function (item) {
-                        return item.label + ':' + item.type;
+                        return item.label + ':' + item.type + ':' + (item.display || '') +
+                            (item.below === true ? ':below' : '') + (item.join === false ? ':fixture' : '');
                     }).join(',') + ']';
                 }).join('|')].join('␟');
         }
@@ -1697,7 +1766,8 @@
                     group.setAttribute('class', 'lh-fp-socket lh-fp-' + state + ' ' +
                         faceplate_class[state] + (iface === '' ? '' : ' lh-fp-open'));
                     group.setAttribute('data-if', iface);
-                    group.setAttribute('aria-label', [item.label, faceplate_text[state] || state, iface]
+                    group.setAttribute('aria-label', [[item.display, item.label].filter(Boolean).join(' · '),
+                        faceplate_text[state] || state, iface]
                         .filter(Boolean).join(' — '));
                     if (iface === '') {
                         group.removeAttribute('tabindex');
@@ -1757,7 +1827,8 @@
                 return '';
             }
             const state = faceplate_state(item);
-            const lines = ['<div class="lh-fp-tip-name lh-tech">' + esc(item.label || '') + '</div>',
+            const lines = ['<div class="lh-fp-tip-name lh-tech">' +
+                esc([item.display, item.label].filter(Boolean).join(' · ')) + '</div>',
                 '<div>' + esc(faceplate_text[state] || state) + '</div>'];
             if (state === 'absent') {
                 /* What the collector actually found is that nothing answered to this printed name
@@ -1812,7 +1883,9 @@
             const seen = {};
             $.each(doc.rows || [], function (row_index, row) {
                 $.each(row.items || [], function (index, item) {
-                    seen[faceplate_state(item)] = true;
+                    if (item.join !== false) {
+                        seen[faceplate_state(item)] = true;
+                    }
                 });
             });
             const $legend = $('#faceplate-legend');

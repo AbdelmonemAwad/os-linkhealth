@@ -19,14 +19,18 @@ same models' drawings - one row per kind of socket and speed, then one row per e
 
 Every generated entry carries "generated", and is replaced, never edited, on the next run. The
 hand-made entries - the XGS 3300, the XGS 136 and the XG 330, which were checked port by port on
-the machine - are left exactly as they are, and their boards are not generated again.
+the machine - are left exactly as they are, and their boards are not generated again. A board in
+HAND_DRAWN keeps its generated chassis.json entry and a hand-made drawing: the XGS 87, whose
+sockets are on the back and drawn from photographs of one.
 
 WHERE A PORT GETS ITS NAME ON THE PAGE. Only where a driver presents the board's ports: the
 OCTEON TX boards (AMDA0202, the XGS 2100 to 3300) through os-xgs-npu's octep, the ARMADA desktops
-(AMDA0201, the XGS 126 and 136) through its npuep. Those generated entries take the hand-made
-entry's unit-to-label groups, because the same driver numbers the same board the same way. Every
-other board gets its drawing and its name, and its sockets stay "absent" until something presents
-them.
+through its npuep. The AMDA0202 and AMDA0201 (XGS 126 and 136) entries take the hand-made entry's
+unit-to-label groups, because the same driver numbers the same board the same way. The other
+ARMADA boards (AMDA0200, the XGS 87 and 107; AMDA0208, the XGS 116; AMDA0224, the XGS 138) are
+wired differently and take their own groups, ARMADA_GROUPS below, from npuep's front-port table
+for that board (contrib/npuep/npuep.c in os-xgs-npu). Every other board gets its drawing and its
+name, and its sockets stay "absent" until something presents them.
 
 --check changes nothing and exits 1 if the files are not what this would write.
 """
@@ -42,8 +46,43 @@ FACEPLATES = os.path.join(SCRIPTS, 'faceplates.json')
 
 # Boards checked port by port on the machine; their hand-made entries stand.
 HAND_MADE = {'AMDA0202-0004': 'sophos-xgs-3300', 'AMDA0201-0003': 'sophos-xgs-136'}
+# Boards whose drawing is hand-made in faceplates.json while their chassis.json entry is generated.
+HAND_DRAWN = {'AMDA0200-0001': 'sophos-xgs-87'}
 # Which hand-made entry's groups a generated board takes: the same driver on the same board.
 GROUPS_FROM = {'AMDA0202': 'sophos-xgs-3300', 'AMDA0201': 'sophos-xgs-136'}
+
+
+def _npup(first, last, label, start, bay, lit):
+    return {'driver': 'npup', 'units': [first, last], 'label': label, 'start': start, 'bay': bay,
+            'note': NPUEP_NOTE, 'identify_led': True, 'identify': 'coprocessor',
+            'identify_led_note': lit}
+
+
+# The other ARMADA boards, as npuep numbers them (npuep_ports_87, _107 and _138 in
+# contrib/npuep/npuep.c of os-xgs-npu): PortN is npupN, and the cages follow the highest port.
+# Labels are spelled as os-xgs-npu writes them, Port1 and F1. The identify notes are the XGS 136's,
+# where the same tool was watched lighting each kind of port.
+NPUEP_NOTE = ("Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit "
+              "by its printed label; link state and media come from the coprocessor's network agent.")
+LIT_SWITCH = ("The panel lights are the switch's, driven from the coprocessor; the host asks the "
+              "coprocessor's own identify tool over os-xgs-npu's management link, by the printed "
+              "label. Confirmed by eye on an XGS 136 on 2026-10-17.")
+LIT_OWN = ("The light is lit by the coprocessor's identify tool over the management link, by the "
+           "printed label; confirmed by eye on an XGS 136 on 2026-10-17.")
+COPPER_1G = '1G copper on the 88E6193X switch'
+_PORTS_87 = [_npup(1, 4, 'Port%d', 1, COPPER_1G, LIT_SWITCH),
+             _npup(5, 5, 'F%d', 1, '1G SFP cage on the 88E6193X switch', LIT_SWITCH)]
+_PORTS_107 = [_npup(1, 8, 'Port%d', 1, COPPER_1G, LIT_SWITCH),
+              _npup(9, 9, 'F%d', 1, '1G SFP cage on the 88E6193X switch', LIT_SWITCH)]
+_PORTS_138 = [_npup(1, 4, 'Port%d', 1, COPPER_1G, LIT_SWITCH),
+              _npup(5, 6, 'Port%d', 5, '2.5G copper on the AQR412C quad PHY', LIT_OWN),
+              _npup(7, 8, 'F%d', 1, '10G SFP+ cages on the coprocessor', LIT_OWN)]
+ARMADA_GROUPS = {
+    'AMDA0200-0001': _PORTS_87, 'AMDA0200-0002': _PORTS_87,       # XGS 87, 87w
+    'AMDA0200-0003': _PORTS_107, 'AMDA0200-0004': _PORTS_107,     # XGS 107, 107w
+    'AMDA0208-0001': _PORTS_107, 'AMDA0208-0002': _PORTS_107,     # XGS 116, 116w
+    'AMDA0224-0001': _PORTS_138,                                  # XGS 138
+}
 # Files that are not a product: test fixtures, an evaluation build, a placeholder.
 SKIP = re.compile(r'testing|dummy|EVT|mockup', re.I)
 TYPES = {'RJ45': 'rj45', 'SFP': 'sfp', 'SFP+': 'sfp+', 'SFP28': 'sfp28', 'QSFP': 'qsfp',
@@ -187,19 +226,24 @@ def generate(datadir):
             'match': {'maker': '^Sophos$', 'serial': assembly},
         }
         donor = GROUPS_FROM.get(assembly.split('-')[0])
-        if donor and donor in hand:
+        source = ARMADA_GROUPS.get(assembly)
+        if source is None and donor and donor in hand:
+            source = hand[donor].get('groups', [])
+        if source is not None:
             labels = {p['label'] for p in b['ports']}
             groups = []
-            for g in hand[donor].get('groups', []):
+            for g in source:
                 first, last = g['units']
                 start = g.get('start', 0)
                 names = {(g['label'] % (start + i)) if '%' in g['label'] else g['label']
                          for i in range(last - first + 1)}
                 if g['driver'] in ('oxp', 'npup') and not names <= labels:
                     continue          # a port this board does not have
-                groups.append(g)
+                groups.append(dict(g))
             entry['groups'] = groups
         generated[key] = entry
+        if HAND_DRAWN.get(assembly) in hand_faces:
+            continue          # drawn by hand; its entry stands
         gfaces[key] = {'display': 'Sophos %s' % name, 'confirmed': False,
                        'generated': 'xgs-bsp/data/' + b['file'], 'orientation': 'front',
                        'rows': rows_for(b['ports']), 'bays': b['slots']}

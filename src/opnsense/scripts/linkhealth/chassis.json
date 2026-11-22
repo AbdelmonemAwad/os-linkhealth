@@ -54,7 +54,37 @@
       "match": {
         "maker": "^Sophos$",
         "serial": "AMDA0200-0001"
-      }
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            4
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "1G copper on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            5,
+            5
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "1G SFP cage on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        }
+      ]
     },
     "sophos-xgs-87w": {
       "display": "Sophos XGS 87w",
@@ -63,7 +93,37 @@
       "match": {
         "maker": "^Sophos$",
         "serial": "AMDA0200-0002"
-      }
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            4
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "1G copper on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            5,
+            5
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "1G SFP cage on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        }
+      ]
     },
     "sophos-xgs-107": {
       "display": "Sophos XGS 107",
@@ -72,7 +132,37 @@
       "match": {
         "maker": "^Sophos$",
         "serial": "AMDA0200-0003"
-      }
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            8
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "1G copper on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            9,
+            9
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "1G SFP cage on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        }
+      ]
     },
     "sophos-xgs-107w": {
       "display": "Sophos XGS 107w",
@@ -81,7 +171,37 @@
       "match": {
         "maker": "^Sophos$",
         "serial": "AMDA0200-0004"
-      }
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            8
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "1G copper on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            9,
+            9
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "1G SFP cage on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        }
+      ]
     },
     "sophos-xgs-126": {
       "display": "Sophos XGS 126",
@@ -533,7 +653,37 @@
       "match": {
         "maker": "^Sophos$",
         "serial": "AMDA0208-0001"
-      }
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            8
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "1G copper on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            9,
+            9
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "1G SFP cage on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        }
+      ]
     },
     "sophos-xgs-116w": {
       "display": "Sophos XGS 116w",
@@ -542,7 +692,37 @@
       "match": {
         "maker": "^Sophos$",
         "serial": "AMDA0208-0002"
-      }
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            8
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "1G copper on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            9,
+            9
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "1G SFP cage on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        }
+      ]
     },
     "sophos-xgs-88": {
       "display": "Sophos XGS 88",
@@ -623,7 +803,51 @@
       "match": {
         "maker": "^Sophos$",
         "serial": "AMDA0224-0001"
-      }
+      },
+      "groups": [
+        {
+          "driver": "npup",
+          "units": [
+            1,
+            4
+          ],
+          "label": "Port%d",
+          "start": 1,
+          "bay": "1G copper on the 88E6193X switch",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The panel lights are the switch's, driven from the coprocessor; the host asks the coprocessor's own identify tool over os-xgs-npu's management link, by the printed label. Confirmed by eye on an XGS 136 on 2026-10-17."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            5,
+            6
+          ],
+          "label": "Port%d",
+          "start": 5,
+          "bay": "2.5G copper on the AQR412C quad PHY",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
+        },
+        {
+          "driver": "npup",
+          "units": [
+            7,
+            8
+          ],
+          "label": "F%d",
+          "start": 1,
+          "bay": "10G SFP+ cages on the coprocessor",
+          "note": "Named by the npuep driver's port table in os-xgs-npu, which numbers each npup unit by its printed label; link state and media come from the coprocessor's network agent.",
+          "identify_led": true,
+          "identify": "coprocessor",
+          "identify_led_note": "The light is lit by the coprocessor's identify tool over the management link, by the printed label; confirmed by eye on an XGS 136 on 2026-10-17."
+        }
+      ]
     },
     "sophos-xgs-6580": {
       "display": "Sophos XGS 6580",
